@@ -105,7 +105,7 @@ Rule for the developer: every request is checked by one central permission funct
 
 ## 3. Screens and features
 
-The wireframes cover 13 screens plus shared behaviour in `app.js`, `site.js`, `app.css` and `site.css`. Claude Code should rebuild them as React components and reuse the colour tokens in `app.css` (`--bg-0` to `--bg-3`, `--primary #7c5cff`, `--accent #2dd4bf`). The table lists what each screen must do and the gaps found in review.
+The wireframes cover 13 screens plus shared behaviour in `app.js`, `site.js`, `app.css` and `site.css`. Claude Code should rebuild them as React components, using the wireframes for layout and structure only. Their colours are not reused; the app has its own light and dark theme (section 6). The table lists what each screen must do and the gaps found in review.
 
 | Screen (file) | What it does | Phase | Gaps to fix |
 | --- | --- | --- | --- |
@@ -255,7 +255,7 @@ Every request passes Cloudflare and the FastAPI backend; only call media and fil
 | Backend API | Python 3.12, FastAPI, SQLAlchemy 2, Alembic migrations, Pydantic | Python as requested; async and WebSockets built in; auto OpenAPI spec |
 | Database | PostgreSQL 16 | Relational, reliable, built-in full-text search for chat and files |
 | Cache and jobs | Redis, with arq workers | Presence, live message fan-out, rate limits, email, guest expiry and cleanup jobs |
-| Frontend | React, TypeScript, Vite, Tailwind CSS (theme built from `app.css` tokens), TanStack Query | Best fit for a live, Discord-like interface; Claude Code writes it well |
+| Frontend | React, TypeScript, Vite, Tailwind CSS (colours mapped to the CSS variables in `frontend/src/theme.css`: one light set, one dark set, switched by `data-theme` on `<html>`, defaulting to `prefers-color-scheme`), TanStack Query | Best fit for a live, Discord-like interface; Claude Code writes it well |
 | Live updates | One WebSocket per browser tab from FastAPI | Messages, typing, presence, task and roadmap changes |
 | Voice and video | LiveKit Cloud free plan + `@livekit/components-react`; LiveKit server in Docker for development | Section 5 |
 | Office editing | OnlyOffice Document Server (self-hosted, phase 3) | Word, PowerPoint and Excel in the browser |
@@ -332,7 +332,7 @@ Phase 1 is the longest, at 13 weeks, because accounts, permissions, live chat, r
 - [ ] Owner designs the missing server view (channel list, four top tabs, member list, storage bar) as `server.html`
 - [ ] Owner adds phone layouts for chats, server chat, tasks and calendar
 - [ ] Move the approved wireframes into `docs/wireframes/`; create `docs/compliance/`
-- [ ] Create the GitHub repo with `backend/`, `frontend/`, `infra/`, `docs/`
+- [x] Create the GitHub repo with `backend/`, `frontend/`, `infra/`, `docs/`
 - [ ] Write `CLAUDE.md`, `README.md` and `docs/plan.md` (this plan)
 - [ ] Docker Compose: FastAPI, Postgres, Redis, Caddy, MinIO, LiveKit server
 - [ ] GitHub Actions: lint, type check, test, build, accessibility checks; Dependabot, pip-audit, npm audit, secret scanning
@@ -441,7 +441,8 @@ Treat Claude Code as the developer and yourself as the product owner and reviewe
 - Database changes only through Alembic migrations.
 - Calls, email, storage and billing only through their interface classes.
 - Never put secrets in the repo; use .env (git-ignored) and AWS Secrets Manager.
-- UI follows docs/wireframes/*.html and the tokens in app.css.
+- UI layout and structure follow docs/wireframes/*.html; never copy wireframe colours.
+- All colours are CSS variables in frontend/src/theme.css (light and dark sets, data-theme on <html>, default prefers-color-scheme). Never hard-code colours in components.
 - If the plan says "Decision needed", stop and ask.
 - One feature per branch and pull request. Keep diffs under about 400 lines.
 ```

@@ -6,12 +6,29 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 Office Talk is a Discord-style business collaboration site (company workspaces → team/project servers with chat, files, tasks/calendar, roadmap, and LiveKit calls). It is a CV portfolio project: real-product quality, but no real payments and no public launch.
 
-The repo is at **phase 0**. Right now it holds only:
+The repo is at **phase 0**. It holds:
 
 - `docs/plan.md`: the source of truth for scope, roles, data model, stack, phases and compliance. Read the relevant section before starting any task.
 - `docs/wireframes/*.html`: static HTML/CSS/JS mockups with no build step. Open them directly in a browser.
+- `backend/`: a FastAPI app with `GET /health` and one pytest. It has no database code yet.
+- `frontend/`: React + TS + Vite. One page that shows the backend health. No Tailwind or TanStack Query yet.
+- `infra/`: a placeholder. Terraform comes later.
+- `docker-compose.yml`: db (Postgres 16), redis, backend (:8000) and frontend (:5173). Every port is bound to `127.0.0.1`; keep it that way for any new service.
 
-`backend/`, `frontend/`, `infra/`, Docker Compose, the Makefile and CI don't exist yet. They are planned in phase 0 (plan §8). Don't invent build or test commands. Once they exist, update this file with the real ones. The plan expects `make test`, `make lint` and `docker compose up`.
+CI, Caddy, MinIO and LiveKit don't exist yet. Don't invent commands for them.
+
+## Commands
+
+The host only needs Docker. `make` isn't installed on the dev machine, so each target has its `docker compose` equivalent:
+
+| make | docker compose |
+| --- | --- |
+| `make up` | `docker compose up --build` |
+| `make test` | `docker compose run --rm --no-deps backend pytest` |
+| `make lint` | `docker compose run --rm --no-deps backend ruff check .`, then `... backend ruff format --check .`, then `... frontend npm run typecheck` |
+| `make down` | `docker compose down` |
+
+Run a single test with `docker compose run --rm --no-deps backend pytest tests/test_health.py::test_health_returns_ok`.
 
 ## How to work from the plan
 
@@ -27,7 +44,13 @@ The repo is at **phase 0**. Right now it holds only:
 
 - There are two shells. Marketing/auth pages (`index`, `pricing`, `signup`, `login`, `create-company`, `join`, `call`) use `site.css` + `site.js`. In-app pages (`company`, `server`, `messages`, `settings`, `personal-*`) use `app.css` + `app.js`.
 - `app.js` holds the shared app behaviour: toasts, the side drawer (`openDrawer`/`closeDrawer`), the status menu, the Ctrl+K switcher, and the `window.store` localStorage helper (keys prefixed `wf.`). Placeholder data like `window.SERVERS` stands in for the backend.
-- The wireframes get rebuilt as React components. The Tailwind theme must come from the `app.css` `:root` tokens (`--bg-0`…`--bg-3`, `--line`, `--text`, `--muted`, `--primary #7c5cff`, `--accent #2dd4bf`, `--danger`).
+- The wireframes get rebuilt as React components. Use them for **layout and structure only. Never copy their colours** (`app.css`/`site.css` tokens included).
+
+## Theme and colours
+
+- Every colour is a CSS variable defined in one place, `frontend/src/theme.css`, with a light set (`:root`, `:root[data-theme="light"]`) and a dark set (`:root[data-theme="dark"]`). Names: `--bg`, `--surface`, `--text`, `--text-muted`, `--border`, `--accent`, `--accent-contrast`, `--success`, `--danger`. Add new tokens there, to both sets.
+- The theme switches on the `data-theme` attribute of `<html>`. It defaults to the system setting (`prefers-color-scheme`), set by the inline script in `frontend/index.html` before first paint. Phase 0 has no toggle button.
+- **Never hard-code a colour in a component** (no hex/rgb/hsl/named colours in TSX or component CSS). Use `var(--token)`. When Tailwind arrives, map its theme colours to these variables.
 
 ## Planned architecture (plan §6–7)
 
