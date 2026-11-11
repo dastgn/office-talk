@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="color-scheme" content="light dark" />
+    <title>Office Talk</title>
+    <script>
+      // Set data-theme before first paint so there's no flash. Phase 0 follows the OS
+      // setting only; a toggle with a stored preference comes later (docs/decisions.md).
+      (function () {
+        var query = window.matchMedia("(prefers-color-scheme: dark)");
+        function apply() {
+          document.documentElement.dataset.theme = query.matches ? "dark" : "light";
+        }
+        apply();
+        query.addEventListener("change", apply);
+      })();
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

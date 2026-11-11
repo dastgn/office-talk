@@ -1,0 +1,32 @@
+/*
+ * The only place colour values live. Components use these variables, never raw colours.
+ * <html data-theme="light|dark"> picks the set; index.html sets it from prefers-color-scheme.
+ * The values are Office Talk's own. Wireframes are for layout and structure only.
+ */
+
+:root,
+:root[data-theme="light"] {
+  color-scheme: light;
+  --bg: #f6f7f9;
+  --surface: #ffffff;
+  --text: #16181d;
+  --text-muted: #565b66;
+  --border: #dfe2e8;
+  --accent: #2557d6;
+  --accent-contrast: #ffffff;
+  --success: #17803d;
+  --danger: #c0262d;
+}
+
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --bg: #101216;
+  --surface: #191c22;
+  --text: #eceef2;
+  --text-muted: #a3a8b3;
+  --border: #2d313a;
+  --accent: #7aa2ff;
+  --accent-contrast: #0c1630;
+  --success: #4fd37f;
+  --danger: #ff7b7f;
+}

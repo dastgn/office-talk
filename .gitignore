@@ -1,8 +1,12 @@
 .env
 .env.*
+!.env.example
 *.tfstate
 *.tfstate.*
 .terraform/
 node_modules/
+dist/
 __pycache__/
+.pytest_cache/
+.ruff_cache/
 .venv/
