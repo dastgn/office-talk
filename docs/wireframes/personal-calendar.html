@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Calendar</title>
+<link rel="stylesheet" href="app.css">
+</head>
+<body>
+<div class="app solo">
+  <!-- SERVER RAIL -->
+  <nav class="rail">
+    <a class="tile active" href="messages.html" title="Direct messages">
+      <svg viewBox="0 0 24 24"><path d="M4 5h16v11H9l-5 4z"/></svg>
+    </a>
+    <span class="sep"></span>
+    <a class="tile co" href="company.html" title="Company home">Co</a>
+    <span class="sep"></span>
+    <a class="tile" href="server.html" title="Company / server">A<span class="badge">1</span></a>
+    <a class="tile" href="server.html" title="Company / server">B</a>
+    <a class="tile" href="server.html" title="Company / server">C</a>
+    <a class="tile" href="server.html" title="Company / server">D</a>
+    <a class="tile" href="server.html" title="Company / server">E</a>
+    <a class="tile add" href="company.html?new=1" title="Add a server">
+      <svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>
+    </a>
+  </nav>
+
+  <!-- DM SIDEBAR -->
+  <aside class="side">
+    <div class="search"><button>Find or start a conversation</button></div>
+    <div class="nav">
+      <div class="nav-h"><svg viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg> Private &middot; only you can see</div>
+      <a class="nav-item" data-nav="files" href="personal-files.html"><svg viewBox="0 0 24 24"><path d="M3 6a2 2 0 0 1 2-2h4l2 3h8a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>Personal files</a>
+      <a class="nav-item" data-nav="tasks" href="personal-tasks.html"><svg viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="3"/><path d="M8 12l3 3 5-6"/></svg>Tasks</a>
+      <a class="nav-item active" data-nav="calendar" href="personal-calendar.html"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>Calendar</a>
+      <a class="nav-item" data-nav="roadmap" href="personal-roadmap.html"><svg viewBox="0 0 24 24"><path d="M3 7h10M3 12h14M3 17h8"/><circle cx="17" cy="7" r="2"/><circle cx="21" cy="12" r="0.5"/><circle cx="15" cy="17" r="2"/></svg>Visual roadmap<svg class="mini" viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg></a>
+    </div>
+    <h4 class="dm-h">Direct Messages <button title="New message">+</button></h4>
+    <div class="dms">
+      <div class="dm has-unread"><div class="av">N<i class="dot on"></i></div>Name goes here<span class="unread">2</span></div>
+      <div class="dm"><div class="av">N<i class="dot on"></i></div>Name goes here</div>
+      <div class="dm has-unread"><div class="av">N<i class="dot"></i></div>Name goes here<span class="unread">1</span></div>
+      <div class="dm"><div class="av">N<i class="dot on"></i></div>Name goes here</div>
+      <div class="dm"><div class="av">N<i class="dot"></i></div>Name goes here</div>
+      <div class="dm"><div class="av">N<i class="dot"></i></div>Name goes here</div>
+      <div class="dm"><div class="av">N<i class="dot on"></i></div>Name goes here</div>
+      <div class="dm"><div class="av">N<i class="dot"></i></div>Name goes here</div>
+    </div>
+    <div class="me">
+      <div class="av">Y<i class="dot on" style="border-color:#0e0e22"></i></div>
+      <div class="who"><b>Your name</b><span>Online</span></div>
+      <button title="Mute"><svg viewBox="0 0 24 24"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg></button>
+      <button title="Deafen"><svg viewBox="0 0 24 24"><path d="M4 14v-2a8 8 0 0 1 16 0v2"/><rect x="3" y="14" width="4" height="6" rx="1"/><rect x="17" y="14" width="4" height="6" rx="1"/></svg></button>
+      <a class="ibtn" href="settings.html" title="Settings"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19 12a7 7 0 0 0-.1-1.2l2-1.5-2-3.4-2.3 1a7 7 0 0 0-2-1.2L14.3 3h-4l-.3 2.7a7 7 0 0 0-2 1.2l-2.3-1-2 3.4 2 1.5A7 7 0 0 0 5 12c0 .4 0 .8.1 1.2l-2 1.5 2 3.4 2.3-1a7 7 0 0 0 2 1.2l.3 2.7h4l.3-2.7a7 7 0 0 0 2-1.2l2.3 1 2-3.4-2-1.5c.1-.4.1-.8.1-1.2z"/></svg></a>
+    </div>
+  </aside>
+
+  <main class="page">
+    <header class="chat-head">
+      <span style="color:var(--accent)"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg></span>
+      <div class="title">Calendar</div>
+      <span class="chip"><svg viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg> Only you can see this</span>
+    </header>
+    <div class="page-body">
+      <div class="cal-head">
+        <button class="btn ghost" id="today">Today</button>
+        <button class="ibtn" id="prev" title="Previous month"><svg viewBox="0 0 24 24"><path d="M15 6l-6 6 6 6"/></svg></button>
+        <button class="ibtn" id="next" title="Next month"><svg viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg></button>
+        <h2 id="label"></h2>
+        <span style="flex:1"></span>
+        <button class="btn" id="newEv"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg> New event</button>
+      </div>
+      <div class="cal-wrap">
+        <div>
+          <div class="cal" id="cal"></div>
+          <div class="legend"><span><i style="background:var(--primary)"></i>Meeting</span><span><i style="background:var(--accent)"></i>Focus time</span><span><i style="background:#f5b84b"></i>Task due</span><span><i style="background:var(--danger)"></i>Milestone deadline</span></div>
+        </div>
+        <div class="upnext"><div class="h2">Coming up</div><div id="up"></div></div>
+      </div>
+    </div>
+  </main>
+</div>
+<script src="app.js"></script>
+<script>
+  document.querySelectorAll('.dm').forEach(d=>d.addEventListener('click',()=>{
+    document.querySelectorAll('.dm').forEach(x=>x.classList.remove('active'));d.classList.add('active');
+  }));
+
+  const now=new Date(),Y=now.getFullYear(),Mo=now.getMonth();
+  const iso=(y,m,d)=>{const t=new Date(y,m,d);return t.getFullYear()+'-'+String(t.getMonth()+1).padStart(2,'0')+'-'+String(t.getDate()).padStart(2,'0')};
+  const TODAY=iso(Y,Mo,now.getDate());
+  const fmt=s=>{if(s===TODAY)return 'Today';if(s===iso(Y,Mo,now.getDate()+1))return 'Tomorrow';return new Date(s+'T00:00').toLocaleDateString('en-GB',{weekday:'short',day:'numeric',month:'short'})};
+  const KIND={meet:'Meeting',focus:'Focus time',task:'Task due',ms:'Milestone deadline'};
+  const ICO={vid:'<svg viewBox="0 0 24 24"><rect x="3" y="6" width="12" height="12" rx="2"/><path d="M15 10l6-3v10l-6-3"/></svg>',
+    road:'<svg viewBox="0 0 24 24"><path d="M3 7h10M3 12h14M3 17h8"/><circle cx="17" cy="7" r="2"/><circle cx="15" cy="17" r="2"/></svg>',
+    task:'<svg viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="3"/><path d="M8 12l3 3 5-6"/></svg>'};
+  let eid=0;
+  let evs=[
+    {date:iso(Y,Mo,now.getDate()),start:'10:00',end:'10:30',kind:'meet',server:'Project server goes here',call:true},
+    {date:iso(Y,Mo,now.getDate()+2),start:'09:00',end:'11:00',kind:'focus',server:'None',call:false},
+    {date:iso(Y,Mo,now.getDate()+2),start:'14:00',end:'15:00',kind:'meet',server:'Server name goes here',call:true},
+    {date:iso(Y,Mo,now.getDate()+9),start:'',end:'',kind:'task',server:'Project server goes here',call:false},
+    {date:iso(Y,Mo,now.getDate()+16),start:'11:00',end:'12:00',kind:'meet',server:'None',call:true},
+    {date:iso(Y,Mo+1,0),start:'',end:'',kind:'ms',server:'Project server goes here',call:false}
+  ].map(e=>Object.assign({id:++eid,title:e.kind==='ms'?'Milestone goes here':e.kind==='task'?'Task name goes here':'Event goes here',notes:'',remind:'15'},e));
+  const time=e=>e.start?e.start+(e.end?'–'+e.end:''):'All day';
+  let cur=new Date(Y,Mo,1);
+  const names=['January','February','March','April','May','June','July','August','September','October','November','December'];
+
+  function draw(){
+    const y=cur.getFullYear(),m=cur.getMonth();
+    document.getElementById('label').textContent=names[m]+' '+y;
+    const first=(new Date(y,m,1).getDay()+6)%7;
+    let h=['Mon','Tue','Wed','Thu','Fri','Sat','Sun'].map(d=>'<div class="dow">'+d+'</div>').join('');
+    for(let i=0;i<42;i++){
+      const dt=new Date(y,m,1-first+i),ds=iso(dt.getFullYear(),dt.getMonth(),dt.getDate()),out=dt.getMonth()!==m;
+      const list=evs.filter(e=>e.date===ds).sort((a,b)=>(a.start||'').localeCompare(b.start||''));
+      h+='<div class="day'+(out?' out':'')+(ds===TODAY?' today':'')+'" data-date="'+ds+'" title="Add an event"><span class="n">'+dt.getDate()+'</span>'+
+        list.map(e=>'<button class="ev k-'+e.kind+'" data-e="'+e.id+'">'+(e.start?e.start+' ':'')+esc(e.title)+'</button>').join('')+'</div>';
+    }
+    document.getElementById('cal').innerHTML=h;
+    const up=evs.filter(e=>e.date>=TODAY).sort((a,b)=>(a.date+a.start).localeCompare(b.date+b.start)).slice(0,5);
+    document.getElementById('up').innerHTML=up.length?up.map(e=>'<div class="u" data-e="'+e.id+'"><div class="bar k-'+e.kind+'"></div><div><b>'+esc(e.title)+'</b><small>'+fmt(e.date)+' &middot; '+time(e)+'</small></div></div>').join(''):'<div class="muted small">Nothing coming up</div>';
+  }
+
+  function showE(id){
+    const e=evs.find(x=>x.id===id);if(!e)return;
+    openDrawer('<div class="d-kicker">'+KIND[e.kind]+'</div><h2 class="d-title">'+esc(e.title)+'</h2>'+
+      '<div class="d-meta"><span>'+fmt(e.date)+'</span><span>&middot;</span><span>'+time(e)+'</span></div>'+
+      (e.call?'<div class="d-sec"><div class="d-lbl">Video call</div><div class="linkcard"><span class="lc-ic" style="background:var(--accent);color:#06312c">'+ICO.vid+'</span><div><b>Call link goes here</b><small>Guests can join from the link without an account</small></div></div>'+
+        '<div class="d-row"><a class="btn" href="call.html">Join call</a><button class="btn ghost" id="copyLink">Copy guest link</button></div></div>':'')+
+      '<div class="d-sec"><div class="d-lbl">Project server</div>'+serverCard(e.server)+'</div>'+
+      (e.kind==='ms'?'<div class="d-sec"><a class="linkcard" href="personal-roadmap.html"><span class="lc-ic">'+ICO.road+'</span><div><b>Open in roadmap</b><small>See progress for this milestone</small></div></a></div>':'')+
+      (e.kind==='task'?'<div class="d-sec"><a class="linkcard" href="personal-tasks.html"><span class="lc-ic" style="background:#f5b84b;color:#3a2700">'+ICO.task+'</span><div><b>Open in Tasks</b><small>Mark it done or change the due date</small></div></a></div>':'')+
+      (e.kind==='meet'?'<div class="d-sec"><div class="d-lbl">People</div><div class="people">'+['Organiser','Going','Maybe'].map(r=>'<div><span class="av">N</span>Name goes here<small>'+r+'</small></div>').join('')+'</div></div>':'')+
+      '<label class="f"><span>Remind me</span>'+selectHTML('rem',[['0','No reminder'],['5','5 minutes before'],['15','15 minutes before'],['60','1 hour before'],['1440','1 day before']],e.remind)+'</label>'+
+      '<label class="f"><span>Notes</span><textarea class="inp" id="notes" placeholder="Notes go here">'+esc(e.notes)+'</textarea></label>'+
+      '<div class="d-foot"><button class="btn ghost" id="edit">Edit event</button><span style="flex:1"></span><button class="btn danger" id="del">Delete</button></div>',
+      dr=>{
+        const cl=dr.querySelector('#copyLink');if(cl)cl.onclick=()=>{const cb=navigator.clipboard;if(cb)cb.writeText('Guest call link goes here').catch(()=>{});toast('Guest link copied')};
+        dr.querySelector('#rem').onchange=ev=>{e.remind=ev.target.value;toast(ev.target.value==='0'?'Reminder removed':'Reminder set')};
+        dr.querySelector('#notes').oninput=ev=>e.notes=ev.target.value;
+        dr.querySelector('#edit').onclick=()=>form(e);
+        dr.querySelector('#del').onclick=()=>{evs=evs.filter(x=>x!==e);draw();closeDrawer();toast('Event deleted')};
+      });
+  }
+
+  function form(src){
+    const isNew=!src.id;
+    const e=Object.assign({title:'',date:TODAY,start:'09:00',end:'10:00',kind:'meet',server:'None',call:false,notes:'',remind:'15'},src);
+    openDrawer('<div class="d-kicker">'+(isNew?'New event':'Edit event')+'</div><h2 class="d-title">'+(isNew?'Add an event':esc(e.title))+'</h2>'+
+      '<label class="f"><span>Title</span><input class="inp" id="t" value="'+esc(e.title)+'" placeholder="Event name goes here"></label>'+
+      '<label class="f"><span>Date</span><input type="date" class="inp" id="d" value="'+e.date+'"></label>'+
+      '<div class="f2"><label class="f"><span>Starts</span><input type="time" class="inp" id="s" value="'+e.start+'"></label><label class="f"><span>Ends</span><input type="time" class="inp" id="en" value="'+e.end+'"></label></div>'+
+      '<label class="f"><span>Type</span>'+selectHTML('k',Object.entries(KIND),e.kind)+'</label>'+
+      '<label class="f"><span>Project server</span>'+selectHTML('srv',SERVERS,e.server)+'</label>'+
+      '<label class="chk" style="margin-top:16px"><input type="checkbox" id="c"'+(e.call?' checked':'')+'><span>Add a video call link that guests can join</span></label>'+
+      '<label class="f"><span>Notes</span><textarea class="inp" id="n" placeholder="Notes go here">'+esc(e.notes)+'</textarea></label>'+
+      '<div class="d-foot"><button class="btn" id="save">'+(isNew?'Add event':'Save changes')+'</button><button class="btn ghost" data-close>Cancel</button></div>',
+      dr=>{dr.querySelector('#t').focus();
+        dr.querySelector('#save').onclick=()=>{
+          const v=k=>dr.querySelector('#'+k).value;
+          Object.assign(e,{title:v('t').trim()||'Event goes here',date:v('d')||TODAY,start:v('s'),end:v('en'),kind:v('k'),server:v('srv'),call:dr.querySelector('#c').checked,notes:v('n')});
+          if(isNew){e.id=++eid;evs.push(e)}else Object.assign(evs.find(x=>x.id===e.id),e);
+          const d=new Date(e.date+'T00:00');cur=new Date(d.getFullYear(),d.getMonth(),1);
+          draw();showE(e.id);toast(isNew?'Event added':'Event updated')}});
+  }
+
+  document.getElementById('cal').addEventListener('click',ev=>{
+    const b=ev.target.closest('.ev');if(b)return showE(+b.dataset.e);
+    const d=ev.target.closest('.day');if(d)form({date:d.dataset.date});
+  });
+  document.getElementById('up').addEventListener('click',ev=>{const u=ev.target.closest('.u');if(u)showE(+u.dataset.e)});
+  document.getElementById('newEv').onclick=()=>form({});
+  document.getElementById('prev').onclick=()=>{cur.setMonth(cur.getMonth()-1);draw()};
+  document.getElementById('next').onclick=()=>{cur.setMonth(cur.getMonth()+1);draw()};
+  document.getElementById('today').onclick=()=>{cur=new Date(Y,Mo,1);draw()};
+  draw();
+  const _q=new URLSearchParams(location.search),_e=evs.find(x=>x.id==_q.get('e'));
+  if(_e){const d=new Date(_e.date+'T00:00');cur=new Date(d.getFullYear(),d.getMonth(),1);draw();showE(_e.id)}
+
+</script>
+</body>
+</html>

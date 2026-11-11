@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tasks</title>
+<link rel="stylesheet" href="app.css">
+</head>
+<body>
+<div class="app solo">
+  <!-- SERVER RAIL -->
+  <nav class="rail">
+    <a class="tile active" href="messages.html" title="Direct messages">
+      <svg viewBox="0 0 24 24"><path d="M4 5h16v11H9l-5 4z"/></svg>
+    </a>
+    <span class="sep"></span>
+    <a class="tile co" href="company.html" title="Company home">Co</a>
+    <span class="sep"></span>
+    <a class="tile" href="server.html" title="Company / server">A<span class="badge">1</span></a>
+    <a class="tile" href="server.html" title="Company / server">B</a>
+    <a class="tile" href="server.html" title="Company / server">C</a>
+    <a class="tile" href="server.html" title="Company / server">D</a>
+    <a class="tile" href="server.html" title="Company / server">E</a>
+    <a class="tile add" href="company.html?new=1" title="Add a server">
+      <svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>
+    </a>
+  </nav>
+
+  <!-- DM SIDEBAR -->
+  <aside class="side">
+    <div class="search"><button>Find or start a conversation</button></div>
+    <div class="nav">
+      <div class="nav-h"><svg viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg> Private &middot; only you can see</div>
+      <a class="nav-item" data-nav="files" href="personal-files.html"><svg viewBox="0 0 24 24"><path d="M3 6a2 2 0 0 1 2-2h4l2 3h8a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>Personal files</a>
+      <a class="nav-item active" data-nav="tasks" href="personal-tasks.html"><svg viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="3"/><path d="M8 12l3 3 5-6"/></svg>Tasks</a>
+      <a class="nav-item" data-nav="calendar" href="personal-calendar.html"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>Calendar</a>
+      <a class="nav-item" data-nav="roadmap" href="personal-roadmap.html"><svg viewBox="0 0 24 24"><path d="M3 7h10M3 12h14M3 17h8"/><circle cx="17" cy="7" r="2"/><circle cx="21" cy="12" r="0.5"/><circle cx="15" cy="17" r="2"/></svg>Visual roadmap<svg class="mini" viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg></a>
+    </div>
+    <h4 class="dm-h">Direct Messages <button title="New message">+</button></h4>
+    <div class="dms">
+      <div class="dm has-unread"><div class="av">N<i class="dot on"></i></div>Name goes here<span class="unread">2</span></div>
+      <div class="dm"><div class="av">N<i class="dot on"></i></div>Name goes here</div>
+      <div class="dm has-unread"><div class="av">N<i class="dot"></i></div>Name goes here<span class="unread">1</span></div>
+      <div class="dm"><div class="av">N<i class="dot on"></i></div>Name goes here</div>
+      <div class="dm"><div class="av">N<i class="dot"></i></div>Name goes here</div>
+      <div class="dm"><div class="av">N<i class="dot"></i></div>Name goes here</div>
+      <div class="dm"><div class="av">N<i class="dot on"></i></div>Name goes here</div>
+      <div class="dm"><div class="av">N<i class="dot"></i></div>Name goes here</div>
+    </div>
+    <div class="me">
+      <div class="av">Y<i class="dot on" style="border-color:#0e0e22"></i></div>
+      <div class="who"><b>Your name</b><span>Online</span></div>
+      <button title="Mute"><svg viewBox="0 0 24 24"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg></button>
+      <button title="Deafen"><svg viewBox="0 0 24 24"><path d="M4 14v-2a8 8 0 0 1 16 0v2"/><rect x="3" y="14" width="4" height="6" rx="1"/><rect x="17" y="14" width="4" height="6" rx="1"/></svg></button>
+      <a class="ibtn" href="settings.html" title="Settings"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19 12a7 7 0 0 0-.1-1.2l2-1.5-2-3.4-2.3 1a7 7 0 0 0-2-1.2L14.3 3h-4l-.3 2.7a7 7 0 0 0-2 1.2l-2.3-1-2 3.4 2 1.5A7 7 0 0 0 5 12c0 .4 0 .8.1 1.2l-2 1.5 2 3.4 2.3-1a7 7 0 0 0 2 1.2l.3 2.7h4l.3-2.7a7 7 0 0 0 2-1.2l2.3 1 2-3.4-2-1.5c.1-.4.1-.8.1-1.2z"/></svg></a>
+    </div>
+  </aside>
+
+  <main class="page">
+    <header class="chat-head">
+      <span style="color:var(--accent)"><svg viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="3"/><path d="M8 12l3 3 5-6"/></svg></span>
+      <div class="title">Tasks</div>
+      <span class="chip"><svg viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg> Only you can see this</span>
+    </header>
+    <div class="page-body">
+      <div class="gt">
+        <aside class="gt-side">
+          <button class="gt-create" id="gtCreate"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg> Create</button>
+          <button class="gt-nav active" data-f="all"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M8 12l3 3 5-6"/></svg> All tasks</button>
+          <button class="gt-nav" data-f="star"><svg viewBox="0 0 24 24"><path d="M12 3l2.7 5.8 6.3.8-4.6 4.3 1.2 6.3L12 17l-5.6 3.2 1.2-6.3L3 9.6l6.3-.8z"/></svg> Starred</button>
+          <div class="gt-lh" id="gtLh"><span>Lists</span><svg viewBox="0 0 24 24"><path d="M6 15l6-6 6 6"/></svg></div>
+          <div id="gtLists"></div>
+          <button class="gt-newlist" id="gtNew"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg> Create new list</button>
+          <input class="inp gt-newin" id="gtNewIn" placeholder="List name, then Enter" hidden>
+        </aside>
+        <div class="gt-cols" id="gtCols"></div>
+      </div>
+    </div>
+  </main>
+</div>
+<script src="app.js"></script>
+<script>
+  document.querySelectorAll('.dm').forEach(d=>d.addEventListener('click',()=>{
+    document.querySelectorAll('.dm').forEach(x=>x.classList.remove('active'));d.classList.add('active');
+  }));
+
+  const esc=s=>s.replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+  let _id=0;const uid=()=>++_id;
+  const T=(t,o)=>Object.assign({id:uid(),t:t,done:false,star:false,due:'',notes:'',server:'None',subs:[]},o||{});
+  const _n=new Date();const isoD=k=>{const d=new Date(_n.getFullYear(),_n.getMonth(),_n.getDate()+k);return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0')};
+  const TODAY=isoD(0);
+  const dueTxt=s=>s===TODAY?'Today':s===isoD(1)?'Tomorrow':s===isoD(-1)?'Yesterday':new Date(s+'T00:00').toLocaleDateString('en-GB',{weekday:'short',day:'numeric',month:'short'});
+  const mk=(name,n,open)=>({id:uid(),name:name,show:true,open:false,tasks:[...Array(n)].map((_,i)=>T('Task name goes here',i==0?{server:'Project server goes here',subs:[{t:'Subtask goes here',done:true},{t:'Subtask goes here',done:false},{t:'Subtask goes here',done:false}]}:i==1?{due:isoD(1)}:i==2?{due:isoD(-1)}:{})).concat(open?[T('Task name goes here',{done:true}),T('Task name goes here',{done:true})]:[])});
+  let lists=[mk('My Tasks',4,true),mk('List name goes here',3,true),mk('List name goes here',3,false)];
+  let filter='all',adding=null,menu=null,creating=false,listsShut=false;
+  const ICON={
+    plus:'<svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>',
+    add:'<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M8 12l3 3 5-6"/></svg>',
+    chk:'<svg viewBox="0 0 24 24"><path d="M5 12l5 5L20 7"/></svg>',
+    star:'<svg viewBox="0 0 24 24"><path d="M12 3l2.7 5.8 6.3.8-4.6 4.3 1.2 6.3L12 17l-5.6 3.2 1.2-6.3L3 9.6l6.3-.8z"/></svg>',
+    dots:'<svg viewBox="0 0 24 24"><circle cx="12" cy="5" r="1.2"/><circle cx="12" cy="12" r="1.2"/><circle cx="12" cy="19" r="1.2"/></svg>',
+    tri:'<svg viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg>'};
+  const find=id=>lists.find(l=>l.id==id);
+
+  function chips(t){let c='';
+    if(t.due)c+='<em class="'+(!t.done&&t.due<TODAY?'late':t.due===TODAY?'today':'')+'">'+dueTxt(t.due)+'</em>';
+    if(t.server!=='None')c+='<em class="srv">'+esc(t.server)+'</em>';
+    if(t.subs.length)c+='<em>'+t.subs.filter(s=>s.done).length+'/'+t.subs.length+' subtasks</em>';
+    if(t.notes)c+='<em>Has notes</em>';
+    return c?'<div class="gt-chips">'+c+'</div>':''}
+  function openTask(lid,tid,keep){
+    const l=find(lid),t=l&&l.tasks.find(x=>x.id==tid);if(!t)return;adding=null;
+    const CAL='<svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>';
+    openDrawer('<div class="d-kicker">Task &middot; '+esc(l.name)+'</div>'+
+      '<input class="inp d-tin" id="tT" value="'+esc(t.t)+'" title="Rename">'+
+      '<div class="d-row"><button class="btn'+(t.done?' ghost':'')+'" id="tDone">'+(t.done?'Mark as not done':'Mark complete')+'</button><button class="btn ghost" id="tStar">'+(t.star?'Unstar':'Star')+'</button></div>'+
+      '<label class="f"><span>Details</span><textarea class="inp" id="tN" placeholder="Add details">'+esc(t.notes)+'</textarea></label>'+
+      '<div class="f2"><label class="f"><span>Due date</span><input type="date" class="inp" id="tD" value="'+t.due+'"></label><label class="f"><span>List</span>'+selectHTML('tL',lists.map(x=>[x.id,x.name]),l.id)+'</label></div>'+
+      '<label class="f"><span>Linked project server</span>'+selectHTML('tS',SERVERS,t.server)+'</label>'+
+      (t.server!=='None'?'<div style="margin-top:10px">'+serverCard(t.server)+'</div>':'')+
+      '<div class="d-sec"><div class="d-lbl">Subtasks</div>'+t.subs.map((s,i)=>'<label class="chk'+(s.done?' done':'')+'"><input type="checkbox" data-si="'+i+'"'+(s.done?' checked':'')+'><span>'+esc(s.t)+'</span></label>').join('')+
+        '<input class="inp" id="tSub" placeholder="Add a subtask, then Enter" style="width:100%;margin-top:8px"></div>'+
+      (t.due?'<div class="d-sec"><a class="linkcard" href="personal-calendar.html"><span class="lc-ic">'+CAL+'</span><div><b>Due '+dueTxt(t.due)+'</b><small>Shows on your calendar</small></div></a></div>':'')+
+      '<div class="d-foot"><span style="flex:1"></span><button class="btn danger" id="tDel">Delete task</button></div>',
+      dr=>{
+        const re=()=>{render();openTask(t._l||lid,tid,true)};
+        dr.querySelector('#tT').oninput=e=>{t.t=e.target.value||'Task name goes here';render()};
+        dr.querySelector('#tN').oninput=e=>{const had=!!t.notes;t.notes=e.target.value;if(had!==!!t.notes)render()};
+        dr.querySelector('#tDone').onclick=()=>{t.done=!t.done;toast(t.done?'Task completed':'Task reopened');re()};
+        dr.querySelector('#tStar').onclick=()=>{t.star=!t.star;re()};
+        dr.querySelector('#tD').onchange=e=>{t.due=e.target.value;re()};
+        dr.querySelector('#tS').onchange=e=>{t.server=e.target.value;re()};
+        dr.querySelector('#tL').onchange=e=>{const nl=find(e.target.value);l.tasks=l.tasks.filter(x=>x!==t);nl.tasks.unshift(t);nl.show=true;t._l=nl.id;toast('Moved to '+nl.name);re()};
+        dr.querySelectorAll('[data-si]').forEach(c=>c.onchange=()=>{t.subs[c.dataset.si].done=c.checked;re()});
+        const si=dr.querySelector('#tSub');si.onkeydown=e=>{if(e.key==='Enter'&&si.value.trim()){t.subs.push({t:si.value.trim(),done:false});re();document.getElementById('tSub').focus()}};
+        dr.querySelector('#tDel').onclick=()=>{const cl=find(t._l||lid);cl.tasks=cl.tasks.filter(x=>x!==t);render();closeDrawer();toast('Task deleted')};
+      },keep);
+  }
+  function taskHTML(t){
+    return '<div class="gt-task'+(t.done?' done':'')+'" data-t="'+t.id+'"><button class="gt-circle" data-act="done" title="Mark complete">'+ICON.chk+'</button>'+
+      '<div class="gt-tx" data-act="open" title="Open details"><span>'+esc(t.t)+'</span>'+chips(t)+'</div>'+
+      '<button class="gt-star'+(t.star?' on':'')+'" data-act="star" title="Star">'+ICON.star+'</button></div>';
+  }
+  function render(){
+    // sidebar
+    document.getElementById('gtLists').innerHTML=listsShut?'':lists.map(l=>
+      '<label class="gt-li"><input type="checkbox" data-l="'+l.id+'"'+(l.show?' checked':'')+'><span class="n">'+esc(l.name)+'</span><span class="c">'+l.tasks.filter(t=>!t.done).length+'</span></label>').join('');
+    document.getElementById('gtLh').classList.toggle('shut',listsShut);
+    const ni=document.getElementById('gtNewIn');ni.hidden=!creating;
+    // columns
+    document.getElementById('gtCols').innerHTML=lists.filter(l=>l.show).map(l=>{
+      const open=l.tasks.filter(t=>!t.done&&(filter!=='star'||t.star));
+      const done=l.tasks.filter(t=>t.done);
+      return '<section class="gt-col" data-l="'+l.id+'"><div class="gt-ch"><h3 class="gt-title">'+esc(l.name)+'</h3>'+
+        '<button class="ibtn" data-act="dots" title="List options">'+ICON.dots+'</button>'+
+        (menu==l.id?'<div class="gt-pop"><button data-act="rename">Rename list</button><button data-act="delete" class="danger">Delete list</button></div>':'')+'</div>'+
+        '<button class="gt-add" data-act="add">'+ICON.add+'Add a task</button>'+
+        (adding==l.id?'<input class="inp gt-in" placeholder="Task name, then Enter">':'')+
+        (open.length?open.map(taskHTML).join(''):(filter==='star'?'<div class="gt-empty">No starred tasks</div>':''))+
+        (done.length&&filter!=='star'?'<button class="gt-comp'+(l.open?' open':'')+'" data-act="comp">'+ICON.tri+'Completed ('+done.length+')</button>'+(l.open?done.map(taskHTML).join(''):''):'')+
+        '</section>';
+    }).join('');
+    const inp=document.querySelector('.gt-in');if(inp)inp.focus();
+    if(creating)ni.focus();
+  }
+  document.addEventListener('click',e=>{
+    if(menu&&!e.target.closest('.gt-pop')&&!e.target.closest('[data-act=dots]')){menu=null;render()}
+    const nav=e.target.closest('.gt-nav');
+    if(nav){filter=nav.dataset.f;document.querySelectorAll('.gt-nav').forEach(x=>x.classList.toggle('active',x===nav));render();return}
+    if(e.target.closest('#gtCreate')||e.target.closest('#gtNew')){creating=true;listsShut=false;render();return}
+    if(e.target.closest('#gtLh')){listsShut=!listsShut;render();return}
+    const b=e.target.closest('[data-act]');if(!b)return;
+    const col=b.closest('.gt-col'),l=col&&find(col.dataset.l),tk=b.closest('.gt-task');
+    const t=tk&&l.tasks.find(x=>x.id==tk.dataset.t);
+    switch(b.dataset.act){
+      case 'add':adding=l.id;render();break;
+      case 'open':openTask(l.id,t.id);break;
+      case 'done':t.done=!t.done;render();if(t.done)toast('Task completed');break;
+      case 'star':t.star=!t.star;render();break;
+      case 'comp':l.open=!l.open;render();break;
+      case 'dots':menu=(menu==l.id?null:l.id);render();break;
+      case 'delete':lists=lists.filter(x=>x!==l);menu=null;render();break;
+      case 'rename':{menu=null;render();const h=document.querySelector('.gt-col[data-l="'+l.id+'"] .gt-title');
+        h.contentEditable='true';h.focus();getSelection().selectAllChildren(h);break}
+    }
+  });
+  document.addEventListener('change',e=>{
+    if(e.target.matches('.gt-li input')){find(e.target.dataset.l).show=e.target.checked;render()}
+  });
+  document.addEventListener('keydown',e=>{
+    if(e.target.matches('.gt-in')){
+      const l=find(e.target.closest('.gt-col').dataset.l);
+      if(e.key==='Enter'&&e.target.value.trim()){l.tasks.unshift(T(e.target.value.trim()));render()}
+      if(e.key==='Escape'){adding=null;render()}
+    }
+    if(e.target.matches('#gtNewIn')){
+      if(e.key==='Enter'&&e.target.value.trim()){lists.push({id:uid(),name:e.target.value.trim(),show:true,open:false,tasks:[]});
+        e.target.value='';creating=false;render();const c=document.getElementById('gtCols');c.scrollLeft=c.scrollWidth;adding=lists[lists.length-1].id;render()}
+      if(e.key==='Escape'){creating=false;e.target.value='';render()}
+    }
+    if(e.target.matches('.gt-title')&&e.key==='Enter'){e.preventDefault();e.target.blur()}
+  });
+  document.addEventListener('focusout',e=>{
+    if(e.target.matches('.gt-title[contenteditable=true]')){
+      const l=find(e.target.closest('.gt-col').dataset.l);l.name=e.target.textContent.trim()||l.name;render()}
+    if(e.target.matches('.gt-in')&&!e.target.value.trim()){setTimeout(()=>{if(document.activeElement.matches('.gt-in,#gtNewIn'))return;adding=null;render()},120)}
+    if(e.target.matches('#gtNewIn')&&!e.target.value.trim()){setTimeout(()=>{if(!creating||document.activeElement.matches('.gt-in,#gtNewIn'))return;creating=false;render()},120)}
+  });
+  render();
+
+  {const _t=new URLSearchParams(location.search).get('t');if(_t){const l=lists.find(l=>l.tasks.some(x=>x.id==_t));if(l)openTask(l.id,+_t)}}
+
+</script>
+</body>
+</html>

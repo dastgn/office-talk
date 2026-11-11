@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Server name goes here</title>
+<link rel="stylesheet" href="app.css">
+</head>
+<body>
+<div class="app sv" id="app">
+  <nav class="rail">
+    <a class="tile" href="messages.html" title="Direct messages">
+      <svg viewBox="0 0 24 24"><path d="M4 5h16v11H9l-5 4z"/></svg>
+    </a>
+    <span class="sep"></span>
+    <a class="tile co" href="company.html" title="Company home">Co</a>
+    <span class="sep"></span>
+    <a class="tile active" href="server.html" title="Company / server">A<span class="badge">1</span></a>
+    <a class="tile" href="server.html" title="Company / server">B</a>
+    <a class="tile" href="server.html" title="Company / server">C</a>
+    <a class="tile" href="server.html" title="Company / server">D</a>
+    <a class="tile" href="server.html" title="Company / server">E</a>
+    <a class="tile add" href="company.html?new=1" title="Add a server">
+      <svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>
+    </a>
+  </nav>
+  <aside class="side">
+    <button class="srv-h" id="srvBtn" title="Server menu"><span id="srvName">Server name goes here</span><svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></button>
+    <div class="chs" id="chs"></div>
+    <div class="vpanel" id="vpanel"></div>
+    <div class="me">
+      <div class="av">Y<i class="dot on" style="border-color:#0e0e22"></i></div>
+      <div class="who"><b>Your name</b><span>Online</span></div>
+      <button title="Mute"><svg viewBox="0 0 24 24"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg></button>
+      <button title="Deafen"><svg viewBox="0 0 24 24"><path d="M4 14v-2a8 8 0 0 1 16 0v2"/><rect x="3" y="14" width="4" height="6" rx="1"/><rect x="17" y="14" width="4" height="6" rx="1"/></svg></button>
+      <a class="ibtn" href="settings.html" title="Settings"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19 12a7 7 0 0 0-.1-1.2l2-1.5-2-3.4-2.3 1a7 7 0 0 0-2-1.2L14.3 3h-4l-.3 2.7a7 7 0 0 0-2 1.2l-2.3-1-2 3.4 2 1.5A7 7 0 0 0 5 12c0 .4 0 .8.1 1.2l-2 1.5 2 3.4 2.3-1a7 7 0 0 0 2 1.2l.3 2.7h4l.3-2.7a7 7 0 0 0 2-1.2l2.3 1 2-3.4-2-1.5c.1-.4.1-.8.1-1.2z"/></svg></a>
+    </div>
+  
+  </aside>
+  <main class="chat" id="main"></main>
+  <aside class="mem" id="mem"></aside>
+</div>
+<div class="smdl" id="smdl"></div>
+<script src="app.js"></script>
+<script>
+(function(){
+const IC={"chat": "<path d=\"M4 5h16v11H9l-5 4z\"/>", "folder": "<path d=\"M3 6a2 2 0 0 1 2-2h4l2 3h8a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z\"/>", "tasks": "<rect x=\"4\" y=\"4\" width=\"16\" height=\"16\" rx=\"3\"/><path d=\"M8 12l3 3 5-6\"/>", "cal": "<rect x=\"3\" y=\"5\" width=\"18\" height=\"16\" rx=\"2\"/><path d=\"M3 10h18M8 3v4M16 3v4\"/>", "road": "<path d=\"M3 7h10M3 12h14M3 17h8\"/><circle cx=\"17\" cy=\"7\" r=\"2\"/><circle cx=\"15\" cy=\"17\" r=\"2\"/>", "video": "<rect x=\"3\" y=\"6\" width=\"12\" height=\"12\" rx=\"2\"/><path d=\"M15 10l6-3v10l-6-3\"/>", "link": "<path d=\"M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1\"/>", "check": "<path d=\"M5 12l5 5L20 7\"/>", "lock": "<rect x=\"5\" y=\"11\" width=\"14\" height=\"10\" rx=\"2\"/><path d=\"M8 11V8a4 4 0 0 1 8 0v3\"/>", "servers": "<path d=\"M5 9h14M5 15h14M10 3L8 21M16 3l-2 18\"/>", "users": "<circle cx=\"9\" cy=\"8\" r=\"4\"/><path d=\"M2 21a7 7 0 0 1 14 0M17 4a4 4 0 0 1 0 8M22 21a7 7 0 0 0-4-6\"/>", "arrow": "<path d=\"M5 12h14M13 6l6 6-6 6\"/>", "x": "<path d=\"M6 6l12 12M18 6L6 18\"/>", "plus": "<path d=\"M12 5v14M5 12h14\"/>", "menu": "<path d=\"M4 7h16M4 12h16M4 17h16\"/>", "eye": "<path d=\"M2.5 12S6 5 12 5s9.5 7 9.5 7-3.5 7-9.5 7-9.5-7-9.5-7z\"/><circle cx=\"12\" cy=\"12\" r=\"3\"/>", "eyeoff": "<path d=\"M3 3l18 18M10.6 10.6a2 2 0 0 0 2.8 2.8M9.9 5.1A9.7 9.7 0 0 1 12 5c6 0 9.5 7 9.5 7a15 15 0 0 1-3.1 4M6.2 6.3A15 15 0 0 0 2.5 12S6 19 12 19a9.7 9.7 0 0 0 4-.9\"/>", "shield": "<path d=\"M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z\"/>", "bld": "<path d=\"M4 21V4h10v17M14 9h6v12M8 8h2M8 12h2M8 16h2\"/>", "mail": "<rect x=\"3\" y=\"5\" width=\"18\" height=\"14\" rx=\"2\"/><path d=\"M3 7l9 6 9-6\"/>", "mic": "<rect x=\"9\" y=\"3\" width=\"6\" height=\"11\" rx=\"3\"/><path d=\"M5 11a7 7 0 0 0 14 0M12 18v3\"/>", "micoff": "<path d=\"M3 3l18 18M9 9v2a3 3 0 0 0 5 2.2M15 9.3V6a3 3 0 0 0-5.9-.8M5 11a7 7 0 0 0 11.5 5.3M19 11a7 7 0 0 1-.6 2.8M12 18v3\"/>", "cam": "<rect x=\"3\" y=\"6\" width=\"12\" height=\"12\" rx=\"2\"/><path d=\"M15 10l6-3v10l-6-3\"/>", "camoff": "<path d=\"M3 3l18 18M15 10l6-3v10l-4-2M15 15v1a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h5\"/>", "gear": "<circle cx=\"12\" cy=\"12\" r=\"3\"/><path d=\"M12 2v3M12 19v3M2 12h3M19 12h3M4.9 4.9l2.1 2.1M17 17l2.1 2.1M4.9 19.1L7 17M17 7l2.1-2.1\"/>", "star": "<path d=\"M12 3l2.7 5.8 6.3.8-4.6 4.3 1.2 6.3L12 17l-5.6 3.2 1.2-6.3L3 9.6l6.3-.8z\"/>", "chev": "<path d=\"M6 9l6 6 6-6\"/>", "chevr": "<path d=\"M9 6l6 6-6 6\"/>", "user": "<circle cx=\"12\" cy=\"8\" r=\"4\"/><path d=\"M4 21a8 8 0 0 1 16 0\"/>", "bell": "<path d=\"M6 16V11a6 6 0 0 1 12 0v5l2 2H4zM10 20a2 2 0 0 0 4 0\"/>", "search": "<circle cx=\"11\" cy=\"11\" r=\"7\"/><path d=\"M20 20l-4-4\"/>", "copy": "<rect x=\"9\" y=\"9\" width=\"11\" height=\"11\" rx=\"2\"/><path d=\"M5 15V6a2 2 0 0 1 2-2h9\"/>", "screen": "<rect x=\"3\" y=\"4\" width=\"18\" height=\"12\" rx=\"2\"/><path d=\"M8 20h8M12 16v4\"/>", "hand": "<path d=\"M8 12V5a1.5 1.5 0 0 1 3 0v6M11 11V3.5a1.5 1.5 0 0 1 3 0V11M14 11V5a1.5 1.5 0 0 1 3 0v8a7 7 0 0 1-7 7c-3 0-4.5-2-6-5l-1-2a1.5 1.5 0 0 1 2.5-1.5L8 14\"/>", "phone": "<path d=\"M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2z\"/>", "dots": "<circle cx=\"5\" cy=\"12\" r=\"1\"/><circle cx=\"12\" cy=\"12\" r=\"1\"/><circle cx=\"19\" cy=\"12\" r=\"1\"/>", "send": "<path d=\"M4 12l16-8-6 16-3-7z\"/>", "smile": "<circle cx=\"12\" cy=\"12\" r=\"9\"/><path d=\"M8 14s1.5 2 4 2 4-2 4-2M9 9.5h.01M15 9.5h.01\"/>", "pin": "<path d=\"M9 3h6l-1 6 3 3v2H7v-2l3-3zM12 14v7\"/>", "grid": "<rect x=\"3\" y=\"3\" width=\"7\" height=\"7\" rx=\"1\"/><rect x=\"14\" y=\"3\" width=\"7\" height=\"7\" rx=\"1\"/><rect x=\"3\" y=\"14\" width=\"7\" height=\"7\" rx=\"1\"/><rect x=\"14\" y=\"14\" width=\"7\" height=\"7\" rx=\"1\"/>", "speaker": "<rect x=\"3\" y=\"3\" width=\"18\" height=\"12\" rx=\"1\"/><rect x=\"3\" y=\"18\" width=\"5\" height=\"3\" rx=\"1\"/><rect x=\"10\" y=\"18\" width=\"5\" height=\"3\" rx=\"1\"/><rect x=\"17\" y=\"18\" width=\"4\" height=\"3\" rx=\"1\"/>", "out": "<path d=\"M9 4H5a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h4M16 8l4 4-4 4M20 12H9\"/>", "trash": "<path d=\"M4 7h16M9 7V4h6v3M6 7l1 13h10l1-13\"/>", "edit": "<path d=\"M4 20h4L19 9l-4-4L4 16z\"/>", "globe": "<circle cx=\"12\" cy=\"12\" r=\"9\"/><path d=\"M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18\"/>", "hash": "<path d=\"M5 9h14M5 15h14M10 3L8 21M16 3l-2 18\"/>", "vol": "<path d=\"M4 9h4l5-4v14l-5-4H4z\"/><path d=\"M16.5 8.5a5 5 0 0 1 0 7M19 6a8.5 8.5 0 0 1 0 12\"/>", "userplus": "<circle cx=\"10\" cy=\"8\" r=\"4\"/><path d=\"M3 20a7 7 0 0 1 14 0M19 8v6M16 11h6\"/>", "signal": "<path d=\"M4 20v-3M9 20v-7M14 20v-11M19 20V5\"/>", "phonex": "<path d=\"M3 15.5c5-4.7 13-4.7 18 0l-2.5 2.7-3.3-1.6v-2.8a11 11 0 0 0-6.4 0v2.8l-3.3 1.6z\"/>", "up": "<path d=\"M12 16V4M7 9l5-5 5 5M4 20h16\"/>", "file": "<path d=\"M6 3h8l4 4v14H6z\"/><path d=\"M14 3v4h4\"/>", "chevl": "<path d=\"M15 6l-6 6 6 6\"/>", "tab": "<rect x=\"3\" y=\"5\" width=\"18\" height=\"15\" rx=\"2\"/><path d=\"M3 9h18M8 5v4\"/>", "move": "<path d=\"M9 5h.01M15 5h.01M9 12h.01M15 12h.01M9 19h.01M15 19h.01\"/>", "door": "<path d=\"M14 4h4a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2h-4M10 16l-4-4 4-4M6 12h10\"/>"};
+const ic=(n,c)=>'<svg viewBox="0 0 24 24"'+(c?' class="'+c+'"':'')+'>'+(IC[n]||'')+'</svg>';
+const $=id=>document.getElementById(id);
+const clone=o=>JSON.parse(JSON.stringify(o));
+const COL=['#7c5cff','#1f9d8d','#3d8fd9','#c2569a','#d98a3d','#5a6bd9','#3ecf8e','#b8664a','#8a6bd9'];
+const STAT={on:'Online',away:'Away',dnd:'Do not disturb',off:'Offline'};
+const MEM=[['Admin','on'],['Member','on'],['Member','on'],['Member','away'],['Member','dnd'],['Member','on'],['Guest','on'],['Member','off'],['Member','off']]
+  .map((m,i)=>({i,n:'Name goes here',r:m[0],s:m[1],c:COL[i]}));
+const ME={i:-1,n:'Your name',me:1,c:'#7c5cff',s:'on'};
+const person=w=>w===-1?ME:MEM[w]||ME;
+const who=w=>w===-1?'You':'Name goes here';
+const av=(p,sz,dot)=>'<span class="av" style="background:'+p.c+';color:#fff'+(sz?';width:'+sz+'px;height:'+sz+'px;font-size:'+Math.round(sz*.38)+'px':'')+'">'+(p.me?'Y':'N')+((dot!==false&&!sz&&p.s)?'<i class="dot '+p.s+'"></i>':'')+'</span>';
+const iso=d=>d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');
+const plus=n=>{const d=new Date();d.setDate(d.getDate()+n);return iso(d)};
+const fmt=s=>{if(!s)return'';const d=new Date(s+'T00:00');return d.toLocaleDateString('en-GB',{day:'numeric',month:'short'})};
+const nowT=()=>new Date().toTimeString().slice(0,5);
+
+const DEF={
+  name:'Server name goes here',
+  areas:[
+    {id:'a1',name:'Text channels',open:true,ch:[{id:'c1',name:'general',type:'text',topic:'Channel topic goes here'},{id:'c2',name:'announcements',type:'text',topic:'Only admins can post here'}]},
+    {id:'a2',name:'Voice channels',open:true,ch:[{id:'v1',name:'General',type:'voice'},{id:'v2',name:'Meeting room',type:'voice'}]},
+    {id:'a3',name:'Area name goes here',open:true,ch:[{id:'c3',name:'channel-name-goes-here',type:'text',topic:''},{id:'v3',name:'Voice channel name goes here',type:'voice'}]}],
+  folders:['Folder name goes here','Folder name goes here','Folder name goes here'],
+  files:[0,1,2,3,4].map(k=>({n:'File name goes here',by:[1,2,-1,3,5][k],d:'Date goes here'})),
+  board:[
+    {id:'b1',name:'To do',cards:[{t:'Task name goes here',who:1,due:plus(2)},{t:'Task name goes here',who:3,due:plus(6)},{t:'Task name goes here',who:-1,due:''}]},
+    {id:'b2',name:'In progress',cards:[{t:'Task name goes here',who:2,due:plus(-1)},{t:'Task name goes here',who:-1,due:plus(3)}]},
+    {id:'b3',name:'Done',cards:[{t:'Task name goes here',who:5,due:plus(-3),done:1}]}],
+  events:[{id:'e1',d:plus(1),time:'10:00',t:'Event title goes here',ch:'v2'},{id:'e2',d:plus(3),time:'14:30',t:'Event title goes here',ch:''},{id:'e3',d:plus(8),time:'09:00',t:'Event title goes here',ch:'v1'}],
+  miles:[{id:'m1',t:'Milestone name goes here',who:1,s:0,e:1.5,c:'#7c5cff',p:70},{id:'m2',t:'Milestone name goes here',who:-1,s:1,e:3,c:'#1f9d8d',p:30},{id:'m3',t:'Milestone name goes here',who:2,s:2.5,e:4,c:'#3d8fd9',p:0},{id:'m4',t:'Milestone name goes here',who:3,s:4,e:5.5,c:'#c2569a',p:0}]
+};
+let S=Object.assign(clone(DEF),store.get('srv',{}));
+const save=()=>store.set('srv',S);
+let admin=store.get('srvAdmin',true), memOpen=store.get('srvMem',true);
+const VOICE={v1:[1,2],v3:[4]};
+const MUTED=[2];
+const MSGS={c1:[{w:1,t:'Message text goes here',at:'Today at 09:12'},{w:2,t:'Message text goes here',at:'Today at 09:15'},{w:1,t:'Message text goes here',at:'Today at 09:16'}],c2:[{w:0,t:'Announcement text goes here',at:'Yesterday at 16:40'}]};
+const UNREAD={c2:1};
+const PROJ=[['files','Files','folder'],['tasks','Tasks','tasks'],['calendar','Calendar','cal'],['roadmap','Visual roadmap','road']];
+
+const allCh=()=>S.areas.flatMap(a=>a.ch);
+const findCh=id=>{for(const a of S.areas){const c=a.ch.find(x=>x.id===id);if(c)return{a,c}}return null};
+const firstText=()=>{const l=allCh();const c=l.find(x=>x.type==='text')||l[0];return c?c.id:null};
+const voiceChs=()=>allCh().filter(c=>c.type==='voice');
+const occ=id=>{const l=(VOICE[id]||[]).map(i=>Object.assign({},MEM[i],{muted:MUTED.includes(i)}));if(vc&&vc.ch===id)l.unshift(Object.assign({},ME,{muted:!vc.mic}));return l};
+const inVoice=i=>Object.keys(VOICE).find(k=>VOICE[k].includes(i)&&findCh(k));
+
+let vc=null, view='ch', cur=null, invOpen=false;
+const q=new URLSearchParams(location.search);
+if(PROJ.some(p=>p[0]===q.get('p')))view=q.get('p');
+cur=(q.get('c')&&findCh(q.get('c')))?q.get('c'):firstText();
+function setURL(){history.replaceState(null,'',view==='ch'?'server.html'+(cur?'?c='+cur:''):'server.html?p='+view)}
+
+/* ---------- modal / ask / menu ---------- */
+const md=$('smdl');
+function modal(html,mount,onclose){md.innerHTML='<div class="mbox">'+html+'</div>';md.classList.add('open');md._close=onclose||null;if(mount)mount(md);
+  const f=md.querySelector('input.inp:not([readonly])');if(f)setTimeout(()=>f.focus(),30)}
+function closeModal(){md.classList.remove('open');const c=md._close;md._close=null;if(c)c()}
+md.addEventListener('mousedown',e=>{if(e.target===md)closeModal()});
+md.addEventListener('click',e=>{if(e.target.closest('[data-mx]'))closeModal()});
+document.addEventListener('keydown',e=>{if(e.key==='Escape'){if(md.classList.contains('open'))closeModal();cx.classList.remove('open')}});
+function ask(title,msg,btns){modal('<h2>'+title+'</h2><p class="muted" style="margin-top:6px">'+msg+'</p><div class="mrow"><span class="grow"></span><button class="btn ghost" data-mx>Cancel</button>'+
+  btns.map((b,k)=>'<button class="btn '+(b[1]||'')+'" data-ask="'+k+'">'+b[0]+'</button>').join('')+'</div>',
+  m=>m.querySelectorAll('[data-ask]').forEach(x=>x.onclick=()=>{closeModal();btns[+x.dataset.ask][2]()}))}
+const cx=document.createElement('div');cx.className='ctx';document.body.appendChild(cx);
+function menu(x,y,title,items){
+  cx.innerHTML=(title?'<div class="ctx-h">'+esc(title)+'</div>':'')+items.filter(Boolean).map((it,k)=>it==='-'?'<div class="ctx-sep"></div>':'<button data-k="'+k+'"'+(it[2]?' class="dg"':'')+'>'+ic(it[1])+esc(it[0])+'</button>').join('');
+  const list=items.filter(Boolean);cx.classList.add('open');
+  const w=cx.offsetWidth,h=cx.offsetHeight;cx.style.left=Math.max(8,Math.min(x,innerWidth-w-8))+'px';cx.style.top=Math.max(8,Math.min(y,innerHeight-h-8))+'px';
+  cx.onclick=e=>{const b=e.target.closest('[data-k]');if(!b)return;cx.classList.remove('open');list[+b.dataset.k][3]()}}
+document.addEventListener('mousedown',e=>{if(!e.target.closest('.ctx'))cx.classList.remove('open')});
+
+/* ---------- sidebar ---------- */
+function renderSide(){
+  $('srvName').textContent=S.name;
+  let h='<div class="nav pnav"><div class="nav-h">'+ic('users')+' Project &middot; shared with this server</div>'+
+    PROJ.map(p=>'<a class="nav-item'+(view===p[0]?' active':'')+'" href="server.html?p='+p[0]+'" data-proj="'+p[0]+'">'+ic(p[2])+p[1]+'</a>').join('')+'</div>';
+  S.areas.forEach(a=>{
+    h+='<div class="area'+(a.open?'':' shut')+'" data-area="'+a.id+'"><div class="area-h" data-toggle="'+a.id+'">'+ic('chev','cv')+'<span>'+esc(a.name)+'</span>'+(a.priv?ic('lock','lk'):'')+
+      (admin?'<button class="ah-b" data-addch="'+a.id+'" title="Create channel">'+ic('plus')+'</button><button class="ah-b" data-areamenu="'+a.id+'" title="Area options">'+ic('dots')+'</button>':'')+'</div><div class="chl">';
+    a.ch.forEach(c=>{
+      const on=view==='ch'&&cur===c.id, v=c.type==='voice';
+      h+='<a class="chn'+(on?' active':'')+(UNREAD[c.id]&&!on?' unread':'')+'" href="server.html?c='+c.id+'" data-ch="'+c.id+'"'+(admin?' draggable="true"':'')+'>'+ic(v?'vol':'hash')+'<span>'+esc(c.name)+'</span>'+(c.priv?ic('lock','mini'):'')+
+        (v?'<button class="cb" data-invch="'+c.id+'" title="Invite people to this voice channel">'+ic('userplus')+'</button>':'')+
+        (admin?'<button class="cb" data-editch="'+c.id+'" title="Edit channel">'+ic('gear')+'</button>':'')+'</a>';
+      if(v){const p=occ(c.id);if(p.length)h+='<div class="vppl">'+p.map(x=>'<div class="vp'+(x.me?' me-v':'')+'" data-vpi="'+x.i+'">'+av(x,24)+'<span>'+esc(x.me?'Your name':x.n)+'</span>'+(x.muted?ic('micoff','mini'):'')+'</div>').join('')+'</div>'}
+    });
+    h+='</div></div>';
+  });
+  if(admin)h+='<button class="add-area" data-newarea>'+ic('plus')+' Create area</button>';
+  const sc=$('chs').scrollTop;$('chs').innerHTML=h;$('chs').scrollTop=sc;
+}
+function renderVP(){
+  document.body.classList.toggle('vc',!!vc);const v=$('vpanel');
+  if(!vc){v.innerHTML='';return}
+  const f=findCh(vc.ch);
+  v.innerHTML='<div class="vp-top"><span class="sig">'+ic('signal')+'</span><div class="vp-t"><b>Voice connected</b><a href="server.html?c='+vc.ch+'" data-govc>'+esc(f?f.c.name:'')+' / '+esc(S.name)+'</a></div>'+
+    '<button class="ibtn" data-vinv title="Invite people">'+ic('userplus')+'</button><button class="ibtn red" data-vleave title="Disconnect">'+ic('phonex')+'</button></div>'+
+    '<div class="vp-b"><button data-vcam class="'+(vc.cam?'on':'')+'">'+ic('cam')+'Video</button><button data-vshare class="'+(vc.share?'on':'')+'">'+ic('screen')+'Screen</button></div>';
+}
+
+/* ---------- main column ---------- */
+const head=(icon,title,mid,right)=>'<header class="chat-head sh"><span class="hi">'+icon+'</span><div class="title">'+esc(title)+'</div>'+(mid||'<span class="grow"></span>')+
+  '<div class="icons">'+(right||'')+'<button class="ibtn'+(memOpen?' on':'')+'" data-mem title="'+(memOpen?'Hide':'Show')+' member list">'+ic('users')+'</button></div></header>';
+const projHead=k=>{const p=PROJ.find(x=>x[0]===k);return head(ic(p[2]),p[1],'<span class="chip" style="margin-left:6px">'+ic('users')+' Shared with everyone in this server</span><span class="grow"></span>')};
+const msgHTML=m=>{const p=person(m.w);return '<div class="sm">'+av(p,40)+'<div><div class="sm-h"><b>'+esc(p.me?'Your name':p.n)+'</b><small>'+esc(m.at)+'</small></div><p>'+esc(m.t)+'</p></div></div>'};
+function renderMain(){
+  const m=$('main');
+  if(view!=='ch')return ({files:filesView,tasks:tasksView,calendar:calView,roadmap:roadView})[view](m);
+  const f=cur&&findCh(cur);
+  if(!f){m.innerHTML=head(ic('hash'),'No channels')+'<div class="nochan"><h2>No channels yet</h2>'+(admin?'<button class="btn" data-newch>'+ic('plus')+' Create a channel</button>':'<p>Ask an admin to add one.</p>')+'</div>';return}
+  const c=f.c;
+  if(c.type==='text')return textView(m,c);
+  return (vc&&vc.ch===c.id)?roomView(m,c):previewView(m,c);
+}
+function textView(m,c){
+  delete UNREAD[c.id];
+  const L=MSGS[c.id]||(MSGS[c.id]=[]);
+  m.innerHTML=head(ic('hash'),c.name,'<span class="topic">'+esc(c.topic||'')+'</span>',
+    '<button class="ibtn" data-toast="Pinned messages go here" title="Pinned messages">'+ic('pin')+'</button>'+(admin?'<button class="ibtn" data-editch="'+c.id+'" title="Edit channel">'+ic('gear')+'</button>':''))+
+    '<div class="messages" id="msgs"><div class="wel"><span class="bigic">'+ic('hash')+'</span><h2>Welcome to #'+esc(c.name)+'</h2><p class="muted">This is the start of the #'+esc(c.name)+' channel.</p>'+
+    (admin?'<div class="d-row" style="margin-top:12px"><button class="btn ghost" data-editch="'+c.id+'">'+ic('edit')+' Edit channel</button></div>':'')+'</div>'+L.map(msgHTML).join('')+'</div>'+
+    '<form class="composer" id="cmp"><button type="button" class="ibtn" data-toast="File upload comes with the backend" title="Attach">'+ic('plus')+'</button><input id="mi" placeholder="Message #'+esc(c.name)+'" autocomplete="off"><button type="button" class="ibtn" title="Emoji" data-toast="Emoji picker goes here">'+ic('smile')+'</button></form>';
+  const ms=$('msgs');ms.scrollTop=ms.scrollHeight;
+  $('cmp').onsubmit=e=>{e.preventDefault();const v=$('mi').value.trim();if(!v)return;L.push({w:-1,t:v,at:'Today at '+nowT()});textView(m,c);$('mi').focus()};
+}
+function previewView(m,c){
+  const p=occ(c.id);
+  m.innerHTML=head(ic('vol'),c.name,'<span class="grow"></span>',admin?'<button class="ibtn" data-editch="'+c.id+'" title="Edit channel">'+ic('gear')+'</button>':'')+
+    '<div class="vprev"><span class="bigic">'+ic('vol')+'</span><h2>'+esc(c.name)+'</h2><p class="muted">'+(p.length?p.length+' '+(p.length>1?'people are':'person is')+' in this voice channel':'No one is here yet')+'</p>'+
+    (p.length?'<div class="vpav">'+p.map(x=>av(x,48)).join('')+'</div>':'<div style="height:16px"></div>')+'<button class="btn lg" data-join="'+c.id+'">'+ic('vol')+' Join voice</button></div>';
+}
+const vb=(k,i,t,cls)=>'<button class="vb '+(cls||'')+'" data-'+k+' title="'+t+'">'+ic(i)+'</button>';
+function roomView(m,c){
+  const p=occ(c.id),ring=Object.keys(vc.ring).map(Number),tiles=[];
+  if(vc.share)tiles.push('<div class="vt screen"><span class="sc">'+ic('screen')+'Your screen</span><span class="nm">Your name (you)</span></div>');
+  p.forEach(x=>tiles.push('<div class="vt'+(x.me&&vc.cam?' cam':'')+'" data-vi="'+x.i+'">'+(x.me&&vc.cam?'<span class="camtxt">Your camera</span>':av(x,72))+
+    '<span class="nm">'+(x.muted?ic('micoff'):'')+esc(x.me?'Your name (you)':x.n)+'</span>'+(x.r==='Guest'?'<span class="gt">Guest</span>':'')+'</div>'));
+  ring.forEach(i=>tiles.push('<div class="vt ring"><span class="rg">Ringing&hellip;</span>'+av(MEM[i],72)+'<span class="nm">'+esc(MEM[i].n)+'</span><button class="btn ghost sm" data-cring="'+i+'">Cancel</button></div>'));
+  tiles.push('<button class="vt addt" data-vinv>'+ic('userplus')+'<b>Invite people</b><small>Ring someone from this server</small></button>');
+  m.innerHTML=head(ic('vol'),c.name,'<span class="chip" style="margin-left:6px">'+p.length+' in the call</span><span class="grow"></span>','<button class="btn" data-vinv>'+ic('userplus')+' Invite</button>')+
+    '<div class="stage2 n'+Math.min(tiles.length,9)+'" id="stage2">'+tiles.join('')+'</div>'+
+    '<div class="vbar">'+vb('vmic',vc.mic?'mic':'micoff',vc.mic?'Mute':'Unmute',vc.mic?'':'off')+vb('vcam',vc.cam?'cam':'camoff',vc.cam?'Turn camera off':'Turn camera on',vc.cam?'on':'')+
+    vb('vshare','screen',vc.share?'Stop sharing':'Share your screen',vc.share?'on':'')+vb('vinv','userplus','Invite people')+
+    '<button class="vb leave" data-vleave title="Disconnect">'+ic('phonex')+'</button></div>';
+}
+
+/* ---------- members column ---------- */
+function renderMem(){
+  $('app').classList.toggle('nomem',!memOpen);
+  const row=p=>{const v=inVoice(p.i),can=vc&&!(VOICE[vc.ch]||[]).includes(p.i)&&!(p.i in vc.ring);
+    return '<div class="mr'+(p.s==='off'?' offl':'')+'" data-m="'+p.i+'">'+av(p)+'<div class="mt"><b>'+esc(p.n)+'</b><small>'+
+      (v?ic('vol','mini')+'In '+esc(findCh(v).c.name):(p.r==='Member'?'Job title goes here':p.r))+'</small></div>'+
+      (can?'<button class="ibtn mi" data-invm="'+p.i+'" title="Invite to your voice call">'+ic('userplus')+'</button>':'')+'</div>'};
+  const on=MEM.filter(p=>p.s!=='off'),off=MEM.filter(p=>p.s==='off');
+  $('mem').innerHTML='<h4>Online &mdash; '+(on.length+1)+'</h4><div class="mr">'+av(ME)+'<div class="mt"><b>Your name</b><small>'+(vc?ic('vol','mini')+'In '+esc(findCh(vc.ch).c.name):(admin?'Admin':'Member'))+'</small></div></div>'+
+    on.map(row).join('')+'<h4>Offline &mdash; '+off.length+'</h4>'+off.map(row).join('');
+}
+function render(){renderSide();renderMain();renderMem();renderVP();
+  const f=view==='ch'&&cur&&findCh(cur);document.title=(f?(f.c.type==='text'?'#':'')+f.c.name:(PROJ.find(p=>p[0]===view)||['','Server'])[1])+' · '+S.name}
+
+/* ---------- voice ---------- */
+function join(id){
+  VOICE[id]=VOICE[id]||[];
+  if(vc&&vc.ch!==id){Object.values(vc.ring).forEach(clearTimeout)}
+  if(!vc||vc.ch!==id)vc={ch:id,mic:true,cam:false,share:false,ring:{}};
+  cur=id;view='ch';setURL();render();
+}
+function leave(){if(!vc)return;Object.values(vc.ring).forEach(clearTimeout);vc=null;closeInvIfOpen();render();toast('You left the voice channel')}
+function closeInvIfOpen(){if(invOpen)closeModal()}
+function invite(i){
+  if(!vc)return;const ch=vc.ch,p=MEM[i];
+  if((VOICE[ch]||[]).includes(i)||i in vc.ring)return;
+  vc.ring[i]=setTimeout(()=>{
+    if(!vc||vc.ch!==ch)return;delete vc.ring[i];
+    if(p.s==='on'||p.s==='away'){Object.keys(VOICE).forEach(k=>VOICE[k]=VOICE[k].filter(x=>x!==i));VOICE[ch].push(i);toast(p.n+' joined the call')}
+    else toast(p.n+(p.s==='dnd'?' is on do not disturb.':' is offline.')+' They will see a missed call.');
+    render();refreshInv()},2200);
+  toast('Ringing '+p.n+'…');render();refreshInv();
+}
+function cancelRing(i){if(vc&&i in vc.ring){clearTimeout(vc.ring[i]);delete vc.ring[i];render();refreshInv()}}
+function invModal(){
+  if(!vc)return;invOpen=true;const f=findCh(vc.ch);
+  modal('<h2>Invite people to '+esc(f.c.name)+'</h2><p class="muted">People in this server who are not in the call yet. They get a ring and can join straight away.</p>'+
+    '<input class="inp" id="iq" placeholder="Search members" style="width:100%;margin-top:14px"><div class="ilist" id="ilist"></div>'+
+    '<div class="mrow"><button class="btn ghost" id="iall">'+ic('phone')+' Ring everyone online</button><button class="btn ghost" id="iguest">'+ic('link')+' Guest link</button><span class="grow"></span><button class="btn" data-mx>Done</button></div>',
+    m=>{$('iq').oninput=refreshInv;
+      $('iall').onclick=()=>{const l=MEM.filter(p=>p.s==='on'&&!VOICE[vc.ch].includes(p.i)&&!(p.i in vc.ring));if(!l.length)return toast('Everyone online is already in the call');l.forEach(p=>invite(p.i))};
+      $('iguest').onclick=()=>{copyGuest()};refreshInv()},
+    ()=>{invOpen=false});
+}
+function copyGuest(){const c=navigator.clipboard;if(c&&c.writeText)c.writeText('Guest link goes here').catch(()=>{});toast('Guest link copied. People outside the server can join from it.')}
+function refreshInv(){
+  const l=$('ilist');if(!invOpen||!l||!vc)return;
+  const qq=($('iq').value||'').trim().toLowerCase(),inC=VOICE[vc.ch]||[];
+  const list=MEM.filter(p=>!inC.includes(p.i)&&(!qq||p.n.toLowerCase().includes(qq)));
+  const here=occ(vc.ch);
+  l.innerHTML=(list.length?list.map(p=>{const r=p.i in vc.ring,v=inVoice(p.i);
+      return '<div class="ir">'+av(p)+'<div class="mt"><b>'+esc(p.n)+'</b><small>'+(v?ic('vol','mini')+'In '+esc(findCh(v).c.name):STAT[p.s])+(p.r!=='Member'?' &middot; '+p.r:'')+'</small></div>'+
+        (r?'<button class="btn ghost" data-cring="'+p.i+'">Ringing&hellip; Cancel</button>':'<button class="btn" data-invm="'+p.i+'">Invite</button>')+'</div>'}).join('')
+     :'<p class="muted" style="padding:18px 14px">Everyone in this server is already in the call.</p>')+
+    '<div class="ihd">In the call &mdash; '+here.length+'</div>'+here.map(x=>'<div class="ir">'+av(x)+'<div class="mt"><b>'+esc(x.me?'Your name (you)':x.n)+'</b><small>'+(x.muted?'Muted':'Connected')+'</small></div></div>').join('');
+}
+setInterval(()=>{if(!vc)return;const t=document.querySelectorAll('.vt[data-vi]'),vps=document.querySelectorAll('.vp');
+  t.forEach(x=>x.classList.remove('talk'));vps.forEach(x=>x.classList.remove('talk'));
+  const cand=[...t].filter(x=>!(x.dataset.vi==='-1'&&!vc.mic)&&!MUTED.includes(+x.dataset.vi));
+  if(cand.length&&Math.random()>.25){const pick=cand[Math.floor(Math.random()*cand.length)];pick.classList.add('talk');
+    document.querySelectorAll('.vp[data-vpi="'+pick.dataset.vi+'"]').forEach(x=>x.classList.add('talk'))}},1300);
+
+/* ---------- admin: channels & areas ---------- */
+const slug=(s,t)=>t==='text'?s.trim().toLowerCase().replace(/[^a-z0-9\s_-]/g,'').replace(/\s+/g,'-'):s.trim();
+function chModal(o){
+  const f=o.edit?findCh(o.edit):null,c=f&&f.c;let type=c?c.type:(o.type||'text');
+  modal('<h2>'+(c?'Edit channel':'Create channel')+'</h2>'+(c?'<p class="muted">'+(type==='voice'?'Voice':'Text')+' channel</p>':'<p class="muted">Channels live inside an area.</p>'+
+    '<div class="types" id="types"><button class="ty" data-ty="text">'+ic('hash')+'<div><b>Text</b><small>Send messages, files, links and updates</small></div></button><button class="ty" data-ty="voice">'+ic('vol')+'<div><b>Voice</b><small>Talk, video and share your screen together</small></div></button></div>')+
+    '<label class="f"><span>Channel name</span><div class="nmw" id="nmw">'+ic(type==='voice'?'vol':'hash')+'<input class="inp" id="chN" value="'+esc(c?c.name:'')+'"></div></label>'+
+    '<label class="f" id="tpf"><span>Topic</span><input class="inp" id="chT" placeholder="What is this channel for?" value="'+esc(c&&c.topic||'')+'"></label>'+
+    '<label class="f"><span>Area</span>'+selectHTML('chA',S.areas.map(a=>[a.id,a.name]),f?f.a.id:(o.area||(S.areas[0]&&S.areas[0].id)))+'</label>'+
+    '<div class="srow3"><div><b>Private channel</b><small>Only chosen members and roles can see it</small></div><span class="sw'+(c&&c.priv?' on':'')+'" id="chP"></span></div>'+
+    '<div class="mrow">'+(c?'<button class="btn danger" id="chD">'+ic('trash')+' Delete channel</button>':'')+'<span class="grow"></span><button class="btn ghost" data-mx>Cancel</button><button class="btn" id="chO">'+(c?'Save changes':'Create channel')+'</button></div>',
+  m=>{
+    const setType=t=>{type=t;m.querySelectorAll('.ty').forEach(b=>b.classList.toggle('on',b.dataset.ty===t));$('nmw').querySelector('svg').innerHTML=IC[t==='voice'?'vol':'hash'];
+      $('chN').placeholder=t==='voice'?'Voice channel name':'new-channel';$('tpf').style.display=t==='voice'?'none':''};
+    setType(type);
+    if(!c)$('types').onclick=e=>{const b=e.target.closest('[data-ty]');if(b)setType(b.dataset.ty)};
+    $('chP').onclick=()=>$('chP').classList.toggle('on');
+    const ok=()=>{const n=slug($('chN').value,type);if(!n){$('chN').classList.add('bad');$('chN').focus();return}
+      const area=S.areas.find(a=>a.id===$('chA').value),priv=$('chP').classList.contains('on'),topic=type==='text'?$('chT').value.trim():'';
+      if(c){Object.assign(c,{name:n,priv,topic});if(area!==f.a){f.a.ch=f.a.ch.filter(x=>x!==c);area.ch.push(c)}toast('Channel updated')}
+      else{const nc={id:(type==='voice'?'v':'c')+Date.now().toString(36),name:n,type,priv,topic};area.ch.push(nc);area.open=true;if(type==='text'){cur=nc.id;view='ch';setURL()}toast((type==='voice'?'Voice':'Text')+' channel created')}
+      save();closeModal();render()};
+    $('chO').onclick=ok;$('chN').onkeydown=e=>{if(e.key==='Enter')ok()};$('chN').oninput=()=>$('chN').classList.remove('bad');
+    if(c)$('chD').onclick=()=>delCh(c.id);
+  });
+}
+function dropCh(id){if(vc&&vc.ch===id){Object.values(vc.ring).forEach(clearTimeout);vc=null}S.areas.forEach(a=>a.ch=a.ch.filter(x=>x.id!==id))}
+function fixCur(){if(!cur||!findCh(cur))cur=firstText();setURL()}
+function delCh(id){const f=findCh(id);if(!f)return;
+  ask('Delete '+(f.c.type==='text'?'#':'')+esc(f.c.name)+'?','Everything in this channel will be removed for everyone. This cannot be undone.',
+    [['Delete channel','danger',()=>{dropCh(id);fixCur();save();render();toast('Channel deleted')}]])}
+function areaModal(id){
+  const a=id&&S.areas.find(x=>x.id===id);
+  modal('<h2>'+(a?'Edit area':'Create area')+'</h2><p class="muted">Areas group channels together, like "Text channels" or "Voice channels".</p>'+
+    '<label class="f"><span>Area name</span><input class="inp" id="aN" placeholder="Area name goes here" value="'+esc(a?a.name:'')+'"></label>'+
+    '<div class="srow3"><div><b>Private area</b><small>Only chosen members and roles can see the channels in it</small></div><span class="sw'+(a&&a.priv?' on':'')+'" id="aP"></span></div>'+
+    (a?'':'<div class="srow3"><div><b>Add starter channels</b><small>A text channel and a voice channel inside the new area</small></div><span class="sw on" id="aS"></span></div>')+
+    '<div class="mrow">'+(a?'<button class="btn danger" id="aD">'+ic('trash')+' Delete area</button>':'')+'<span class="grow"></span><button class="btn ghost" data-mx>Cancel</button><button class="btn" id="aO">'+(a?'Save changes':'Create area')+'</button></div>',
+  m=>{['aP','aS'].forEach(k=>{if($(k))$(k).onclick=()=>$(k).classList.toggle('on')});
+    const ok=()=>{const n=$('aN').value.trim();if(!n){$('aN').classList.add('bad');return}const priv=$('aP').classList.contains('on');
+      if(a){a.name=n;a.priv=priv;toast('Area updated')}
+      else{const t=Date.now().toString(36);S.areas.push({id:'a'+t,name:n,open:true,priv,ch:$('aS').classList.contains('on')?[{id:'c'+t,name:'general',type:'text',topic:''},{id:'v'+t,name:'Voice',type:'voice'}]:[]});toast('Area created')}
+      save();closeModal();render()};
+    $('aO').onclick=ok;$('aN').onkeydown=e=>{if(e.key==='Enter')ok()};
+    if(a)$('aD').onclick=()=>delArea(a.id)});
+}
+function delArea(id){
+  const a=S.areas.find(x=>x.id===id);if(!a)return;
+  if(S.areas.length<2)return ask('Can\'t delete this area','A server needs at least one area. Create another area first.',[]);
+  const other=S.areas.find(x=>x.id!==id),n=a.ch.length;
+  const go=keep=>{if(keep)other.ch.push(...a.ch);else [...a.ch].forEach(c=>dropCh(c.id));S.areas=S.areas.filter(x=>x!==a);fixCur();save();render();toast('Area deleted')};
+  ask('Delete "'+esc(a.name)+'"?',n?'It has '+n+' channel'+(n>1?'s':'')+'. Keep them by moving them into "'+esc(other.name)+'", or delete them too.':'This area is empty.',
+    n?[['Keep channels','ghost',()=>go(true)],['Delete all','danger',()=>go(false)]]:[['Delete area','danger',()=>go(true)]]);
+}
+function areaMenu(id,x,y){const a=S.areas.find(z=>z.id===id);if(!a)return;
+  menu(x,y,a.name,[[a.open?'Collapse':'Expand','chev',0,()=>{a.open=!a.open;save();renderSide()}],
+    admin&&'-',admin&&['Create text channel','hash',0,()=>chModal({area:id,type:'text'})],admin&&['Create voice channel','vol',0,()=>chModal({area:id,type:'voice'})],
+    admin&&['Edit area','edit',0,()=>areaModal(id)],admin&&['Delete area','trash',1,()=>delArea(id)]])}
+function chMenu(id,x,y){const f=findCh(id);if(!f)return;const c=f.c,v=c.type==='voice',inIt=vc&&vc.ch===id;
+  menu(x,y,(v?'':'#')+c.name,[
+    v?(inIt?['Invite people','userplus',0,invModal]:['Join voice','vol',0,()=>join(id)]):['Open','hash',0,()=>openCh(id)],
+    v&&inIt&&['Disconnect','phonex',1,leave],
+    ['Open in new tab','tab',0,()=>addTab({title:(v?'':'#')+c.name,url:'server.html?c='+id})],
+    ['Copy link','link',0,()=>{const cl=navigator.clipboard;if(cl&&cl.writeText)cl.writeText(new URL('server.html?c='+id,location.href).href).catch(()=>{});toast('Link copied')}],
+    admin&&'-',admin&&['Edit channel','gear',0,()=>chModal({edit:id})],admin&&['Delete channel','trash',1,()=>delCh(id)]])}
+function memMenu(i,x,y){const p=MEM[i];const can=vc&&!(VOICE[vc.ch]||[]).includes(i);
+  menu(x,y,p.n,[['Send message','chat',0,()=>location.href='messages.html'],can&&['Invite to voice call','userplus',0,()=>invite(i)],
+    ['Start a call','phone',0,()=>location.href='call.html'],admin&&'-',admin&&['Change role','shield',0,()=>location.href='settings.html#members'],
+    admin&&['Remove from server','door',1,()=>ask('Remove Name goes here?','They will lose access to this server and its project files, tasks and calendar.',[['Remove','danger',()=>{p.s='off';MEM.splice(MEM.indexOf(p),1);Object.keys(VOICE).forEach(k=>VOICE[k]=VOICE[k].filter(z=>z!==i));render();toast('Member removed')}]])]])}
+function serverMenu(){const r=$('srvBtn').getBoundingClientRect();
+  menu(r.left+8,r.bottom+4,'',[['Invite people to server','userplus',0,srvInvite],
+    admin&&'-',admin&&['Create channel','plus',0,()=>chModal({})],admin&&['Create area','folder',0,()=>areaModal()],admin&&['Rename server','edit',0,renameSrv],
+    ['Server settings','gear',0,()=>location.href='settings.html#members'],'-',
+    [admin?'View as a member':'View as admin','shield',0,()=>{admin=!admin;store.set('srvAdmin',admin);render();toast(admin?'Admin controls are back':'Viewing as a member. Admin controls are hidden.')}],
+    ['Leave server','door',1,()=>ask('Leave '+esc(S.name)+'?','You will need a new invite to come back.',[['Leave server','danger',()=>location.href='company.html']])]])}
+function renameSrv(){modal('<h2>Rename server</h2><label class="f"><span>Server name</span><input class="inp" id="rn" value="'+esc(S.name)+'"></label><div class="mrow"><span class="grow"></span><button class="btn ghost" data-mx>Cancel</button><button class="btn" id="rO">Save</button></div>',
+  ()=>{const ok=()=>{const v=$('rn').value.trim();if(!v)return;S.name=v;save();closeModal();render()};$('rO').onclick=ok;$('rn').onkeydown=e=>{if(e.key==='Enter')ok()}})}
+function srvInvite(){modal('<h2>Invite people to '+esc(S.name)+'</h2><p class="muted">They join this server and can see its project area.</p>'+
+  '<label class="f"><span>Email addresses</span><textarea class="inp" id="ie" placeholder="Email goes here, Email goes here"></textarea></label>'+
+  '<label class="f"><span>Role</span>'+selectHTML('irl',['Member','Admin','Guest'],'Member')+'</label>'+
+  '<div class="f"><span>Or share an invite link</span><div style="display:flex;gap:8px"><input class="inp" readonly value="Invite link goes here" style="flex:1"><button class="btn ghost" id="icl">Copy</button></div></div>'+
+  '<div class="mrow"><span class="grow"></span><button class="btn ghost" data-mx>Cancel</button><button class="btn" id="isd">Send invites</button></div>',
+  ()=>{$('icl').onclick=()=>toast('Invite link copied');$('isd').onclick=()=>{if(!$('ie').value.trim()){$('ie').classList.add('bad');return}closeModal();toast('Invites sent')}})}
+function openCh(id){const f=findCh(id);if(!f)return;if(f.c.type==='voice')return join(id);cur=id;view='ch';setURL();render()}
+
+/* drag channels to reorder / move between areas (admin) */
+let drag=null;const chs=$('chs');
+const clearMarks=()=>chs.querySelectorAll('.dropb,.dropa,.dropin').forEach(x=>x.classList.remove('dropb','dropa','dropin'));
+chs.addEventListener('dragstart',e=>{const a=e.target.closest('[data-ch]');if(!a||!admin)return;drag=a.dataset.ch;e.dataTransfer.effectAllowed='move';e.dataTransfer.setData('text/plain',drag);setTimeout(()=>a.classList.add('dragging'),0)});
+chs.addEventListener('dragover',e=>{if(!drag)return;const ar=e.target.closest('[data-area]');if(!ar)return;e.preventDefault();clearMarks();
+  const t=e.target.closest('[data-ch]');if(t&&t.dataset.ch!==drag){const r=t.getBoundingClientRect();t.classList.add(e.clientY<r.top+r.height/2?'dropb':'dropa')}else if(!t)ar.classList.add('dropin')});
+chs.addEventListener('drop',e=>{if(!drag)return;e.preventDefault();const ar=e.target.closest('[data-area]'),t=e.target.closest('[data-ch]');
+  const src=findCh(drag);if(!ar||!src||(t&&t.dataset.ch===drag)){drag=null;clearMarks();renderSide();return}
+  const after=t&&t.classList.contains('dropa');src.a.ch=src.a.ch.filter(x=>x!==src.c);
+  const dest=S.areas.find(a=>a.id===ar.dataset.area);let idx=dest.ch.length;
+  if(t){idx=dest.ch.findIndex(x=>x.id===t.dataset.ch);if(after)idx++}
+  dest.ch.splice(idx,0,src.c);dest.open=true;drag=null;save();renderSide();toast(src.a===dest?'Channel moved':'Moved to '+dest.name)});
+chs.addEventListener('dragend',()=>{drag=null;clearMarks();chs.querySelectorAll('.dragging').forEach(x=>x.classList.remove('dragging'))});
+
+/* ---------- shared project: files ---------- */
+function filesView(m){
+  m.innerHTML=projHead('files')+'<div class="page-body pfiles"><div class="toolbar"><button class="btn" id="pUp">'+ic('up')+' Upload files</button><button class="btn ghost" id="pFold">'+ic('plus')+' New folder</button><span class="grow"></span><input class="inp" id="pq" placeholder="Search project files" style="width:240px"></div>'+
+    '<div class="h2">Folders</div><div class="folders">'+S.folders.map((f,k)=>'<div class="folder" data-fold="'+k+'">'+ic('folder')+'<div><b>'+esc(f)+'</b><small>0 files</small></div></div>').join('')+'</div>'+
+    '<div class="h2">Files</div><div class="ftable"><div class="frow hd"><span></span><span>Name</span><span>Uploaded by</span><span>Modified</span><span></span></div>'+
+    (S.files.length?S.files.map((f,k)=>'<div class="frow" data-file="'+k+'">'+ic('file')+'<span>'+esc(f.n)+'</span><span class="m">'+who(f.by)+'</span><span class="m">'+esc(f.d)+'</span><button class="ibtn" data-fdel="'+k+'" title="Delete file">'+ic('trash')+'</button></div>').join(''):'<div class="frow"><span></span><span class="muted">No files yet. Upload something for the team.</span></div>')+
+    '</div><input type="file" id="pfile" multiple hidden></div>';
+  $('pUp').onclick=()=>$('pfile').click();
+  $('pfile').onchange=e=>{[...e.target.files].forEach(f=>S.files.unshift({n:f.name,by:-1,d:'Just now'}));save();filesView(m);toast('Uploaded to the project')};
+  $('pFold').onclick=()=>modal('<h2>New folder</h2><label class="f"><span>Folder name</span><input class="inp" id="fn" placeholder="Folder name goes here"></label><div class="mrow"><span class="grow"></span><button class="btn ghost" data-mx>Cancel</button><button class="btn" id="fO">Create folder</button></div>',
+    ()=>{const ok=()=>{const v=$('fn').value.trim();if(!v)return $('fn').classList.add('bad');S.folders.push(v);save();closeModal();filesView(m)};$('fO').onclick=ok;$('fn').onkeydown=e=>{if(e.key==='Enter')ok()}});
+  $('pq').oninput=()=>{const v=$('pq').value.toLowerCase();m.querySelectorAll('[data-file]').forEach(r=>r.style.display=r.textContent.toLowerCase().includes(v)?'':'none')};
+  m.querySelectorAll('[data-fdel]').forEach(b=>b.onclick=()=>{S.files.splice(+b.dataset.fdel,1);save();filesView(m);toast('File deleted')});
+  m.querySelectorAll('[data-fold]').forEach(b=>b.onclick=()=>toast('Opening folders comes with the backend'));
+}
+/* ---------- shared project: tasks board ---------- */
+function tasksView(m){
+  const td=iso(new Date());
+  m.innerHTML=projHead('tasks')+'<div class="board" id="board">'+S.board.map((col,ci)=>'<div class="col"><div class="col-h"><b>'+esc(col.name)+'</b><span class="cnt">'+col.cards.length+'</span><span class="grow"></span><button class="ibtn" data-colmenu="'+ci+'" title="Section options">'+ic('dots')+'</button></div>'+
+    '<div class="cards2" data-cdrop="'+ci+'">'+col.cards.map((c,k)=>'<div class="tc'+(c.done?' done':'')+'" draggable="true" data-card="'+ci+':'+k+'"><label class="tck"><input type="checkbox" data-tdone="'+ci+':'+k+'"'+(c.done?' checked':'')+'></label><div class="tcb"><span>'+esc(c.t)+'</span><div class="tcm">'+
+      (c.due?'<span class="due'+(c.due<td&&!c.done?' late':'')+'">'+ic('cal')+fmt(c.due)+'</span>':'')+'<span class="grow"></span>'+av(person(c.who),24)+'</div></div></div>').join('')+'</div>'+
+    '<input class="inp addc" data-addc="'+ci+'" placeholder="+ Add a task"></div>').join('')+'<button class="col addcol" id="addCol">'+ic('plus')+' Add section</button></div>';
+  const b=$('board');let dc=null;
+  b.querySelectorAll('[data-addc]').forEach(i=>i.onkeydown=e=>{if(e.key==='Enter'&&i.value.trim()){S.board[+i.dataset.addc].cards.push({t:i.value.trim(),who:-1,due:''});save();tasksView(m);m.querySelector('[data-addc="'+i.dataset.addc+'"]').focus()}});
+  b.addEventListener('change',e=>{const x=e.target.dataset.tdone;if(!x)return;const [ci,k]=x.split(':').map(Number);S.board[ci].cards[k].done=e.target.checked;save();tasksView(m)});
+  b.addEventListener('click',e=>{if(e.target.closest('.tck'))return;const t=e.target.closest('[data-card]');if(t){const [ci,k]=t.dataset.card.split(':').map(Number);cardDrawer(m,ci,k);return}
+    const cm=e.target.closest('[data-colmenu]');if(cm){const ci=+cm.dataset.colmenu,r=cm.getBoundingClientRect();
+      menu(r.left,r.bottom+4,S.board[ci].name,[['Rename section','edit',0,()=>colModal(m,ci)],['Delete section','trash',1,()=>{if(S.board.length<2)return toast('You need at least one section');ask('Delete "'+esc(S.board[ci].name)+'"?','Its '+S.board[ci].cards.length+' tasks will be deleted too.',[['Delete section','danger',()=>{S.board.splice(ci,1);save();tasksView(m)}]])}]])}});
+  $('addCol').onclick=()=>colModal(m,-1);
+  b.addEventListener('dragstart',e=>{const t=e.target.closest('[data-card]');if(t){dc=t.dataset.card;e.dataTransfer.setData('text/plain',dc)}});
+  b.addEventListener('dragover',e=>{const z=e.target.closest('[data-cdrop]');if(!dc||!z)return;e.preventDefault();b.querySelectorAll('.over').forEach(x=>x.classList.remove('over'));z.classList.add('over')});
+  b.addEventListener('drop',e=>{const z=e.target.closest('[data-cdrop]');if(!dc||!z)return;e.preventDefault();const [ci,k]=dc.split(':').map(Number);const card=S.board[ci].cards.splice(k,1)[0];
+    const to=+z.dataset.cdrop,t=e.target.closest('[data-card]');let idx=S.board[to].cards.length;
+    if(t){const [tc,tk]=t.dataset.card.split(':').map(Number);if(tc===to)idx=(tc===ci&&tk>k)?tk-1:tk}
+    card.done=/done/i.test(S.board[to].name)?1:card.done&&!/to do|progress/i.test(S.board[to].name)?1:0;
+    S.board[to].cards.splice(idx,0,card);dc=null;save();tasksView(m)});
+  b.addEventListener('dragend',()=>{dc=null;b.querySelectorAll('.over').forEach(x=>x.classList.remove('over'))});
+}
+function colModal(m,ci){const col=S.board[ci];
+  modal('<h2>'+(col?'Rename section':'Add section')+'</h2><label class="f"><span>Section name</span><input class="inp" id="cn" placeholder="Section name goes here" value="'+esc(col?col.name:'')+'"></label><div class="mrow"><span class="grow"></span><button class="btn ghost" data-mx>Cancel</button><button class="btn" id="cO">'+(col?'Save':'Add section')+'</button></div>',
+  ()=>{const ok=()=>{const v=$('cn').value.trim();if(!v)return $('cn').classList.add('bad');if(col)col.name=v;else S.board.push({id:'b'+Date.now(),name:v,cards:[]});save();closeModal();tasksView(m)};$('cO').onclick=ok;$('cn').onkeydown=e=>{if(e.key==='Enter')ok()}})}
+const peopleOpts=()=>[[-1,'You']].concat(MEM.map(p=>[p.i,'Name goes here ('+p.r+')']));
+function cardDrawer(m,ci,k){const c=S.board[ci].cards[k];
+  openDrawer('<div class="muted small">'+esc(S.board[ci].name)+' &middot; shared task</div><h2 style="margin:4px 0 14px">Task details</h2>'+
+    '<label class="f"><span>Task</span><input class="inp" id="dT" value="'+esc(c.t)+'"></label>'+
+    '<div class="f2"><label class="f"><span>Assigned to</span>'+selectHTML('dW',peopleOpts(),c.who)+'</label><label class="f"><span>Due date</span><input class="inp" type="date" id="dD" value="'+(c.due||'')+'"></label></div>'+
+    '<label class="f"><span>Section</span>'+selectHTML('dS',S.board.map((b,i)=>[i,b.name]),ci)+'</label>'+
+    '<label class="f"><span>Notes</span><textarea class="inp" id="dN" placeholder="Notes go here">'+esc(c.n||'')+'</textarea></label>'+
+    '<div style="display:flex;gap:10px;margin-top:22px"><button class="btn" id="dO">Save</button><button class="btn ghost" data-close>Cancel</button><span class="grow"></span><button class="btn danger" id="dX">'+ic('trash')+' Delete</button></div>',
+  d=>{d.querySelector('#dO').onclick=()=>{c.t=d.querySelector('#dT').value.trim()||c.t;c.who=+d.querySelector('#dW').value;c.due=d.querySelector('#dD').value;c.n=d.querySelector('#dN').value;
+      const to=+d.querySelector('#dS').value;if(to!==ci){S.board[ci].cards.splice(k,1);S.board[to].cards.push(c)}save();closeDrawer();tasksView(m);toast('Task saved')};
+    d.querySelector('#dX').onclick=()=>{S.board[ci].cards.splice(k,1);save();closeDrawer();tasksView(m);toast('Task deleted')}})}
+/* ---------- shared project: calendar ---------- */
+let calM=new Date();calM.setDate(1);
+function calView(m){
+  const y=calM.getFullYear(),mo=calM.getMonth(),first=new Date(y,mo,1),start=(first.getDay()+6)%7,td=iso(new Date());
+  let cells='';for(let k=0;k<42;k++){const d=new Date(y,mo,1-start+k),ds=iso(d),ev=S.events.filter(e=>e.d===ds).sort((a,b)=>(a.time||'').localeCompare(b.time||''));
+    if(k===35&&d.getMonth()!==mo)break;
+    cells+='<div class="cd'+(d.getMonth()!==mo?' oth':'')+(ds===td?' tdy':'')+'" data-day="'+ds+'"><span class="dn">'+d.getDate()+'</span>'+ev.map(e=>'<button class="ev'+(e.ch?' vc':'')+'" data-ev="'+e.id+'">'+(e.time?'<b>'+e.time+'</b> ':'')+esc(e.t)+'</button>').join('')+'</div>'}
+  const up=S.events.filter(e=>e.d>=td).sort((a,b)=>(a.d+a.time).localeCompare(b.d+b.time)).slice(0,5);
+  m.innerHTML=projHead('calendar')+'<div class="page-body cal2"><div class="toolbar"><button class="btn ghost" data-cm="-1" title="Previous month">'+ic('chevl')+'</button><button class="btn ghost" data-cm="0">Today</button><button class="btn ghost" data-cm="1" title="Next month">'+ic('chevr')+'</button>'+
+    '<h2 class="cm">'+first.toLocaleString('en-GB',{month:'long',year:'numeric'})+'</h2><span class="grow"></span><button class="btn" data-newev>'+ic('plus')+' New event</button></div>'+
+    '<div class="cgrid2">'+['Mon','Tue','Wed','Thu','Fri','Sat','Sun'].map(x=>'<div class="wd">'+x+'</div>').join('')+cells+'</div>'+
+    '<div class="h2" style="margin-top:24px">Coming up</div><div class="upc">'+(up.length?up.map(e=>{const d=new Date(e.d+'T00:00'),vf=e.ch&&findCh(e.ch);
+      return '<div class="uc" data-ev="'+e.id+'"><span class="dt">'+d.toLocaleDateString('en-GB',{weekday:'short'})+'<b>'+d.getDate()+'</b></span><div><b>'+esc(e.t)+'</b><small>'+(e.time||'All day')+(vf?' &middot; '+ic('vol')+esc(vf.c.name):'')+'</small></div>'+(vf?'<button class="btn ghost" data-join="'+e.ch+'">Join</button>':'')+'</div>'}).join(''):'<p class="muted">Nothing planned yet.</p>')+'</div></div>';
+  m.querySelectorAll('[data-cm]').forEach(b=>b.onclick=()=>{const v=+b.dataset.cm;if(v)calM.setMonth(calM.getMonth()+v);else{calM=new Date();calM.setDate(1)}calView(m)});
+  m.querySelector('[data-newev]').onclick=()=>evDrawer(m,null,td);
+  m.querySelector('.page-body').addEventListener('click',e=>{if(e.target.closest('[data-join]'))return;const ev=e.target.closest('[data-ev]');if(ev)return evDrawer(m,ev.dataset.ev);const d=e.target.closest('[data-day]');if(d)evDrawer(m,null,d.dataset.day)});
+}
+function evDrawer(m,id,day){const e=id?S.events.find(x=>x.id===id):{t:'',d:day,time:'09:00',ch:''};
+  openDrawer('<div class="muted small">Shared with everyone in this server</div><h2 style="margin:4px 0 14px">'+(id?'Event':'New event')+'</h2>'+
+    '<label class="f"><span>Title</span><input class="inp" id="eT" placeholder="Event title goes here" value="'+esc(e.t)+'"></label>'+
+    '<div class="f2"><label class="f"><span>Date</span><input class="inp" type="date" id="eD" value="'+e.d+'"></label><label class="f"><span>Time</span><input class="inp" type="time" id="eH" value="'+(e.time||'')+'"></label></div>'+
+    '<label class="f"><span>Voice channel</span>'+selectHTML('eC',[['','No voice channel']].concat(voiceChs().map(c=>[c.id,c.name])),e.ch)+'</label>'+
+    '<label class="f"><span>Notes</span><textarea class="inp" id="eN" placeholder="Notes go here">'+esc(e.n||'')+'</textarea></label>'+
+    '<div style="display:flex;gap:10px;margin-top:22px;flex-wrap:wrap"><button class="btn" id="eO">'+(id?'Save':'Add event')+'</button>'+(id&&e.ch&&findCh(e.ch)?'<button class="btn ghost" id="eJ">'+ic('vol')+' Join voice channel</button>':'')+'<button class="btn ghost" data-close>Cancel</button><span class="grow"></span>'+(id?'<button class="btn danger" id="eX">'+ic('trash')+'</button>':'')+'</div>',
+  d=>{const g=s=>d.querySelector(s);g('#eO').onclick=()=>{const t=g('#eT').value.trim();if(!t){g('#eT').classList.add('bad');return}
+      Object.assign(e,{t,d:g('#eD').value||e.d,time:g('#eH').value,ch:g('#eC').value,n:g('#eN').value});if(!id){e.id='e'+Date.now();S.events.push(e)}save();closeDrawer();calView(m);toast(id?'Event saved':'Event added')};
+    if(g('#eJ'))g('#eJ').onclick=()=>{closeDrawer();join(e.ch)};
+    if(g('#eX'))g('#eX').onclick=()=>{S.events=S.events.filter(x=>x!==e);save();closeDrawer();calView(m);toast('Event deleted')}})}
+/* ---------- shared project: roadmap ---------- */
+const MONS=()=>{const b=new Date();return [0,1,2,3,4,5].map(k=>new Date(b.getFullYear(),b.getMonth()+k,1).toLocaleString('en-GB',{month:'short',year:'2-digit'}))};
+function roadView(m){
+  const n=new Date(),tp=((n.getDate()-1)/new Date(n.getFullYear(),n.getMonth()+1,0).getDate())/6;
+  m.innerHTML=projHead('roadmap')+'<div class="page-body"><div class="toolbar"><span class="muted">Milestones for this project. Click one to edit it.</span><span class="grow"></span><button class="btn" id="newMs">'+ic('plus')+' Add milestone</button></div>'+
+    '<div class="rm"><div class="rm-h"><span style="border:0">Milestone</span><div>'+MONS().map(x=>'<span>'+x+'</span>').join('')+'</div></div>'+
+    S.miles.map(ms=>'<div class="rm-r"><div class="rm-l"><b>'+esc(ms.t)+'</b><small>'+who(ms.who)+' &middot; '+(ms.p||0)+'% done'+(ms.ch&&findCh(ms.ch)?' &middot; '+(findCh(ms.ch).c.type==='text'?'#':'')+esc(findCh(ms.ch).c.name):'')+'</small></div><div class="rm-t"><div class="rm-b" data-ms="'+ms.id+'" style="left:'+(ms.s/6*100)+'%;width:'+Math.max(4,(ms.e-ms.s)/6*100)+'%;background:'+ms.c+'"><i style="width:'+(ms.p||0)+'%"></i><span>'+esc(ms.t)+'</span></div></div></div>').join('')+
+    '<div class="rm-now" style="left:calc(220px + (100% - 220px) * '+tp.toFixed(4)+')"></div></div></div>';
+  $('newMs').onclick=()=>msDrawer(m,null);
+  m.querySelectorAll('[data-ms]').forEach(b=>b.onclick=()=>msDrawer(m,b.dataset.ms));
+}
+function msDrawer(m,id){const ms=id?S.miles.find(x=>x.id===id):{t:'',who:-1,s:0,e:1,c:'#7c5cff',p:0,ch:''};
+  const mo=MONS(),half=[];for(let k=0;k<=12;k++)half.push([k/2,k%2?'Mid '+mo[Math.min(5,Math.floor(k/2))]:(k<12?'Start of '+mo[k/2]:'End of '+mo[5])]);
+  openDrawer('<div class="muted small">Shared roadmap</div><h2 style="margin:4px 0 14px">'+(id?'Milestone':'New milestone')+'</h2>'+
+    '<label class="f"><span>Name</span><input class="inp" id="mT" placeholder="Milestone name goes here" value="'+esc(ms.t)+'"></label>'+
+    '<label class="f"><span>Owner</span>'+selectHTML('mW',peopleOpts(),ms.who)+'</label>'+
+    '<div class="f2"><label class="f"><span>Starts</span>'+selectHTML('mS',half.slice(0,12),ms.s)+'</label><label class="f"><span>Ends</span>'+selectHTML('mE',half.slice(1),ms.e)+'</label></div>'+
+    '<label class="f"><span>Progress: <b id="mPv">'+(ms.p||0)+'%</b></span><input type="range" id="mP" min="0" max="100" step="5" value="'+(ms.p||0)+'" style="width:100%;accent-color:var(--primary)"></label>'+
+    '<label class="f"><span>Linked channel</span>'+selectHTML('mC',[['','None']].concat(allCh().map(c=>[c.id,(c.type==='text'?'#':'')+c.name])),ms.ch||'')+'</label>'+
+    '<div class="f"><span>Colour</span><div class="sws" id="mK">'+['#7c5cff','#1f9d8d','#3d8fd9','#c2569a','#d98a3d','#3ecf8e'].map(c=>'<i data-c="'+c+'" style="background:'+c+'"'+(c===ms.c?' class="on"':'')+'></i>').join('')+'</div></div>'+
+    '<div style="display:flex;gap:10px;margin-top:22px;flex-wrap:wrap"><button class="btn" id="mO">'+(id?'Save':'Add milestone')+'</button>'+(id&&ms.ch&&findCh(ms.ch)?'<button class="btn ghost" id="mG">Open linked channel</button>':'')+'<button class="btn ghost" data-close>Cancel</button><span class="grow"></span>'+(id?'<button class="btn danger" id="mX">'+ic('trash')+'</button>':'')+'</div>',
+  d=>{const g=s=>d.querySelector(s);let col=ms.c;
+    g('#mP').oninput=()=>g('#mPv').textContent=g('#mP').value+'%';
+    g('#mK').onclick=e=>{const i=e.target.closest('[data-c]');if(!i)return;col=i.dataset.c;g('#mK').querySelectorAll('i').forEach(x=>x.classList.toggle('on',x===i))};
+    g('#mO').onclick=()=>{const t=g('#mT').value.trim();if(!t){g('#mT').classList.add('bad');return}let s=+g('#mS').value,e=+g('#mE').value;if(e<=s)e=s+.5;
+      Object.assign(ms,{t,who:+g('#mW').value,s,e,p:+g('#mP').value,ch:g('#mC').value,c:col});if(!id){ms.id='m'+Date.now();S.miles.push(ms)}save();closeDrawer();roadView(m);toast(id?'Milestone saved':'Milestone added')};
+    if(g('#mG'))g('#mG').onclick=()=>{closeDrawer();openCh(ms.ch)};
+    if(g('#mX'))g('#mX').onclick=()=>{S.miles=S.miles.filter(x=>x!==ms);save();closeDrawer();roadView(m);toast('Milestone deleted')}})}
+
+/* ---------- events ---------- */
+document.addEventListener('click',e=>{
+  const t=e.target;let b;
+  if(t.closest('.drawer,.ctx'))return;
+  if(b=t.closest('[data-toast]')){e.preventDefault();toast(b.dataset.toast);return}
+  if(t.closest('#srvBtn')){e.stopPropagation();cx.classList.contains('open')?cx.classList.remove('open'):serverMenu();return}
+  if(b=t.closest('[data-editch]')){e.preventDefault();chModal({edit:b.dataset.editch});return}
+  if(b=t.closest('[data-invch]')){e.preventDefault();const id=b.dataset.invch;if(!vc||vc.ch!==id)join(id);invModal();return}
+  if(b=t.closest('[data-addch]')){e.preventDefault();chModal({area:b.dataset.addch});return}
+  if(b=t.closest('[data-areamenu]')){e.preventDefault();const r=b.getBoundingClientRect();areaMenu(b.dataset.areamenu,r.left,r.bottom+4);return}
+  if(b=t.closest('[data-toggle]')){const a=S.areas.find(x=>x.id===b.dataset.toggle);if(a){a.open=!a.open;save();renderSide()}return}
+  if(b=t.closest('a[data-ch]')){e.preventDefault();openCh(b.dataset.ch);return}
+  if(b=t.closest('[data-proj]')){e.preventDefault();view=b.dataset.proj;setURL();render();return}
+  if(t.closest('[data-newarea]')){areaModal();return}
+  if(t.closest('[data-newch]')){chModal({});return}
+  if(b=t.closest('[data-join]')){e.preventDefault();join(b.dataset.join);return}
+  if(t.closest('[data-vinv]')){invModal();return}
+  if(t.closest('[data-vleave]')){leave();return}
+  if(t.closest('[data-vmic]')&&vc){vc.mic=!vc.mic;render();return}
+  if(t.closest('[data-vcam]')&&vc){vc.cam=!vc.cam;render();return}
+  if(t.closest('[data-vshare]')&&vc){vc.share=!vc.share;toast(vc.share?'You are sharing your screen':'Stopped sharing');render();return}
+  if(t.closest('[data-govc]')){e.preventDefault();cur=vc.ch;view='ch';setURL();render();return}
+  if(b=t.closest('[data-invm]')){invite(+b.dataset.invm);return}
+  if(b=t.closest('[data-cring]')){cancelRing(+b.dataset.cring);return}
+  if(t.closest('[data-mem]')){memOpen=!memOpen;store.set('srvMem',memOpen);renderMem();renderMain();return}
+});
+$('app').addEventListener('contextmenu',e=>{
+  let b;
+  if(b=e.target.closest('[data-ch]')){e.preventDefault();chMenu(b.dataset.ch,e.clientX,e.clientY);return}
+  if(b=e.target.closest('[data-area]')){e.preventDefault();areaMenu(b.dataset.area,e.clientX,e.clientY);return}
+  if(b=e.target.closest('.mr[data-m]')){e.preventDefault();const p=MEM.find(x=>x.i===+b.dataset.m);if(p)memMenu(p.i,e.clientX,e.clientY);return}
+  if(e.target.closest('#chs')&&admin){e.preventDefault();menu(e.clientX,e.clientY,S.name,[['Create channel','plus',0,()=>chModal({})],['Create area','folder',0,()=>areaModal()]])}
+});
+render();
+})();
+</script>
+</body>
+</html>

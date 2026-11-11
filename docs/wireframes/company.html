@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Company home</title>
+<link rel="stylesheet" href="app.css">
+</head>
+<body>
+<div class="app solo">
+  <!-- SERVER RAIL -->
+  <nav class="rail">
+    <a class="tile" href="messages.html" title="Direct messages">
+      <svg viewBox="0 0 24 24"><path d="M4 5h16v11H9l-5 4z"/></svg>
+    </a>
+    <span class="sep"></span>
+    <a class="tile co active" href="company.html" title="Company home">Co</a>
+    <span class="sep"></span>
+    <a class="tile" href="server.html" title="Company / server">A<span class="badge">1</span></a>
+    <a class="tile" href="server.html" title="Company / server">B</a>
+    <a class="tile" href="server.html" title="Company / server">C</a>
+    <a class="tile" href="server.html" title="Company / server">D</a>
+    <a class="tile" href="server.html" title="Company / server">E</a>
+    <a class="tile add" href="company.html?new=1" title="Add a server">
+      <svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>
+    </a>
+  </nav>
+
+  <!-- DM SIDEBAR -->
+  <aside class="side">
+    <div class="search"><button>Find or start a conversation</button></div>
+    <div class="nav">
+      <div class="nav-h"><svg viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg> Private &middot; only you can see</div>
+      <a class="nav-item" data-nav="files" href="personal-files.html"><svg viewBox="0 0 24 24"><path d="M3 6a2 2 0 0 1 2-2h4l2 3h8a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>Personal files</a>
+      <a class="nav-item" data-nav="tasks" href="personal-tasks.html"><svg viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="3"/><path d="M8 12l3 3 5-6"/></svg>Tasks</a>
+      <a class="nav-item" data-nav="calendar" href="personal-calendar.html"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>Calendar</a>
+      <a class="nav-item" data-nav="roadmap" href="personal-roadmap.html"><svg viewBox="0 0 24 24"><path d="M3 7h10M3 12h14M3 17h8"/><circle cx="17" cy="7" r="2"/><circle cx="21" cy="12" r="0.5"/><circle cx="15" cy="17" r="2"/></svg>Visual roadmap<svg class="mini" viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg></a>
+    </div>
+    <h4 class="dm-h">Direct Messages <button title="New message">+</button></h4>
+    <div class="dms">
+      <div class="dm has-unread"><div class="av">N<i class="dot on"></i></div>Name goes here<span class="unread">2</span></div>
+      <div class="dm"><div class="av">N<i class="dot on"></i></div>Name goes here</div>
+      <div class="dm has-unread"><div class="av">N<i class="dot"></i></div>Name goes here<span class="unread">1</span></div>
+      <div class="dm"><div class="av">N<i class="dot on"></i></div>Name goes here</div>
+      <div class="dm"><div class="av">N<i class="dot"></i></div>Name goes here</div>
+      <div class="dm"><div class="av">N<i class="dot"></i></div>Name goes here</div>
+      <div class="dm"><div class="av">N<i class="dot on"></i></div>Name goes here</div>
+      <div class="dm"><div class="av">N<i class="dot"></i></div>Name goes here</div>
+    </div>
+    <div class="me">
+      <div class="av">Y<i class="dot on" style="border-color:#0e0e22"></i></div>
+      <div class="who"><b>Your name</b><span>Online</span></div>
+      <button title="Mute"><svg viewBox="0 0 24 24"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg></button>
+      <button title="Deafen"><svg viewBox="0 0 24 24"><path d="M4 14v-2a8 8 0 0 1 16 0v2"/><rect x="3" y="14" width="4" height="6" rx="1"/><rect x="17" y="14" width="4" height="6" rx="1"/></svg></button>
+      <a class="ibtn" href="settings.html" title="Settings"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19 12a7 7 0 0 0-.1-1.2l2-1.5-2-3.4-2.3 1a7 7 0 0 0-2-1.2L14.3 3h-4l-.3 2.7a7 7 0 0 0-2 1.2l-2.3-1-2 3.4 2 1.5A7 7 0 0 0 5 12c0 .4 0 .8.1 1.2l-2 1.5 2 3.4 2.3-1a7 7 0 0 0 2 1.2l.3 2.7h4l.3-2.7a7 7 0 0 0 2-1.2l2.3 1 2-3.4-2-1.5c.1-.4.1-.8.1-1.2z"/></svg></a>
+    </div>
+  </aside>
+
+  <main class="page">
+    <header class="chat-head">
+      <span style="color:var(--accent)"><svg viewBox="0 0 24 24"><path d="M3 6a2 2 0 0 1 2-2h4l2 3h8a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg></span>
+      <div class="title">Company home</div>
+      
+    </header>
+    <div class="page-body">
+
+<div class="co-head"><span class="lg">C</span><div class="grow"><h1 id="coName">Company name goes here</h1><span class="muted">Company description goes here</span></div>
+  <button class="btn ghost" id="invBtn"><svg viewBox="0 0 24 24"><circle cx="9" cy="8" r="4"/><path d="M2 21a7 7 0 0 1 14 0M17 4a4 4 0 0 1 0 8M22 21a7 7 0 0 0-4-6"/></svg> Invite people</button><a class="btn ghost" href="settings.html#company"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.9 4.9l2.1 2.1M17 17l2.1 2.1M4.9 19.1L7 17M17 7l2.1-2.1"/></svg> Company settings</a><button class="btn" id="newSrv"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg> New server</button></div>
+<div class="stats"><div class="stat"><b>0</b><small>Servers</small></div><div class="stat"><b>0</b><small>Members</small></div><div class="stat"><b>0</b><small>Online now</small></div><div class="stat"><b>0</b><small>Calls this week</small></div></div>
+<div class="co-grid"><div>
+  <div class="sec-t"><h2>Servers</h2><div class="seg" style="width:200px"><button class="on" data-f="all">All</button><button data-f="Team">Teams</button><button data-f="Project">Projects</button></div></div>
+  <div class="srvs" id="srvs"><a class="srv" href="server.html" data-srv><span class="si" style="background:#7c5cff">S</span><span class="chip tg">Team</span><b>Server name goes here</b><small>Description goes here</small><div class="meta"><span class="on">&bull; 0 online</span><span>0 members</span></div></a><a class="srv" href="server.html" data-srv><span class="si" style="background:#1f9d8d">S</span><span class="chip tg">Team</span><b>Server name goes here</b><small>Description goes here</small><div class="meta"><span class="on">&bull; 0 online</span><span>0 members</span></div></a><a class="srv" href="server.html" data-srv><span class="si" style="background:#3d8fd9">S</span><span class="chip tg">Project</span><b>Server name goes here</b><small>Description goes here</small><div class="meta"><span class="on">&bull; 0 online</span><span>0 members</span></div></a><a class="srv" href="server.html" data-srv><span class="si" style="background:#c2569a">S</span><span class="chip tg">Project</span><b>Server name goes here</b><small>Description goes here</small><div class="meta"><span class="on">&bull; 0 online</span><span>0 members</span></div></a><a class="srv" href="server.html" data-srv><span class="si" style="background:#d98a3d">S</span><span class="chip tg">Project</span><b>Server name goes here</b><small>Description goes here</small><div class="meta"><span class="on">&bull; 0 online</span><span>0 members</span></div></a><button class="srv add" id="addSrv"><div><svg viewBox="0 0 24 24" style="width:26px;height:26px;margin:0 auto 6px;display:block"><path d="M12 5v14M5 12h14"/></svg>Create a server</div></button></div>
+</div><div>
+  <div class="sec-t"><h2>Upcoming meetings</h2><a class="link" href="personal-calendar.html">Calendar</a></div>
+  <div class="lst"><div><span class="dt">Mon<b>00</b></span><div class="t"><b>Meeting title goes here</b><small>Time goes here &middot; Server name goes here</small></div><a class="btn ghost" href="call.html">Join</a></div>
+    <div><span class="dt">Mon<b>00</b></span><div class="t"><b>Meeting title goes here</b><small>Time goes here &middot; Server name goes here</small></div><a class="btn ghost" href="call.html">Join</a></div>
+    <div><span class="dt">Mon<b>00</b></span><div class="t"><b>Meeting title goes here</b><small>Time goes here &middot; Server name goes here</small></div><a class="btn ghost" href="call.html">Join</a></div></div>
+  <div class="sec-t"><h2>Online members</h2><a class="link" href="settings.html#members">All members</a></div>
+  <div class="lst"><div><span class="av">NA</span><div class="t"><b>Name goes here</b><small>Job title goes here</small></div><span class="muted" style="font-size:12px">Online</span></div><div><span class="av">NB</span><div class="t"><b>Name goes here</b><small>Job title goes here</small></div><span class="muted" style="font-size:12px">Online</span></div><div><span class="av">NC</span><div class="t"><b>Name goes here</b><small>Job title goes here</small></div><span class="muted" style="font-size:12px">In a call</span></div></div>
+</div></div>
+    </div>
+  </main>
+</div>
+<script src="app.js"></script>
+<script>
+  document.querySelectorAll('.dm').forEach(d=>d.addEventListener('click',()=>{
+    document.querySelectorAll('.dm').forEach(x=>x.classList.remove('active'));d.classList.add('active');
+  }));
+
+  const nm=store.get('company');if(nm){document.getElementById('coName').textContent=nm;document.querySelector('.tile.co').textContent=nm.slice(0,2).toUpperCase();document.querySelector('.co-head .lg').textContent=nm[0].toUpperCase()}
+  if(new URLSearchParams(location.search).get('welcome'))setTimeout(()=>toast('Company created. Add your first server.'),300);
+  document.querySelectorAll('.seg [data-f]').forEach(b=>b.onclick=()=>{document.querySelectorAll('.seg [data-f]').forEach(x=>x.classList.toggle('on',x===b));
+    document.querySelectorAll('[data-srv]').forEach(s=>{s.style.display=(b.dataset.f==='all'||s.querySelector('.tg').textContent===b.dataset.f)?'':'none'})});
+  function newSrv(){openDrawer('<h2 style="margin-bottom:4px">Create a server</h2><p class="muted small">Servers are spaces for a team or a project.</p>'+
+    '<label class="f"><span>Server name</span><input class="inp" id="sn" placeholder="Server name goes here"></label>'+
+    '<label class="f"><span>Description</span><textarea class="inp" placeholder="Description goes here"></textarea></label>'+
+    '<div class="f"><span>Type</span><div class="seg" id="st"><button class="on">Team</button><button>Project</button></div></div>'+
+    '<div class="f"><span>Who can join</span><div class="seg" id="sv"><button class="on">Invite only</button><button>Everyone in company</button></div></div>'+
+    '<div style="display:flex;gap:10px;margin-top:24px"><button class="btn" id="mk">Create server</button><button class="btn ghost" data-close>Cancel</button></div>',
+    d=>{d.querySelectorAll('.seg').forEach(s=>s.onclick=e=>{const b=e.target.closest('button');if(b)s.querySelectorAll('button').forEach(x=>x.classList.toggle('on',x===b))});
+      d.querySelector('#mk').onclick=()=>{const n=d.querySelector('#sn').value.trim();if(!n){d.querySelector('#sn').style.borderColor='var(--danger)';return}
+        const type=d.querySelector('#st .on').textContent;const a=document.createElement('a');a.className='srv';a.href='server.html';a.setAttribute('data-srv','');
+        a.innerHTML='<span class="si" style="background:#7c5cff">'+esc(n[0].toUpperCase())+'</span><span class="chip tg">'+type+'</span><b>'+esc(n)+'</b><small>Description goes here</small><div class="meta"><span class="on">&bull; 1 online</span><span>1 member</span></div>';
+        document.getElementById('srvs').insertBefore(a,document.getElementById('addSrv'));closeDrawer();toast('Server created')}})}
+  document.getElementById('newSrv').onclick=document.getElementById('addSrv').onclick=newSrv;
+  document.getElementById('invBtn').onclick=()=>openDrawer('<h2 style="margin-bottom:4px">Invite people</h2><p class="muted small">Send an invite to join the company.</p>'+
+    '<label class="f"><span>Email addresses</span><textarea class="inp" placeholder="Email goes here, Email goes here"></textarea></label>'+
+    '<label class="f"><span>Role</span>'+selectHTML('rl',['Member','Admin','Guest'],'Member')+'</label>'+
+    '<div class="f"><span>Or share an invite link</span><div style="display:flex;gap:8px"><input class="inp" readonly value="Invite link goes here"><button class="btn ghost" id="cp">Copy</button></div></div>'+
+    '<div style="display:flex;gap:10px;margin-top:24px"><button class="btn" id="sd">Send invites</button><button class="btn ghost" data-close>Cancel</button></div>',
+    d=>{d.querySelector('#cp').onclick=()=>toast('Invite link copied');d.querySelector('#sd').onclick=()=>{closeDrawer();toast('Invites sent')}});
+
+</script>
+</body>
+</html>

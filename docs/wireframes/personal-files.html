@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Personal files</title>
+<link rel="stylesheet" href="app.css">
+</head>
+<body>
+<div class="app solo">
+  <!-- SERVER RAIL -->
+  <nav class="rail">
+    <a class="tile active" href="messages.html" title="Direct messages">
+      <svg viewBox="0 0 24 24"><path d="M4 5h16v11H9l-5 4z"/></svg>
+    </a>
+    <span class="sep"></span>
+    <a class="tile co" href="company.html" title="Company home">Co</a>
+    <span class="sep"></span>
+    <a class="tile" href="server.html" title="Company / server">A<span class="badge">1</span></a>
+    <a class="tile" href="server.html" title="Company / server">B</a>
+    <a class="tile" href="server.html" title="Company / server">C</a>
+    <a class="tile" href="server.html" title="Company / server">D</a>
+    <a class="tile" href="server.html" title="Company / server">E</a>
+    <a class="tile add" href="company.html?new=1" title="Add a server">
+      <svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>
+    </a>
+  </nav>
+
+  <!-- DM SIDEBAR -->
+  <aside class="side">
+    <div class="search"><button>Find or start a conversation</button></div>
+    <div class="nav">
+      <div class="nav-h"><svg viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg> Private &middot; only you can see</div>
+      <a class="nav-item active" data-nav="files" href="personal-files.html"><svg viewBox="0 0 24 24"><path d="M3 6a2 2 0 0 1 2-2h4l2 3h8a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>Personal files</a>
+      <a class="nav-item" data-nav="tasks" href="personal-tasks.html"><svg viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="3"/><path d="M8 12l3 3 5-6"/></svg>Tasks</a>
+      <a class="nav-item" data-nav="calendar" href="personal-calendar.html"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>Calendar</a>
+      <a class="nav-item" data-nav="roadmap" href="personal-roadmap.html"><svg viewBox="0 0 24 24"><path d="M3 7h10M3 12h14M3 17h8"/><circle cx="17" cy="7" r="2"/><circle cx="21" cy="12" r="0.5"/><circle cx="15" cy="17" r="2"/></svg>Visual roadmap<svg class="mini" viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg></a>
+    </div>
+    <h4 class="dm-h">Direct Messages <button title="New message">+</button></h4>
+    <div class="dms">
+      <div class="dm has-unread"><div class="av">N<i class="dot on"></i></div>Name goes here<span class="unread">2</span></div>
+      <div class="dm"><div class="av">N<i class="dot on"></i></div>Name goes here</div>
+      <div class="dm has-unread"><div class="av">N<i class="dot"></i></div>Name goes here<span class="unread">1</span></div>
+      <div class="dm"><div class="av">N<i class="dot on"></i></div>Name goes here</div>
+      <div class="dm"><div class="av">N<i class="dot"></i></div>Name goes here</div>
+      <div class="dm"><div class="av">N<i class="dot"></i></div>Name goes here</div>
+      <div class="dm"><div class="av">N<i class="dot on"></i></div>Name goes here</div>
+      <div class="dm"><div class="av">N<i class="dot"></i></div>Name goes here</div>
+    </div>
+    <div class="me">
+      <div class="av">Y<i class="dot on" style="border-color:#0e0e22"></i></div>
+      <div class="who"><b>Your name</b><span>Online</span></div>
+      <button title="Mute"><svg viewBox="0 0 24 24"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg></button>
+      <button title="Deafen"><svg viewBox="0 0 24 24"><path d="M4 14v-2a8 8 0 0 1 16 0v2"/><rect x="3" y="14" width="4" height="6" rx="1"/><rect x="17" y="14" width="4" height="6" rx="1"/></svg></button>
+      <a class="ibtn" href="settings.html" title="Settings"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19 12a7 7 0 0 0-.1-1.2l2-1.5-2-3.4-2.3 1a7 7 0 0 0-2-1.2L14.3 3h-4l-.3 2.7a7 7 0 0 0-2 1.2l-2.3-1-2 3.4 2 1.5A7 7 0 0 0 5 12c0 .4 0 .8.1 1.2l-2 1.5 2 3.4 2.3-1a7 7 0 0 0 2 1.2l.3 2.7h4l.3-2.7a7 7 0 0 0 2-1.2l2.3 1 2-3.4-2-1.5c.1-.4.1-.8.1-1.2z"/></svg></a>
+    </div>
+  </aside>
+
+  <main class="page">
+    <header class="chat-head">
+      <span style="color:var(--accent)"><svg viewBox="0 0 24 24"><path d="M3 6a2 2 0 0 1 2-2h4l2 3h8a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg></span>
+      <div class="title">Personal files</div>
+      <span class="chip"><svg viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg> Only you can see this</span>
+    </header>
+    <div class="page-body">
+      <div class="toolbar">
+        <button class="btn" id="up"><svg viewBox="0 0 24 24"><path d="M12 16V4M7 9l5-5 5 5M4 20h16"/></svg> Upload files</button>
+        <input type="file" id="picker" multiple hidden>
+        <button class="btn ghost" id="nfBtn"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg> New folder</button>
+        <button class="btn ghost tgl" id="starBtn" title="Show starred files"><svg viewBox="0 0 24 24"><path d="M12 3l2.7 5.8 6.3.8-4.6 4.3 1.2 6.3L12 17l-5.6 3.2 1.2-6.3L3 9.6l6.3-.8z"/></svg> Starred</button>
+        <span class="grow"></span>
+        <input class="inp" id="q" placeholder="Search all your files" style="width:220px">
+        <select class="inp" id="sort" title="Sort by"><option value="name">Name</option><option value="recent">Most recent</option><option value="size">Size</option></select>
+        <div class="vt"><button data-view="list" title="List view"><svg viewBox="0 0 24 24"><path d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01"/></svg></button><button data-view="grid" title="Grid view"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg></button></div>
+      </div>
+      <div class="toolbar" style="margin-top:-8px">
+        <div class="crumbs" id="crumbs" style="margin:0"></div><span class="grow"></span>
+        <div class="storage"><span class="muted small">Storage used goes here</span><div class="prog"><i style="width:34%"></i></div></div>
+      </div>
+      <div class="h2" id="fHead">Folders</div>
+      <div class="folders" id="folders"></div>
+      <div class="h2">Files</div>
+      <div id="fbox"></div>
+      <div class="drop-ov" id="drop">Drop files to add them to your private space</div>
+    </div>
+  </main>
+</div>
+<script src="app.js"></script>
+<script>
+  document.querySelectorAll('.dm').forEach(d=>d.addEventListener('click',()=>{
+    document.querySelectorAll('.dm').forEach(x=>x.classList.remove('active'));d.classList.add('active');
+  }));
+
+  const EXT={pdf:'#e5484d',docx:'#3e7bfa',xlsx:'#1f9d55',pptx:'#e8772e',png:'#a855f7',jpg:'#a855f7',zip:'#64748b',mp4:'#0ea5a4'};
+  const TYPE={pdf:'PDF document',docx:'Word document',xlsx:'Spreadsheet',pptx:'Presentation',png:'Image',jpg:'Image',zip:'Archive',mp4:'Video'};
+  const FOLD='<svg viewBox="0 0 24 24"><path d="M3 6a2 2 0 0 1 2-2h4l2 3h8a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>';
+  const STAR='<svg viewBox="0 0 24 24"><path d="M12 3l2.7 5.8 6.3.8-4.6 4.3 1.2 6.3L12 17l-5.6 3.2 1.2-6.3L3 9.6l6.3-.8z"/></svg>';
+  const LOCK='<svg viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>';
+  const fx=x=>'<span class="fx" style="background:'+(EXT[x]||'#6b6b90')+'">'+esc((x||'file').slice(0,4))+'</span>';
+  const human=b=>b<1024?b+' B':b<1048576?(b/1024).toFixed(1)+' KB':(b/1048576).toFixed(1)+' MB';
+  let fid=0,foid=4,seq=0;
+  let folders=[1,2,3,4].map(i=>({id:i,name:'Folder name goes here'}));
+  let files=[['pdf',null],['docx',null],['xlsx',1],['png',null],['pptx',2],['zip',null],['docx',1],['mp4',3]].map(([x,f],i)=>({
+    id:++fid,name:'File name goes here',ext:x,folder:f,size:'Size goes here',bytes:(i+1)*90000,mod:'Date goes here',t:++seq,star:i===1,server:i%3===0?'Project server goes here':'None'}));
+  let cur=null,q='',sort='name',view=store.get('fview','list'),starOnly=false,nf=false;
+
+  function list(){
+    const all=q||starOnly;
+    return files.filter(f=>(all||f.folder===cur)&&(!q||f.name.toLowerCase().includes(q))&&(!starOnly||f.star))
+      .sort((a,b)=>sort==='name'?a.name.localeCompare(b.name):sort==='size'?b.bytes-a.bytes:b.t-a.t);
+  }
+  function draw(){
+    const fo=folders.find(x=>x.id===cur);
+    document.getElementById('crumbs').innerHTML='<button data-root>Personal files</button>'+
+      (fo?'<span>›</span><b>'+esc(fo.name)+'</b>':'')+(q?'<span>›</span><b>Search results</b>':'')+(starOnly?'<span>›</span><b>Starred</b>':'');
+    const showF=!cur&&!q&&!starOnly;
+    document.getElementById('fHead').hidden=!showF;
+    const fw=document.getElementById('folders');fw.hidden=!showF;
+    fw.innerHTML=folders.map(f=>'<div class="folder" data-fo="'+f.id+'">'+FOLD+'<div><b>'+esc(f.name)+'</b><small>'+(n=>n+' file'+(n==1?'':'s'))(files.filter(x=>x.folder===f.id).length)+'</small></div></div>').join('')+
+      (nf?'<div class="folder"><input class="inp" id="nfIn" placeholder="Folder name, then Enter" style="width:100%"></div>':'<button class="folder add" id="nfCard">+ New folder</button>');
+    if(nf)document.getElementById('nfIn').focus();
+    const r=list(),box=document.getElementById('fbox');
+    document.querySelectorAll('[data-view]').forEach(b=>b.classList.toggle('on',b.dataset.view===view));
+    document.getElementById('starBtn').classList.toggle('on',starOnly);
+    if(!r.length){box.innerHTML='<div class="empty">'+(q?'No files match your search':starOnly?'No starred files yet':'This folder is empty. Drop files here or use Upload.')+'</div>';return}
+    if(view==='grid')box.innerHTML='<div class="fgrid">'+r.map(f=>'<div class="fcard" data-f="'+f.id+'"><div class="pv">'+fx(f.ext)+'</div><div class="fn">'+esc(f.name)+'</div><small>'+esc(f.mod)+' &middot; '+esc(f.size)+'</small>'+(f.star?'<span class="s-on">'+STAR+'</span>':'')+'</div>').join('')+'</div>';
+    else box.innerHTML='<div class="fl"><div class="fl-r hd"><span></span><span>Name</span><span>Linked project</span><span>Modified</span><span>Size</span><span></span></div>'+
+      r.map(f=>'<div class="fl-r" data-f="'+f.id+'">'+fx(f.ext)+'<span>'+esc(f.name)+'</span><span class="m">'+(f.server!=='None'?'<em class="srvc">'+esc(f.server)+'</em>':'—')+'</span><span class="m">'+esc(f.mod)+'</span><span class="m">'+esc(f.size)+'</span><button class="gt-star'+(f.star?' on':'')+'" data-star="'+f.id+'" title="Star">'+STAR+'</button></div>').join('')+'</div>';
+  }
+
+  function showF(id,keep){
+    const f=files.find(x=>x.id===id);if(!f)return;
+    openDrawer('<div class="d-kicker">'+(TYPE[f.ext]||'File')+'</div>'+
+      '<div class="pvbig">'+fx(f.ext)+'<span class="muted small">Preview goes here</span></div>'+
+      '<input class="inp d-tin" id="fn" value="'+esc(f.name)+'" title="Rename">'+
+      '<span class="chip">'+LOCK+' Only you can see this file</span>'+
+      '<div class="d-sec"><div class="d-lbl">Details</div><div class="kvg"><small>Type</small><span>'+(TYPE[f.ext]||'File')+'</span><small>Size</small><span>'+esc(f.size)+'</span><small>Modified</small><span>'+esc(f.mod)+'</span></div></div>'+
+      '<label class="f"><span>Folder</span>'+selectHTML('fo',[[0,'No folder']].concat(folders.map(x=>[x.id,x.name])),f.folder||0)+'</label>'+
+      '<label class="f"><span>Linked project server</span>'+selectHTML('srv',SERVERS,f.server)+'</label>'+
+      '<div style="margin-top:10px">'+serverCard(f.server)+'</div>'+
+      '<div class="d-row" style="margin-top:18px"><button class="btn" id="dl">Download</button><button class="btn ghost" id="share">Share copy to server</button><button class="btn ghost" id="st">'+(f.star?'Unstar':'Star')+'</button></div>'+
+      '<div class="d-foot"><span style="flex:1"></span><button class="btn danger" id="del">Delete file</button></div>',
+      dr=>{
+        dr.querySelector('#fn').oninput=e=>{f.name=e.target.value||'File name goes here';draw()};
+        dr.querySelector('#fo').onchange=e=>{f.folder=+e.target.value||null;draw();toast('Moved')};
+        dr.querySelector('#srv').onchange=e=>{f.server=e.target.value;draw();showF(id,true)};
+        dr.querySelector('#dl').onclick=()=>toast('Download starts here');
+        dr.querySelector('#share').onclick=()=>toast(f.server==='None'?'Link a project server first':'A copy will be shared to '+f.server+'. Your original stays private.');
+        dr.querySelector('#st').onclick=()=>{f.star=!f.star;draw();showF(id,true)};
+        dr.querySelector('#del').onclick=()=>{files=files.filter(x=>x!==f);draw();closeDrawer();toast('File deleted')};
+      },keep);
+  }
+
+  function addFiles(list){
+    [...list].forEach(x=>{const ext=(x.name.split('.').pop()||'').toLowerCase();
+      files.push({id:++fid,name:x.name,ext:ext,folder:cur,size:human(x.size),bytes:x.size,mod:'Just now',t:++seq,star:false,server:'None'})});
+    q='';document.getElementById('q').value='';starOnly=false;draw();toast(list.length+' file'+(list.length==1?'':'s')+' added');
+  }
+
+  document.addEventListener('click',e=>{
+    if(e.target.closest('[data-star]')){const f=files.find(x=>x.id==e.target.closest('[data-star]').dataset.star);f.star=!f.star;draw();return}
+    const fr=e.target.closest('[data-f]');if(fr)return showF(+fr.dataset.f);
+    const fo=e.target.closest('[data-fo]');if(fo){cur=+fo.dataset.fo;draw();return}
+    if(e.target.closest('[data-root]')){cur=null;q='';starOnly=false;document.getElementById('q').value='';draw();return}
+    const v=e.target.closest('[data-view]');if(v){view=v.dataset.view;store.set('fview',view);draw();return}
+    if(e.target.closest('#nfCard,#nfBtn')){cur=null;q='';starOnly=false;nf=true;draw();return}
+    if(e.target.closest('#starBtn')){starOnly=!starOnly;draw();return}
+    if(e.target.closest('#up'))document.getElementById('picker').click();
+  });
+  document.addEventListener('keydown',e=>{
+    if(e.target.id==='nfIn'){
+      if(e.key==='Enter'&&e.target.value.trim()){folders.push({id:++foid,name:e.target.value.trim()});nf=false;draw();toast('Folder created')}
+      if(e.key==='Escape'){nf=false;draw()}}
+  });
+  document.addEventListener('focusout',e=>{if(e.target.id==='nfIn'&&!e.target.value.trim())setTimeout(()=>{nf=false;draw()},150)});
+  document.getElementById('picker').onchange=e=>{if(e.target.files.length)addFiles(e.target.files);e.target.value=''};
+  document.getElementById('q').oninput=e=>{q=e.target.value.trim().toLowerCase();draw()};
+  document.getElementById('sort').onchange=e=>{sort=e.target.value;draw()};
+  const drop=document.getElementById('drop');let dc=0;
+  addEventListener('dragenter',e=>{if(e.dataTransfer.types.includes('Files')){dc++;drop.classList.add('on')}});
+  addEventListener('dragleave',()=>{if(--dc<=0){dc=0;drop.classList.remove('on')}});
+  addEventListener('dragover',e=>e.preventDefault());
+  addEventListener('drop',e=>{e.preventDefault();dc=0;drop.classList.remove('on');if(e.dataTransfer.files.length)addFiles(e.dataTransfer.files)});
+  draw();
+  const _q=new URLSearchParams(location.search);if(_q.get('f'))showF(+_q.get('f'));
+
+</script>
+</body>
+</html>

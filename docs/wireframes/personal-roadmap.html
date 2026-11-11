@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Visual roadmap</title>
+<link rel="stylesheet" href="app.css">
+</head>
+<body>
+<div class="app solo">
+  <!-- SERVER RAIL -->
+  <nav class="rail">
+    <a class="tile active" href="messages.html" title="Direct messages">
+      <svg viewBox="0 0 24 24"><path d="M4 5h16v11H9l-5 4z"/></svg>
+    </a>
+    <span class="sep"></span>
+    <a class="tile co" href="company.html" title="Company home">Co</a>
+    <span class="sep"></span>
+    <a class="tile" href="server.html" title="Company / server">A<span class="badge">1</span></a>
+    <a class="tile" href="server.html" title="Company / server">B</a>
+    <a class="tile" href="server.html" title="Company / server">C</a>
+    <a class="tile" href="server.html" title="Company / server">D</a>
+    <a class="tile" href="server.html" title="Company / server">E</a>
+    <a class="tile add" href="company.html?new=1" title="Add a server">
+      <svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>
+    </a>
+  </nav>
+
+  <!-- DM SIDEBAR -->
+  <aside class="side">
+    <div class="search"><button>Find or start a conversation</button></div>
+    <div class="nav">
+      <div class="nav-h"><svg viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg> Private &middot; only you can see</div>
+      <a class="nav-item" data-nav="files" href="personal-files.html"><svg viewBox="0 0 24 24"><path d="M3 6a2 2 0 0 1 2-2h4l2 3h8a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>Personal files</a>
+      <a class="nav-item" data-nav="tasks" href="personal-tasks.html"><svg viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="3"/><path d="M8 12l3 3 5-6"/></svg>Tasks</a>
+      <a class="nav-item" data-nav="calendar" href="personal-calendar.html"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>Calendar</a>
+      <a class="nav-item active" data-nav="roadmap" href="personal-roadmap.html"><svg viewBox="0 0 24 24"><path d="M3 7h10M3 12h14M3 17h8"/><circle cx="17" cy="7" r="2"/><circle cx="21" cy="12" r="0.5"/><circle cx="15" cy="17" r="2"/></svg>Visual roadmap<svg class="mini" viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg></a>
+    </div>
+    <h4 class="dm-h">Direct Messages <button title="New message">+</button></h4>
+    <div class="dms">
+      <div class="dm has-unread"><div class="av">N<i class="dot on"></i></div>Name goes here<span class="unread">2</span></div>
+      <div class="dm"><div class="av">N<i class="dot on"></i></div>Name goes here</div>
+      <div class="dm has-unread"><div class="av">N<i class="dot"></i></div>Name goes here<span class="unread">1</span></div>
+      <div class="dm"><div class="av">N<i class="dot on"></i></div>Name goes here</div>
+      <div class="dm"><div class="av">N<i class="dot"></i></div>Name goes here</div>
+      <div class="dm"><div class="av">N<i class="dot"></i></div>Name goes here</div>
+      <div class="dm"><div class="av">N<i class="dot on"></i></div>Name goes here</div>
+      <div class="dm"><div class="av">N<i class="dot"></i></div>Name goes here</div>
+    </div>
+    <div class="me">
+      <div class="av">Y<i class="dot on" style="border-color:#0e0e22"></i></div>
+      <div class="who"><b>Your name</b><span>Online</span></div>
+      <button title="Mute"><svg viewBox="0 0 24 24"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg></button>
+      <button title="Deafen"><svg viewBox="0 0 24 24"><path d="M4 14v-2a8 8 0 0 1 16 0v2"/><rect x="3" y="14" width="4" height="6" rx="1"/><rect x="17" y="14" width="4" height="6" rx="1"/></svg></button>
+      <a class="ibtn" href="settings.html" title="Settings"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19 12a7 7 0 0 0-.1-1.2l2-1.5-2-3.4-2.3 1a7 7 0 0 0-2-1.2L14.3 3h-4l-.3 2.7a7 7 0 0 0-2 1.2l-2.3-1-2 3.4 2 1.5A7 7 0 0 0 5 12c0 .4 0 .8.1 1.2l-2 1.5 2 3.4 2.3-1a7 7 0 0 0 2 1.2l.3 2.7h4l.3-2.7a7 7 0 0 0 2-1.2l2.3 1 2-3.4-2-1.5c.1-.4.1-.8.1-1.2z"/></svg></a>
+    </div>
+  </aside>
+
+  <main class="page">
+    <header class="chat-head">
+      <span style="color:var(--accent)"><svg viewBox="0 0 24 24"><path d="M3 7h10M3 12h14M3 17h8"/><circle cx="17" cy="7" r="2"/><circle cx="21" cy="12" r="0.5"/><circle cx="15" cy="17" r="2"/></svg></span>
+      <div class="title">Visual roadmap</div>
+      <span class="chip"><svg viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg> Only you can see this</span>
+    </header>
+    <div class="page-body">
+      <div class="stats" id="stats"></div>
+      <div class="toolbar">
+        <span class="hint">Click a milestone for details, an empty month to add one, or a goal name to edit it.</span>
+        <span class="grow"></span>
+        <button class="btn" id="addMs"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg> Add milestone</button>
+      </div>
+      <div class="rm" id="rm"></div>
+      <div class="legend"><span><i style="background:#1f9d8d"></i>Done</span><span><i style="background:var(--primary)"></i>In progress</span><span><i style="background:#4a4a8a"></i>Planned</span><span><i style="background:var(--danger)"></i>Today</span><span>&#128279; Linked to a project server</span></div>
+    </div>
+  </main>
+</div>
+<script src="app.js"></script>
+<script>
+  document.querySelectorAll('.dm').forEach(d=>d.addEventListener('click',()=>{
+    document.querySelectorAll('.dm').forEach(x=>x.classList.remove('active'));d.classList.add('active');
+  }));
+
+  const M=['Nov 2026','Dec 2026','Jan 2027','Feb 2027','Mar 2027','Apr 2027'];
+  const STL={plan:'Planned',prog:'In progress',done:'Done'};
+  const LINK='<svg viewBox="0 0 24 24"><path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1"/></svg>';
+  const CAL='<svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>';
+  let gid=0,mid=0;
+  let goals=[1,2,3,4].map(()=>({id:++gid,name:'Goal name goes here'}));
+  const mkT=(n,d)=>[...Array(n)].map((_,i)=>({t:'Task name goes here',done:i<d}));
+  let ms=[
+    {goal:1,s:0,e:2,status:'done',server:'Project server goes here',tasks:mkT(3,3)},
+    {goal:1,s:2,e:4,status:'prog',server:'Project server goes here',tasks:mkT(4,2)},
+    {goal:2,s:1,e:3,status:'prog',server:'Server name goes here',tasks:mkT(5,1)},
+    {goal:2,s:4,e:6,status:'plan',server:'None',tasks:mkT(2,0)},
+    {goal:3,s:0,e:1,status:'done',server:'Server name goes here',tasks:mkT(2,2)},
+    {goal:3,s:3,e:5,status:'plan',server:'Project server goes here',tasks:mkT(3,0)},
+    {goal:4,s:2,e:6,status:'plan',server:'None',tasks:[]}
+  ].map(m=>Object.assign({id:++mid,name:'Milestone goes here',desc:''},m));
+  const pct=m=>m.tasks.length?Math.round(m.tasks.filter(t=>t.done).length/m.tasks.length*100):(m.status==='done'?100:0);
+  const range=m=>m.e-m.s>1?M[m.s]+' → '+M[m.e-1]:M[m.s];
+
+  function stats(){
+    const n=k=>ms.filter(m=>m.status===k).length;
+    const avg=ms.length?Math.round(ms.reduce((a,m)=>a+pct(m),0)/ms.length):0;
+    document.getElementById('stats').innerHTML=
+      '<div class="stat"><b>'+ms.length+'</b><small>Milestones</small></div>'+
+      '<div class="stat"><b>'+n('prog')+'</b><small>In progress</small></div>'+
+      '<div class="stat"><b>'+n('done')+'</b><small>Done</small></div>'+
+      '<div class="stat"><b>'+avg+'%</b><small>Overall progress</small><div class="prog" style="margin-top:8px"><i style="width:'+avg+'%"></i></div></div>';
+  }
+  function placeToday(){
+    const rm=document.getElementById('rm'),d=new Date(),start=new Date(2026,10,1),end=new Date(2027,4,1);
+    const f=(d-start)/(end-start);if(f<0||f>1)return;
+    const label=180,w=rm.clientWidth-label,head=rm.querySelector('.rm-head').offsetHeight;
+    const last=rm.querySelector('.rm-add');
+    const line=document.createElement('div');line.className='today-line';
+    line.style.left=(label+w*f)+'px';line.style.top=head+'px';line.style.bottom=last.offsetHeight+'px';
+    rm.appendChild(line);
+  }
+  function draw(){
+    const rm=document.getElementById('rm');rm.style.position='relative';
+    let h='<div class="rm-head"><div>Goal</div>'+M.map(x=>'<div>'+x+'</div>').join('')+'</div>';
+    goals.forEach(g=>{
+      const mine=ms.filter(m=>m.goal===g.id);
+      h+='<div class="rm-lane" data-g="'+g.id+'"><div class="lbl" title="Edit goal">'+esc(g.name)+'<small>'+mine.length+' milestone'+(mine.length==1?'':'s')+'</small></div>'+
+        M.map((_,i)=>'<div class="cell" data-c="'+i+'" style="grid-column:'+(i+2)+'" title="Add a milestone in '+M[i]+'"></div>').join('')+
+        mine.map(m=>'<button class="bar-m b-'+m.status+'" data-m="'+m.id+'" style="grid-column:'+(m.s+2)+' / '+(m.e+2)+'" title="'+esc(m.name)+' · '+STL[m.status]+' · '+pct(m)+'%">'+
+          (m.server!=='None'?'<span class="lk">'+LINK+'</span>':'')+esc(m.name)+'<small>'+range(m)+' · '+pct(m)+'%</small><span class="pb" style="width:'+pct(m)+'%"></span></button>').join('')+'</div>';
+    });
+    h+='<button class="rm-add" id="addGoal">+ Add goal</button>';
+    rm.innerHTML=h;placeToday();stats();
+  }
+
+  function showM(id,keep){
+    const m=ms.find(x=>x.id===id);if(!m)return;
+    const g=goals.find(x=>x.id===m.goal)||{name:'No goal'},p=pct(m),dn=m.tasks.filter(t=>t.done).length;
+    openDrawer(
+      '<div class="d-kicker">Milestone &middot; '+esc(g.name)+'</div><h2 class="d-title">'+esc(m.name)+'</h2>'+
+      '<div class="d-meta"><span class="st st-'+m.status+'">'+STL[m.status]+'</span><span>'+range(m)+'</span></div>'+
+      '<div class="d-sec"><div class="d-lbl">Progress</div><div class="prog"><i style="width:'+p+'%"></i></div><div class="muted small" style="margin-top:6px">'+p+'% complete &middot; '+dn+' of '+m.tasks.length+' tasks done</div></div>'+
+      '<div class="d-sec"><div class="d-lbl">Status</div><div class="seg">'+Object.keys(STL).map(k=>'<button data-st="'+k+'" class="'+(k===m.status?'on':'')+'">'+STL[k]+'</button>').join('')+'</div></div>'+
+      '<div class="d-sec"><div class="d-lbl">Description</div><p class="muted small">'+(m.desc?esc(m.desc):'Milestone description goes here. What needs to be true for this to count as done.')+'</p></div>'+
+      '<div class="d-sec"><div class="d-lbl">Linked project server</div>'+serverCard(m.server)+
+        (m.server!=='None'?'<div class="d-row"><a class="btn" href="server.html">Open project server</a><a class="btn ghost" href="call.html">Start a call</a></div>':'<div class="d-row"><button class="btn ghost" data-edit>Link a server</button></div>')+'</div>'+
+      '<div class="d-sec"><div class="d-lbl">Tasks for this milestone</div>'+
+        (m.tasks.length?m.tasks.map((t,i)=>'<label class="chk'+(t.done?' done':'')+'"><input type="checkbox" data-ti="'+i+'"'+(t.done?' checked':'')+'><span>'+esc(t.t)+'</span></label>').join(''):'<div class="muted small">No tasks yet</div>')+
+        '<input class="inp" id="newMT" placeholder="Add a task, then Enter" style="width:100%;margin-top:8px">'+
+        '<a class="link small" href="personal-tasks.html" style="display:inline-block;margin-top:10px">Open in Tasks →</a></div>'+
+      '<div class="d-sec"><div class="d-lbl">Deadline</div><a class="linkcard" href="personal-calendar.html"><span class="lc-ic" style="background:var(--danger)">'+CAL+'</span><div><b>End of '+M[m.e-1]+'</b><small>Shows on your calendar</small></div></a></div>'+
+      '<div class="d-foot"><button class="btn ghost" data-edit>Edit milestone</button><span style="flex:1"></span><button class="btn danger" data-del>Delete</button></div>',
+      dr=>{
+        dr.querySelectorAll('[data-st]').forEach(b=>b.onclick=()=>{m.status=b.dataset.st;draw();showM(id,true);toast('Marked as '+STL[m.status])});
+        dr.querySelectorAll('[data-ti]').forEach(c=>c.onchange=()=>{
+          m.tasks[c.dataset.ti].done=c.checked;
+          if(m.tasks.every(t=>t.done)&&m.status!=='done'){m.status='done';toast('All tasks done, so the milestone is marked as done')}
+          else if(c.checked&&m.status==='plan'){m.status='prog';toast('Milestone moved to In progress')}
+          else if(!c.checked&&m.status==='done'){m.status='prog'}
+          draw();showM(id,true)});
+        const ni=dr.querySelector('#newMT');
+        ni.onkeydown=e=>{if(e.key==='Enter'&&ni.value.trim()){m.tasks.push({t:ni.value.trim(),done:false});if(m.status==='done')m.status='prog';draw();showM(id,true);document.getElementById('newMT').focus()}};
+        dr.querySelectorAll('[data-edit]').forEach(b=>b.onclick=()=>form(m));
+        dr.querySelector('[data-del]').onclick=()=>{ms=ms.filter(x=>x!==m);draw();closeDrawer();toast('Milestone deleted')};
+      },keep);
+  }
+
+  function form(src){
+    if(!goals.length){goals.push({id:++gid,name:'Goal name goes here'})}
+    const isNew=!src.id;
+    const m=Object.assign({name:'',goal:goals[0].id,s:0,e:1,status:'plan',server:'None',desc:'',tasks:[]},src);
+    openDrawer('<div class="d-kicker">'+(isNew?'New milestone':'Edit milestone')+'</div><h2 class="d-title">'+(isNew?'Add a milestone':esc(m.name))+'</h2>'+
+      '<label class="f"><span>Name</span><input class="inp" id="fName" value="'+esc(m.name)+'" placeholder="Milestone name goes here"></label>'+
+      '<label class="f"><span>Goal</span>'+selectHTML('fGoal',goals.map(g=>[g.id,g.name]),m.goal)+'</label>'+
+      '<div class="f2"><label class="f"><span>Starts</span>'+selectHTML('fS',M.map((x,i)=>[i,x]),m.s)+'</label><label class="f"><span>Ends</span>'+selectHTML('fE',M.map((x,i)=>[i+1,x]),m.e)+'</label></div>'+
+      '<label class="f"><span>Status</span>'+selectHTML('fSt',Object.entries(STL),m.status)+'</label>'+
+      '<label class="f"><span>Linked project server</span>'+selectHTML('fSrv',SERVERS,m.server)+'</label>'+
+      '<label class="f"><span>Description</span><textarea class="inp" id="fDesc" placeholder="Description goes here">'+esc(m.desc)+'</textarea></label>'+
+      '<div class="d-foot"><button class="btn" id="fSave">'+(isNew?'Add milestone':'Save changes')+'</button><button class="btn ghost" data-close>Cancel</button></div>',
+      dr=>{dr.querySelector('#fName').focus();
+        dr.querySelector('#fSave').onclick=()=>{
+          const v=k=>dr.querySelector('#'+k).value;let s=+v('fS'),e=+v('fE');if(e<=s)e=s+1;
+          Object.assign(m,{name:v('fName').trim()||'Milestone goes here',goal:+v('fGoal'),s:s,e:e,status:v('fSt'),server:v('fSrv'),desc:v('fDesc').trim()});
+          if(isNew){m.id=++mid;ms.push(m)}else{Object.assign(ms.find(x=>x.id===m.id),m)}
+          draw();showM(m.id);toast(isNew?'Milestone added':'Milestone updated')}});
+  }
+
+  function showG(id,focus){
+    const g=goals.find(x=>x.id===id),mine=ms.filter(m=>m.goal===id);
+    openDrawer('<div class="d-kicker">Goal</div><label class="f"><span>Goal name</span><input class="inp" id="gName" value="'+esc(g.name)+'"></label>'+
+      '<div class="d-sec"><div class="d-lbl">Milestones</div>'+(mine.length?mine.map(m=>'<button class="linkcard" data-m="'+m.id+'" style="width:100%;margin-bottom:8px"><span class="st st-'+m.status+'">'+STL[m.status]+'</span><div><b>'+esc(m.name)+'</b><small>'+range(m)+' &middot; '+pct(m)+'%</small></div></button>').join(''):'<div class="muted small">No milestones yet</div>')+'</div>'+
+      '<div class="d-foot"><button class="btn" id="gAdd">Add milestone</button><span style="flex:1"></span><button class="btn danger" id="gDel">Delete goal</button></div>',
+      dr=>{const n=dr.querySelector('#gName');n.oninput=()=>{g.name=n.value||'Goal name goes here';draw()};
+        if(focus){n.focus();n.select()}
+        dr.querySelectorAll('[data-m]').forEach(b=>b.onclick=()=>showM(+b.dataset.m));
+        dr.querySelector('#gAdd').onclick=()=>form({goal:id});
+        dr.querySelector('#gDel').onclick=()=>{goals=goals.filter(x=>x!==g);ms=ms.filter(m=>m.goal!==id);draw();closeDrawer();toast('Goal deleted')}});
+  }
+
+  document.getElementById('rm').addEventListener('click',e=>{
+    const b=e.target.closest('.bar-m');if(b)return showM(+b.dataset.m);
+    const c=e.target.closest('.cell');if(c)return form({goal:+c.closest('.rm-lane').dataset.g,s:+c.dataset.c,e:+c.dataset.c+1});
+    const l=e.target.closest('.lbl');if(l)return showG(+l.closest('.rm-lane').dataset.g);
+    if(e.target.closest('#addGoal')){goals.push({id:++gid,name:'New goal'});draw();showG(gid,true)}
+  });
+  document.getElementById('addMs').onclick=()=>form({});
+  addEventListener('resize',draw);
+  draw();
+  const _q=new URLSearchParams(location.search);if(_q.get('m'))showM(+_q.get('m'));
+
+</script>
+</body>
+</html>

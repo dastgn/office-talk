@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Direct Messages</title>
+<link rel="stylesheet" href="app.css">
+</head>
+<body>
+<div class="app">
+
+  <!-- SERVER RAIL -->
+  <nav class="rail">
+    <a class="tile active" href="messages.html" title="Direct messages">
+      <svg viewBox="0 0 24 24"><path d="M4 5h16v11H9l-5 4z"/></svg>
+    </a>
+    <span class="sep"></span>
+    <a class="tile co" href="company.html" title="Company home">Co</a>
+    <span class="sep"></span>
+    <a class="tile" href="server.html" title="Company / server">A<span class="badge">1</span></a>
+    <a class="tile" href="server.html" title="Company / server">B</a>
+    <a class="tile" href="server.html" title="Company / server">C</a>
+    <a class="tile" href="server.html" title="Company / server">D</a>
+    <a class="tile" href="server.html" title="Company / server">E</a>
+    <a class="tile add" href="company.html?new=1" title="Add a server">
+      <svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>
+    </a>
+  </nav>
+
+  <!-- DM SIDEBAR -->
+  <aside class="side">
+    <div class="search"><button>Find or start a conversation</button></div>
+    <div class="nav">
+      <div class="nav-h"><svg viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg> Private &middot; only you can see</div>
+      <a class="nav-item" data-nav="files" href="personal-files.html"><svg viewBox="0 0 24 24"><path d="M3 6a2 2 0 0 1 2-2h4l2 3h8a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>Personal files</a>
+      <a class="nav-item" data-nav="tasks" href="personal-tasks.html"><svg viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="3"/><path d="M8 12l3 3 5-6"/></svg>Tasks</a>
+      <a class="nav-item" data-nav="calendar" href="personal-calendar.html"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>Calendar</a>
+      <a class="nav-item" data-nav="roadmap" href="personal-roadmap.html"><svg viewBox="0 0 24 24"><path d="M3 7h10M3 12h14M3 17h8"/><circle cx="17" cy="7" r="2"/><circle cx="21" cy="12" r="0.5"/><circle cx="15" cy="17" r="2"/></svg>Visual roadmap<svg class="mini" viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg></a>
+    </div>
+    <h4 class="dm-h">Direct Messages <button title="New message">+</button></h4>
+    <div class="dms">
+      <div class="dm has-unread"><div class="av">N<i class="dot on"></i></div>Name goes here<span class="unread">2</span></div>
+      <div class="dm active"><div class="av">N<i class="dot on"></i></div>Name goes here</div>
+      <div class="dm has-unread"><div class="av">N<i class="dot"></i></div>Name goes here<span class="unread">1</span></div>
+      <div class="dm"><div class="av">N<i class="dot on"></i></div>Name goes here</div>
+      <div class="dm"><div class="av">N<i class="dot"></i></div>Name goes here</div>
+      <div class="dm"><div class="av">N<i class="dot"></i></div>Name goes here</div>
+      <div class="dm"><div class="av">N<i class="dot on"></i></div>Name goes here</div>
+      <div class="dm"><div class="av">N<i class="dot"></i></div>Name goes here</div>
+    </div>
+    <div class="me">
+      <div class="av">Y<i class="dot on" style="border-color:#0e0e22"></i></div>
+      <div class="who"><b>Your name</b><span>Online</span></div>
+      <button title="Mute"><svg viewBox="0 0 24 24"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg></button>
+      <button title="Deafen"><svg viewBox="0 0 24 24"><path d="M4 14v-2a8 8 0 0 1 16 0v2"/><rect x="3" y="14" width="4" height="6" rx="1"/><rect x="17" y="14" width="4" height="6" rx="1"/></svg></button>
+      <a class="ibtn" href="settings.html" title="Settings"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19 12a7 7 0 0 0-.1-1.2l2-1.5-2-3.4-2.3 1a7 7 0 0 0-2-1.2L14.3 3h-4l-.3 2.7a7 7 0 0 0-2 1.2l-2.3-1-2 3.4 2 1.5A7 7 0 0 0 5 12c0 .4 0 .8.1 1.2l-2 1.5 2 3.4 2.3-1a7 7 0 0 0 2 1.2l.3 2.7h4l.3-2.7a7 7 0 0 0 2-1.2l2.3 1 2-3.4-2-1.5c.1-.4.1-.8.1-1.2z"/></svg></a>
+    </div>
+  </aside>
+
+  <!-- CHAT -->
+  <main class="chat" id="chat">
+    <header class="chat-head">
+      <div class="av" style="width:28px;height:28px;font-size:11px">N</div>
+      <div class="title">Name goes here</div>
+      <div class="icons">
+        <a class="ibtn" href="call.html" title="Start voice call"><svg viewBox="0 0 24 24"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2z"/></svg></a>
+        <a class="ibtn" href="call.html" title="Start video call"><svg viewBox="0 0 24 24"><rect x="3" y="6" width="12" height="12" rx="2"/><path d="M15 10l6-3v10l-6-3"/></svg></a>
+        <button class="ibtn" title="Pinned messages" data-toast="Pinned messages go here"><svg viewBox="0 0 24 24"><path d="M9 3h6l-1 6 3 3v2H7v-2l3-3zM12 14v7"/></svg></button>
+        <button class="ibtn" title="Add people" data-toast="Add people to this conversation (comes with the backend)"><svg viewBox="0 0 24 24"><circle cx="10" cy="8" r="4"/><path d="M3 20a7 7 0 0 1 14 0M19 8v6M16 11h6"/></svg></button>
+      </div>
+      <input class="hsearch" placeholder="Search">
+    </header>
+
+    <nav class="ctabs" role="tablist">
+      <button class="ctab on" data-ct="chat">Chat</button>
+      <button class="ctab" data-ct="files">Files</button>
+      <button class="ctab" data-ct="tasks">Tasks</button>
+      <button class="ctab" data-ct="calendar">Calendar</button>
+      <button class="ctab" data-ct="roadmap">Roadmap</button>
+      <span class="ctab-note">Shared between you and Name goes here</span>
+    </nav>
+    <div class="messages" id="msgs">
+      <div class="welcome">
+        <div class="av">N</div>
+        <h2>Name goes here</h2>
+        <p class="muted">This is the start of your direct messages with Name goes here.</p>
+        <div class="d-row"><a class="btn ghost" href="call.html">Start a video call</a><button class="btn ghost" id="shareFile">Share a file</button><a class="btn ghost" href="server.html">View shared server</a></div>
+      </div>
+    </div>
+    <input type="file" id="msgFile" multiple hidden>
+
+    <div class="composer">
+      <button class="ibtn" title="Attach" id="attach"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></button>
+      <input id="msgIn" placeholder="Message Name goes here (Enter to send)">
+      <button class="ibtn" title="GIF"><svg viewBox="0 0 24 24"><rect x="3" y="6" width="18" height="12" rx="2"/><path d="M8 10H7a1 1 0 0 0-1 1v2a1 1 0 0 0 1 1h1v-2H7M12 10v4M15 14v-4h3M15 12h2"/></svg></button>
+      <button class="ibtn" title="Emoji"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M8 14s1.5 2 4 2 4-2 4-2M9 9.5h.01M15 9.5h.01"/></svg></button>
+    </div>
+    <section class="cpanel" id="cp-files"></section>
+    <section class="cpanel" id="cp-tasks"></section>
+    <section class="cpanel" id="cp-calendar"></section>
+    <section class="cpanel" id="cp-roadmap"></section>
+  </main>
+
+
+  <!-- PROFILE PANEL (Outlook-style contact card) -->
+  <aside class="profile">
+    <div class="p-fixed">
+      <div class="p-top">
+        <div class="p-av">Photo
+          <span class="status"><svg viewBox="0 0 24 24"><path d="M5 12l5 5L20 7"/></svg></span>
+        </div>
+        <div>
+          <div class="p-name">Name goes here</div>
+          <div class="p-title">Job title goes here</div>
+        </div>
+      </div>
+      <div class="actions">
+        <div class="callgrp">
+          <a class="btn-call" href="call.html"><svg viewBox="0 0 24 24" style="width:18px;height:18px"><rect x="7" y="3" width="10" height="18" rx="2"/><path d="M11 18h2"/></svg>Call</a>
+          <button class="btn-drop" title="More call options"><svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></button><div class="menu"><a href="call.html"><svg viewBox="0 0 24 24"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2z"/></svg>Voice call</a><a href="call.html"><svg viewBox="0 0 24 24"><rect x="3" y="6" width="12" height="12" rx="2"/><path d="M15 10l6-3v10l-6-3"/></svg>Video call</a><button data-copy><svg viewBox="0 0 24 24"><path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1"/></svg>Copy guest call link</button></div>
+        </div>
+        <button class="ibtn" title="Email" data-toast="Opens a new email to Email goes here"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg></button>
+        <button class="ibtn" title="Chat" data-focus-chat><svg viewBox="0 0 24 24"><path d="M4 5h16v11H9l-5 4z"/><path d="M8 9h8M8 12h5"/></svg></button>
+        <button class="ibtn" title="More"><svg viewBox="0 0 24 24"><circle cx="5" cy="12" r="1"/><circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/></svg></button>
+      </div>
+    </div>
+
+    <div class="p-body" style="padding-top:20px">
+      <div class="card">
+        <div class="row">
+          <svg viewBox="0 0 24 24" class="ok"><circle cx="12" cy="12" r="9"/><path d="M8 12l3 3 5-6"/></svg>
+          <div><b>Availability goes here</b><small>Work hours go here</small></div>
+        </div>
+        <div class="row">
+          <svg viewBox="0 0 24 24" style="color:var(--muted)"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+          <div>Local time goes here</div>
+        </div>
+      </div>
+
+      <h3 class="section-title">Contact information</h3>
+      <div class="contact">
+        <div class="field"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>
+          <div><small>Work email</small><a href="#">Email goes here</a></div></div>
+        <div class="field"><svg viewBox="0 0 24 24"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2z"/></svg>
+          <div><small>Work phone</small><a href="#">Phone number goes here</a></div></div>
+      </div>
+
+      <h3 class="section-title">Shared servers</h3>
+      <div class="shared">
+        <a class="linkcard" href="server.html"><span class="lc-ic">P</span><div><b>Project server goes here</b><small>Channel name goes here</small></div></a>
+        <a class="linkcard" href="server.html"><span class="lc-ic" style="background:#1f9d8d">S</span><div><b>Server name goes here</b><small>Channel name goes here</small></div></a>
+      </div>
+
+      <button class="btn-more" id="openMore">
+        <svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg>
+        More details
+      </button>
+    </div>
+  </aside>
+</div>
+
+
+<div class="overlay" id="overlay" aria-hidden="true">
+  <div class="modal" role="dialog" aria-modal="true" aria-label="Contact details">
+    <button class="x" id="closeMore" title="Close"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+    <div class="m-head">
+      <div class="p-top">
+        <div class="p-av">Photo<span class="status"><svg viewBox="0 0 24 24"><path d="M5 12l5 5L20 7"/></svg></span></div>
+        <div>
+          <div class="p-name">Name goes here</div>
+          <div class="p-title">Job title goes here</div>
+          <div class="actions">
+            <div class="callgrp">
+              <a class="btn-call" href="call.html"><svg viewBox="0 0 24 24"><rect x="7" y="3" width="10" height="18" rx="2"/><path d="M11 18h2"/></svg>Call</a>
+              <button class="btn-drop" title="More call options"><svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></button><div class="menu"><a href="call.html"><svg viewBox="0 0 24 24"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2z"/></svg>Voice call</a><a href="call.html"><svg viewBox="0 0 24 24"><rect x="3" y="6" width="12" height="12" rx="2"/><path d="M15 10l6-3v10l-6-3"/></svg>Video call</a><button data-copy><svg viewBox="0 0 24 24"><path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1"/></svg>Copy guest call link</button></div>
+            </div>
+            <button class="ibtn" title="Email" data-toast="Opens a new email to Email goes here"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg></button>
+            <button class="ibtn" title="Chat" data-focus-chat><svg viewBox="0 0 24 24"><path d="M4 5h16v11H9l-5 4z"/></svg></button>
+            <button class="ibtn" title="More"><svg viewBox="0 0 24 24"><circle cx="5" cy="12" r="1"/><circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/></svg></button>
+          </div>
+        </div>
+      </div>
+      <div class="tabs" role="tablist">
+        <button class="tab active" data-tab="overview">Overview</button>
+        <button class="tab" data-tab="profile">Profile</button>
+        <button class="tab" data-tab="org">Organisation</button>
+        <button class="tab" data-tab="files">Files</button>
+        <button class="tab" data-tab="messages">Messages</button>
+      </div>
+    </div>
+
+    <div class="m-body">
+      <section class="pane active" id="pane-overview">
+        <div class="card">
+          <div class="row"><svg viewBox="0 0 24 24" class="ok"><circle cx="12" cy="12" r="9"/><path d="M8 12l3 3 5-6"/></svg><div><b>Availability goes here</b><small>Work hours go here</small></div></div>
+          <div class="row"><svg viewBox="0 0 24 24" style="color:var(--muted)"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg><div>Local time goes here</div></div>
+        </div>
+        <h3 class="section-title">Contact information</h3>
+        <div class="g3">
+          <div class="field"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg><div class="kv"><small>Work email</small><a href="#">Email goes here</a></div></div>
+          <div class="field"><svg viewBox="0 0 24 24"><path d="M4 5h16v11H9l-5 4z"/></svg><div class="kv"><small>Chat</small><a href="#">Chat address goes here</a></div></div>
+          <div class="field"><svg viewBox="0 0 24 24"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2z"/></svg><div class="kv"><small>Work phone</small><a href="#">Phone number goes here</a></div></div>
+          <div class="field"><svg viewBox="0 0 24 24"><rect x="7" y="3" width="10" height="18" rx="2"/><path d="M11 18h2"/></svg><div class="kv"><small>Mobile</small><a href="#">Mobile number goes here</a></div></div>
+          <div class="field"><svg viewBox="0 0 24 24"><path d="M4 21V4h10v17M14 9h6v12M8 8h2M8 12h2M8 16h2"/></svg><div class="kv"><small>Company</small><span class="plain">Company goes here</span></div></div>
+          <div class="field"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M8 9h8M8 13h8"/></svg><div class="kv"><small>Job title</small><span class="plain">Job title goes here</span></div></div>
+        </div>
+        <div class="more-wrap"><a class="link" href="#" id="toggleExtra">Show more contact information</a>
+          <div class="extra" id="extra"><div class="g3">
+            <div class="kv"><small>Department</small><span class="plain">Department goes here</span></div><div class="kv"><small>Office location</small><span class="plain">Office location goes here</span></div><div class="kv"><small>Office address</small><span class="plain">Address goes here</span></div>
+            <div class="kv"><small>Assistant</small><span class="plain">Assistant name goes here</span></div><div class="kv"><small>Fax</small><span class="plain">Fax number goes here</span></div><div class="kv"><small>Website</small><span class="plain">Website goes here</span></div>
+          </div></div>
+        </div>
+      </section>
+
+      <section class="pane" id="pane-profile">
+        <h3 class="section-title">About</h3>
+        <p style="color:var(--muted);max-width:640px">Short bio goes here. A couple of lines about the person, what they work on and how to reach them.</p>
+        <h3 class="section-title">Details</h3>
+        <div class="g3">
+          <div class="kv"><small>Department</small><span class="plain">Department goes here</span></div><div class="kv"><small>Location</small><span class="plain">Location goes here</span></div><div class="kv"><small>Time zone</small><span class="plain">Time zone goes here</span></div>
+          <div class="kv"><small>Joined</small><span class="plain">Start date goes here</span></div><div class="kv"><small>Pronouns</small><span class="plain">Pronouns go here</span></div><div class="kv"><small>Languages</small><span class="plain">Languages go here</span></div>
+        </div>
+        <h3 class="section-title">Skills</h3>
+        <div class="tags"><span class="tag">Skill goes here</span><span class="tag">Skill goes here</span><span class="tag">Skill goes here</span><span class="tag">Skill goes here</span></div>
+      </section>
+
+      <section class="pane" id="pane-org">
+        <h3 class="section-title">Reports to</h3>
+        <div class="g2"><div class="person"><div class="av">N</div><div><b>Name goes here</b><small>Job title goes here</small></div></div></div>
+        <h3 class="section-title">Direct reports</h3>
+        <div class="g2"><div class="person"><div class="av">N</div><div><b>Name goes here</b><small>Job title goes here</small></div></div><div class="person"><div class="av">N</div><div><b>Name goes here</b><small>Job title goes here</small></div></div><div class="person"><div class="av">N</div><div><b>Name goes here</b><small>Job title goes here</small></div></div><div class="person"><div class="av">N</div><div><b>Name goes here</b><small>Job title goes here</small></div></div></div>
+        <h3 class="section-title">Teams and servers</h3>
+        <div class="tags"><span class="tag">Server name goes here</span><span class="tag">Server name goes here</span><span class="tag">Server name goes here</span></div>
+      </section>
+
+      <section class="pane" id="pane-files">
+        <h3 class="section-title">Shared with you</h3>
+        <div class="list">
+          <div class="li hd"><span></span><span>Name</span><span>Shared in</span><span>Date</span></div>
+          <div class="li"><svg viewBox="0 0 24 24"><path d="M6 3h8l4 4v14H6z"/><path d="M14 3v4h4"/></svg><span>File name goes here</span><span class="m">Server / channel goes here</span><span class="m">Date goes here</span></div><div class="li"><svg viewBox="0 0 24 24"><path d="M6 3h8l4 4v14H6z"/><path d="M14 3v4h4"/></svg><span>File name goes here</span><span class="m">Server / channel goes here</span><span class="m">Date goes here</span></div><div class="li"><svg viewBox="0 0 24 24"><path d="M6 3h8l4 4v14H6z"/><path d="M14 3v4h4"/></svg><span>File name goes here</span><span class="m">Server / channel goes here</span><span class="m">Date goes here</span></div><div class="li"><svg viewBox="0 0 24 24"><path d="M6 3h8l4 4v14H6z"/><path d="M14 3v4h4"/></svg><span>File name goes here</span><span class="m">Server / channel goes here</span><span class="m">Date goes here</span></div><div class="li"><svg viewBox="0 0 24 24"><path d="M6 3h8l4 4v14H6z"/><path d="M14 3v4h4"/></svg><span>File name goes here</span><span class="m">Server / channel goes here</span><span class="m">Date goes here</span></div>
+        </div>
+      </section>
+
+      <section class="pane" id="pane-messages">
+        <h3 class="section-title">Recent messages</h3>
+        <div class="msg"><div class="av">N</div><div><b>Name goes here</b> <small>Date and time go here</small><div style="color:var(--muted);margin-top:4px">Message preview goes here</div></div></div><div class="msg"><div class="av">N</div><div><b>Name goes here</b> <small>Date and time go here</small><div style="color:var(--muted);margin-top:4px">Message preview goes here</div></div></div><div class="msg"><div class="av">N</div><div><b>Name goes here</b> <small>Date and time go here</small><div style="color:var(--muted);margin-top:4px">Message preview goes here</div></div></div><div class="msg"><div class="av">N</div><div><b>Name goes here</b> <small>Date and time go here</small><div style="color:var(--muted);margin-top:4px">Message preview goes here</div></div></div>
+      </section>
+    </div>
+  </div>
+</div>
+
+<script src="app.js"></script>
+<script>
+  const ov=document.getElementById('overlay');
+  const openM=()=>{ov.classList.add('open');ov.setAttribute('aria-hidden','false')};
+  const closeM=()=>{ov.classList.remove('open');ov.setAttribute('aria-hidden','true')};
+  document.getElementById('openMore').addEventListener('click',openM);
+  document.getElementById('closeMore').addEventListener('click',closeM);
+  ov.addEventListener('click',e=>{if(e.target===ov)closeM()});
+  document.addEventListener('keydown',e=>{if(e.key==='Escape')closeM()});
+
+  ov.querySelectorAll('.tab').forEach(t=>t.addEventListener('click',()=>{
+    ov.querySelectorAll('.tab').forEach(x=>x.classList.remove('active'));
+    ov.querySelectorAll('.pane').forEach(x=>x.classList.remove('active'));
+    t.classList.add('active');
+    document.getElementById('pane-'+t.dataset.tab).classList.add('active');
+    ov.querySelector('.m-body').scrollTop=0;
+  }));
+  document.getElementById('toggleExtra').addEventListener('click',e=>{
+    e.preventDefault();
+    const x=document.getElementById('extra');x.classList.toggle('open');
+    e.target.textContent=x.classList.contains('open')?'Show less contact information':'Show more contact information';
+  });
+
+  /* ---- chat: one thread per conversation, kept when you switch ---- */
+  const msgs=document.getElementById('msgs'),mi=document.getElementById('msgIn');
+  const dmEls=[...document.querySelectorAll('.dm')].sort((a,b)=>a.dataset.i-b.dataset.i);
+  const threads=dmEls.map(()=>[]);
+  let curTab='chat';
+  let curDM=Math.max(0,dmEls.findIndex(d=>d.classList.contains('active')));
+  const stamp=()=>new Date().toLocaleTimeString('en-GB',{hour:'2-digit',minute:'2-digit'});
+  function drawThread(){
+    msgs.querySelectorAll('.mg,.day-sep').forEach(x=>x.remove());
+    const t=threads[curDM];
+    if(t.length)msgs.insertAdjacentHTML('beforeend','<div class="day-sep">Today</div>'+t.map(m=>'<div class="mg"><div class="av">Y</div><div><b>Your name</b><small>'+m.time+'</small>'+m.html+'</div></div>').join(''));
+    msgs.scrollTop=msgs.scrollHeight;
+  }
+  function post(html){threads[curDM].push({time:stamp(),html:html});drawThread()}
+  function openDM(i){
+    curDM=i;dmEls.forEach((x,j)=>x.classList.toggle('active',j===i));
+    const u=dmEls[i].querySelector('.unread');if(u){u.remove();dmEls[i].classList.remove('has-unread')}
+    drawThread();if(typeof showTab==='function')showTab(curTab);else mi.focus();
+  }
+  dmEls.forEach((d,i)=>{d.title='Open conversation';d.addEventListener('click',()=>openDM(i))});
+  const want=+new URLSearchParams(location.search).get('dm');
+  if(location.search.includes('dm=')&&dmEls[want])openDM(want);
+  mi.addEventListener('keydown',e=>{if(e.key==='Enter'&&mi.value.trim()){post('<p>'+esc(mi.value.trim())+'</p>');mi.value=''}});
+  const mf=document.getElementById('msgFile');
+  document.getElementById('attach').onclick=()=>mf.click();
+  document.getElementById('shareFile').onclick=()=>mf.click();
+  mf.onchange=()=>{[...mf.files].forEach(f=>post('<div class="mfile"><span class="fx" style="background:#3e7bfa">'+esc((f.name.split('.').pop()||'file').slice(0,4))+'</span><div><b>'+esc(f.name)+'</b><div class="muted small">'+(f.size/1024).toFixed(1)+' KB</div></div></div>'));mf.value=''};
+  document.querySelectorAll('[data-focus-chat]').forEach(b=>b.onclick=()=>{closeM();mi.focus()});
+  document.querySelectorAll('[data-toast]').forEach(b=>b.onclick=()=>toast(b.dataset.toast));
+
+  /* ---- call dropdown ---- */
+  document.querySelectorAll('.btn-drop').forEach(b=>b.addEventListener('click',e=>{
+    e.stopPropagation();const m=b.parentElement.querySelector('.menu');
+    document.querySelectorAll('.menu.open').forEach(x=>{if(x!==m)x.classList.remove('open')});m.classList.toggle('open')}));
+  document.addEventListener('click',e=>{if(!e.target.closest('.menu'))document.querySelectorAll('.menu.open').forEach(x=>x.classList.remove('open'))});
+  document.querySelectorAll('[data-copy]').forEach(b=>b.onclick=()=>{const cb=navigator.clipboard;if(cb)cb.writeText('Guest call link goes here').catch(()=>{});toast('Guest call link copied');b.closest('.menu').classList.remove('open')});
+
+
+  /* ---- tab bar: Chat / Files / Tasks / Calendar / Roadmap for this conversation ---- */
+  const ICF={pdf:'#e5484d',docx:'#3e7bfa',xlsx:'#1f9d55',pptx:'#e8772e',png:'#a855f7'};
+  const fxi=x=>'<span class="fx" style="background:'+(ICF[x]||'#6b6b90')+'">'+esc(x.slice(0,4))+'</span>';
+  const shared=dmEls.map(()=>({
+    files:[['pdf','Name goes here'],['docx','You'],['xlsx','Name goes here']].map(([x,by])=>({name:'File name goes here',ext:x,by:by,date:'Date goes here'})),
+    tasks:[{t:'Task name goes here',who:'You',done:false},{t:'Task name goes here',who:'Name goes here',done:false},{t:'Task name goes here',who:'You',done:true}]
+  }));
+  const panel=id=>document.getElementById('cp-'+id);
+  const drawers={
+    files(){const d=shared[curDM];panel('files').innerHTML=
+      '<div class="toolbar"><div class="h2" style="margin:0">Files in this chat</div><span class="grow"></span><button class="btn" id="cpUp">Share a file</button></div>'+
+      '<div class="fl"><div class="fl-r hd" style="grid-template-columns:40px 1fr 170px 130px"><span></span><span>Name</span><span>Shared by</span><span>Date</span></div>'+
+      d.files.map((f,i)=>'<div class="fl-r" data-sf="'+i+'" style="grid-template-columns:40px 1fr 170px 130px">'+fxi(f.ext)+'<span>'+esc(f.name)+'</span><span class="m">'+esc(f.by)+'</span><span class="m">'+esc(f.date)+'</span></div>').join('')+'</div>'},
+    tasks(){const d=shared[curDM];panel('tasks').innerHTML=
+      '<div class="toolbar"><input class="inp grow" id="cpTask" placeholder="Add a shared task, then Enter"><select class="inp" id="cpWho"><option>You</option><option>Name goes here</option></select></div>'+
+      d.tasks.map((t,i)=>'<label class="chk'+(t.done?' done':'')+'"><input type="checkbox" data-st="'+i+'"'+(t.done?' checked':'')+'><span style="flex:1">'+esc(t.t)+'</span><em class="srvc">'+esc(t.who)+'</em></label>').join('')},
+    calendar(){panel('calendar').innerHTML=
+      '<div class="toolbar"><div class="h2" style="margin:0">Meetings with Name goes here</div><span class="grow"></span><a class="btn" href="personal-calendar.html">Schedule a meeting</a></div>'+
+      ['Today','Date goes here','Date goes here'].map((d,i)=>'<div class="linkcard" style="margin-bottom:10px"><span class="lc-ic" style="background:'+(i?'var(--bg-3)':'var(--primary)')+'">'+(i?'<svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>':'<svg viewBox="0 0 24 24"><rect x="3" y="6" width="12" height="12" rx="2"/><path d="M15 10l6-3v10l-6-3"/></svg>')+'</span><div><b>Meeting name goes here</b><small>'+d+' &middot; Time goes here</small></div>'+(i?'':'<a class="btn" href="call.html">Join call</a>')+'</div>').join('')},
+    roadmap(){panel('roadmap').innerHTML=
+      '<div class="toolbar"><div class="h2" style="margin:0">Shared milestones</div><span class="grow"></span><a class="btn ghost" href="personal-roadmap.html">Open full roadmap</a></div>'+
+      [['done','Done',100],['prog','In progress',50],['plan','Planned',0]].map(([k,l,p])=>'<a class="linkcard" href="personal-roadmap.html" style="margin-bottom:10px;align-items:flex-start"><div><div style="display:flex;gap:10px;align-items:center;margin-bottom:8px"><b>Milestone goes here</b><span class="st st-'+k+'">'+l+'</span></div><div class="prog"><i style="width:'+p+'%"></i></div><small style="margin-top:6px">Date range goes here &middot; '+p+'%</small></div></a>').join('')}
+  };
+  function showTab(t){
+    curTab=t;document.querySelectorAll('.ctab').forEach(b=>b.classList.toggle('on',b.dataset.ct===t));
+    const chat=t==='chat';
+    msgs.style.display=chat?'':'none';document.querySelector('.composer').style.display=chat?'':'none';
+    document.querySelectorAll('.cpanel').forEach(p=>p.classList.toggle('on',p.id==='cp-'+t));
+    if(!chat)drawers[t]();else mi.focus();
+  }
+  document.querySelector('.ctabs').addEventListener('click',e=>{const b=e.target.closest('.ctab');if(b)showTab(b.dataset.ct)});
+  document.querySelector('main.chat').addEventListener('click',e=>{
+    if(e.target.closest('#cpUp'))mf.click();
+    const sf=e.target.closest('[data-sf]');if(sf){const f=shared[curDM].files[sf.dataset.sf];
+      openDrawer('<div class="d-kicker">Shared file</div><div class="pvbig">'+fxi(f.ext)+'<span class="muted small">Preview goes here</span></div><h2 class="d-title">'+esc(f.name)+'</h2>'+
+        '<div class="kvg"><small>Shared by</small><span>'+esc(f.by)+'</span><small>Date</small><span>'+esc(f.date)+'</span></div>'+
+        '<div class="d-row" style="margin-top:18px"><button class="btn" data-t="Download starts here">Download</button><button class="btn ghost" data-t="Saved a copy to your personal files">Save to my files</button></div>',
+        dr=>dr.querySelectorAll('[data-t]').forEach(b=>b.onclick=()=>toast(b.dataset.t)))}
+  });
+  document.querySelector('main.chat').addEventListener('change',e=>{
+    if(e.target.matches('[data-st]')){shared[curDM].tasks[e.target.dataset.st].done=e.target.checked;drawers.tasks()}});
+  document.querySelector('main.chat').addEventListener('keydown',e=>{
+    if(e.target.id==='cpTask'&&e.key==='Enter'&&e.target.value.trim()){
+      shared[curDM].tasks.unshift({t:e.target.value.trim(),who:document.getElementById('cpWho').value,done:false});drawers.tasks();document.getElementById('cpTask').focus()}});
+  /* files sent in the chat also appear in the Files tab */
+  mf.addEventListener('change',()=>{[...mf.files].forEach(f=>shared[curDM].files.unshift({name:f.name,ext:(f.name.split('.').pop()||'').toLowerCase(),by:'You',date:'Just now'}));if(curTab==='files')setTimeout(drawers.files,0)},true);
+</script>
+</body>
+</html>

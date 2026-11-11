@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Join call</title><link rel="stylesheet" href="site.css"></head><body class=""><div class="jn"><div class="jn-in"><div><div class="prev" id="prev"><span class="av">G</span><div class="lvl" id="lvl"></div><div class="ctl"><button class="rb" id="bMic"></button><button class="rb" id="bCam"></button></div></div></div><div><a class="logo" href="index.html" style="margin-bottom:26px"><i><svg viewBox="0 0 24 24"><path d="M4 5h16v11H9l-5 4z"/></svg></i>Product name</a><h1>Join the call</h1><p class="sub">Call title goes here</p><div class="hostl"><span class="av">N</span><div><b>Name goes here</b><small class="muted" style="display:block">Hosted by &middot; Company name goes here</small></div></div><label class="f"><span>Your name</span><input class="inp" id="gname" placeholder="Name goes here"></label><label class="f"><span>Microphone</span><select class="inp"><option>Microphone name goes here</option></select></label><label class="f"><span>Camera</span><select class="inp"><option>Camera name goes here</option></select></label><label class="f" id="pwf" hidden><span>Call password</span><input class="inp" id="gpw" type="password" placeholder="Password goes here"><small class="hint" id="pwerr" style="color:#ff8a92" hidden>That password is not right</small></label><button class="btn lg block" id="go" style="margin-top:22px">Join call</button><p class="muted" style="font-size:13px;margin-top:14px;text-align:center">No account needed. <a class="link" href="login.html">Sign in instead</a></p></div></div></div><script src="site.js"></script><script>
+  const q=new URLSearchParams(location.search);
+  let mic=true,cam=false;const prev=document.getElementById('prev'),lv=document.getElementById('lvl');
+  const nm=document.getElementById('gname');nm.value=store.get('guestName','');
+  const paint=()=>{document.getElementById('bMic').className='rb'+(mic?'':' off');document.getElementById('bMic').innerHTML=mic?'<svg viewBox="0 0 24 24"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg>':'<svg viewBox="0 0 24 24"><path d="M3 3l18 18M9 9v2a3 3 0 0 0 5 2.2M15 9.3V6a3 3 0 0 0-5.9-.8M5 11a7 7 0 0 0 11.5 5.3M19 11a7 7 0 0 1-.6 2.8M12 18v3"/></svg>';
+    document.getElementById('bCam').className='rb'+(cam?' on':' off');document.getElementById('bCam').innerHTML=cam?'<svg viewBox="0 0 24 24"><rect x="3" y="6" width="12" height="12" rx="2"/><path d="M15 10l6-3v10l-6-3"/></svg>':'<svg viewBox="0 0 24 24"><path d="M3 3l18 18M15 10l6-3v10l-4-2M15 15v1a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h5"/></svg>';prev.classList.toggle('cam',cam);
+    prev.querySelector('.av').textContent=(nm.value.trim()[0]||'G').toUpperCase()};
+  document.getElementById('bMic').onclick=()=>{mic=!mic;paint()};document.getElementById('bCam').onclick=()=>{cam=!cam;paint()};nm.oninput=()=>{nm.classList.remove('bad');paint()};
+  lv.innerHTML='<i></i><i></i><i></i><i></i><i></i>';setInterval(()=>lv.querySelectorAll('i').forEach(i=>i.style.height=mic?(4+Math.random()*14)+'px':'4px'),180);
+  const O=store.get('callOpts',{pw:false,name:true,wait:true});
+  if(O.pw)document.getElementById('pwf').hidden=false;
+  document.querySelector('label.f span').textContent=O.name?'Your name':'Your name (optional)';
+  document.getElementById('go').onclick=()=>{let n=nm.value.trim();
+    if(O.name&&!n){nm.classList.add('bad');nm.focus();return}
+    if(!n)n='Guest';
+    if(O.pw&&document.getElementById('gpw').value!==(O.pwv||'')){document.getElementById('pwerr').hidden=false;document.getElementById('gpw').classList.add('bad');return}
+    store.set('guestName',n);store.set('join',{mic,cam,name:n});location.href='call.html?guest=1'};
+  paint();
+</script></body></html>
