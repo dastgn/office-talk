@@ -1,0 +1,7 @@
+{
+  "permissions": {
+    "allow": ["Bash(git status)", "Bash(git diff*)", "Bash(npm test*)", "Bash(pytest*)"],
+    "ask": ["Bash(git push*)", "Bash(terraform apply*)", "Bash(aws *)"],
+    "deny": ["Read(.env*)", "Bash(terraform destroy*)"]
+  }
+}
