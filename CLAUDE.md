@@ -13,11 +13,15 @@ The repo is at **phase 0**. It holds:
 - `backend/`: a FastAPI app with `GET /health` and one pytest. It has no database code yet.
 - `frontend/`: React + TS + Vite. One page that shows the backend health. No Tailwind or TanStack Query yet.
 - `infra/`: a placeholder. Terraform comes later.
-- `docker-compose.yml`: db (Postgres 16), redis, backend (:8000) and frontend (:5173). Every port is bound to `127.0.0.1`; keep it that way for any new service.
+- `docker-compose.yml`: db (Postgres 16), redis, backend, frontend (Vite), caddy, rustfs + s3-init, and livekit. Every image is pinned to an exact version, and every port is bound to `127.0.0.1`; keep it that way for any new service.
+  - **Caddy** (`infra/caddy/Caddyfile`) is the only web entry, at http://localhost:8080 (HTTP only). `/api/*` goes to the backend with the prefix stripped (uvicorn runs with `--root-path /api`), and everything else, including the Vite HMR websocket, goes to the frontend. The backend (8000) and Vite (5173) ports aren't published.
+  - **RustFS** is the local S3 stand-in, replacing MinIO, whose images are gone: S3 API on :9000, console on :9001. The one-shot `s3-init` container (aws-cli) creates the `officetalk-dev` bucket. There's no storage code yet.
+  - **LiveKit** runs in dev mode with `--node-ip 127.0.0.1`: :7880 HTTP/WS, :7881 ICE over TCP, :7882/udp media.
+  - Credentials are placeholders in compose defaults and `.env.example`, using `S3_*` and `LIVEKIT_*` names.
 
 - `.github/workflows/ci.yml`: GitHub Actions CI on every PR and push to `main`. The `backend` job runs ruff check, ruff format --check and pytest. The `frontend` job runs typecheck and build. These job names are the required checks in the `main` ruleset, so don't rename them. `.github/dependabot.yml` sends weekly pip, npm and Actions updates.
 
-Caddy, MinIO and LiveKit don't exist yet. Don't invent commands for them.
+There's no storage or call code yet, and no production Caddy config. Don't invent commands for them.
 
 ## Commands
 
@@ -28,6 +32,7 @@ The host only needs Docker. `make` isn't installed on the dev machine, so each t
 | `make up` | `docker compose up --build` |
 | `make test` | `docker compose run --rm --no-deps backend pytest` |
 | `make lint` | `docker compose run --rm --no-deps backend ruff check .`, then `... backend ruff format --check .`, then `... frontend npm run typecheck` |
+| `make smoke` | `sh scripts/smoke.sh` (with the stack running; Git Bash on Windows) |
 | `make down` | `docker compose down` |
 
 Run a single test with `docker compose run --rm --no-deps backend pytest tests/test_health.py::test_health_returns_ok`.
@@ -61,7 +66,7 @@ The backend is a modular monolith on AWS (eu-west-2):
 - **Backend:** Python 3.12, FastAPI, SQLAlchemy 2, Alembic, Pydantic. It serves REST plus one WebSocket per browser tab for live events.
 - **Data and jobs:** PostgreSQL 16 for data. Redis + arq workers handle presence, fan-out, rate limits, email and guest expiry.
 - **Frontend:** React + TypeScript + Vite + Tailwind + TanStack Query.
-- **External services:** S3 (MinIO locally) served via CloudFront signed URLs, SES email, LiveKit Cloud calls (the LiveKit server runs in Docker for dev), OnlyOffice for Office editing (phase 3), and Stripe in **test mode only**.
+- **External services:** S3 (RustFS locally) served via CloudFront signed URLs, SES email, LiveKit Cloud calls (the LiveKit server runs in Docker for dev), OnlyOffice for Office editing (phase 3), and Stripe in **test mode only**.
 - **Edge, infra and CI:** Cloudflare at the edge, Terraform for infra, Caddy as reverse proxy, GitHub Actions for CI/CD.
 - **Call media:** goes browser → LiveKit directly. The backend only signs short-lived, single-room tokens and consumes LiveKit webhooks into `call_sessions`/`usage_records`.
 

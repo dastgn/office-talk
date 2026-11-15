@@ -1,9 +1,12 @@
 # Local development stack. Every published port is bound to 127.0.0.1 so nothing is
-# reachable from other devices on the network (docs/decisions.md).
+# reachable from other devices on the network (docs/decisions.md). Caddy on :8080 is the
+# single web entry: the backend and the Vite dev server are only reachable through it.
+# Every image is pinned to an exact version. Credentials below are dev placeholders only;
+# override them in a git-ignored .env (see .env.example).
 
 services:
   db:
-    image: postgres:16-alpine
+    image: postgres:16.15-alpine
     environment:
       POSTGRES_USER: ${POSTGRES_USER:-officetalk}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-officetalk}
@@ -19,7 +22,7 @@ services:
       retries: 10
 
   redis:
-    image: redis:7-alpine
+    image: redis:7.4.12-alpine
     ports:
       - "127.0.0.1:6379:6379"
     healthcheck:
@@ -30,12 +33,12 @@ services:
 
   backend:
     build: ./backend
-    command: uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
+    # --root-path /api: Caddy strips /api before proxying, so tell FastAPI where it is
+    # mounted. That keeps /api/docs and /api/openapi.json working through Caddy.
+    command: uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload --root-path /api
     environment:
       DATABASE_URL: postgresql://${POSTGRES_USER:-officetalk}:${POSTGRES_PASSWORD:-officetalk}@db:5432/${POSTGRES_DB:-officetalk}
       REDIS_URL: redis://redis:6379/0
-    ports:
-      - "127.0.0.1:8000:8000"
     volumes:
       - ./backend:/app
     depends_on:
@@ -54,8 +57,6 @@ services:
     environment:
       API_PROXY_TARGET: http://backend:8000
       VITE_POLL: "true"
-    ports:
-      - "127.0.0.1:5173:5173"
     volumes:
       - ./frontend:/app
       # Keep the container's Linux node_modules; don't use the host's.
@@ -63,6 +64,87 @@ services:
     depends_on:
       backend:
         condition: service_healthy
+    healthcheck:
+      test: ["CMD", "wget", "-q", "-O", "/dev/null", "http://127.0.0.1:5173/"]
+      interval: 10s
+      timeout: 3s
+      retries: 10
+
+  # The local front door, shaped like production: /api/* goes to the backend with the
+  # prefix stripped, everything else (including the Vite HMR websocket) to the frontend.
+  caddy:
+    image: caddy:2.11.8-alpine
+    ports:
+      - "127.0.0.1:8080:80"
+    volumes:
+      - ./infra/caddy/Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy_data:/data
+    depends_on:
+      backend:
+        condition: service_healthy
+      frontend:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "wget", "-q", "-O", "/dev/null", "http://127.0.0.1/healthz"]
+      interval: 10s
+      timeout: 3s
+      retries: 5
+
+  # Local S3 stand-in (RustFS replaces MinIO, whose images are gone; docs/decisions.md).
+  # 9000 is the S3 API (presigned URLs will point here), 9001 the web console.
+  rustfs:
+    image: rustfs/rustfs:1.0.4
+    environment:
+      RUSTFS_ACCESS_KEY: ${S3_ACCESS_KEY:-officetalk}
+      RUSTFS_SECRET_KEY: ${S3_SECRET_KEY:-officetalk-dev-secret}
+      RUSTFS_CONSOLE_ENABLE: "true"
+    ports:
+      - "127.0.0.1:9000:9000"
+      - "127.0.0.1:9001:9001"
+    volumes:
+      - s3data:/data
+    healthcheck:
+      test: ["CMD", "curl", "-fsS", "-o", "/dev/null", "http://127.0.0.1:9000/health"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+  # One-shot: create the dev bucket through the plain S3 API, then exit.
+  s3-init:
+    image: amazon/aws-cli:2.39.5
+    environment:
+      AWS_ACCESS_KEY_ID: ${S3_ACCESS_KEY:-officetalk}
+      AWS_SECRET_ACCESS_KEY: ${S3_SECRET_KEY:-officetalk-dev-secret}
+      AWS_DEFAULT_REGION: eu-west-2
+      AWS_ENDPOINT_URL: http://rustfs:9000
+      S3_BUCKET: ${S3_BUCKET:-officetalk-dev}
+    entrypoint: ["/bin/sh", "-c"]
+    command:
+      - aws s3api head-bucket --bucket "$$S3_BUCKET" 2>/dev/null || aws s3api create-bucket --bucket "$$S3_BUCKET" --create-bucket-configuration LocationConstraint=eu-west-2
+    restart: "no"
+    depends_on:
+      rustfs:
+        condition: service_healthy
+
+  # LiveKit server for local calls. --node-ip 127.0.0.1 makes it advertise ICE candidates
+  # the browser on this PC can reach through Docker Desktop's port forwarding. Dev mode
+  # muxes all media onto one UDP port (7882), with ICE over TCP (7881) as a fallback.
+  livekit:
+    image: livekit/livekit-server:v1.13.11
+    command: --dev --bind 0.0.0.0 --node-ip 127.0.0.1
+    environment:
+      LIVEKIT_KEYS: "${LIVEKIT_API_KEY:-devkey}: ${LIVEKIT_API_SECRET:-officetalk-dev-livekit-secret-placeholder}"
+    ports:
+      - "127.0.0.1:7880:7880"
+      - "127.0.0.1:7881:7881"
+      - "127.0.0.1:7882:7882/udp"
+    healthcheck:
+      test: ["CMD", "wget", "-q", "-O", "/dev/null", "http://127.0.0.1:7880/"]
+      interval: 10s
+      timeout: 3s
+      retries: 5
 
 volumes:
   pgdata:
+  caddy_data:
+  s3data:
