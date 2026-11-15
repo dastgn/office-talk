@@ -259,7 +259,7 @@ Every request passes Cloudflare and the FastAPI backend; only call media and fil
 | Live updates | One WebSocket per browser tab from FastAPI | Messages, typing, presence, task and roadmap changes |
 | Voice and video | LiveKit Cloud free plan + `@livekit/components-react`; LiveKit server in Docker for development | Section 5 |
 | Office editing | OnlyOffice Document Server (self-hosted, phase 3) | Word, PowerPoint and Excel in the browser |
-| File storage | AWS S3, private buckets, served through CloudFront signed URLs; nightly backup of changed files to Glacier Deep Archive (MinIO locally) | Cheap, durable, versioning built in |
+| File storage | AWS S3, private buckets, served through CloudFront signed URLs; nightly backup of changed files to Glacier Deep Archive (RustFS locally, replacing the archived MinIO) | Cheap, durable, versioning built in |
 | Email | AWS SES, through one queue | Cheap transactional email |
 | Payments | Stripe Billing in test mode, Checkout and customer portal | Seats, storage and trial (section 4) |
 | Edge | Cloudflare (DNS, DDoS protection, firewall, Turnstile CAPTCHA) | Free plan covers it |
@@ -334,7 +334,7 @@ Phase 1 is the longest, at 13 weeks, because accounts, permissions, live chat, r
 - [ ] Move the approved wireframes into `docs/wireframes/`; create `docs/compliance/`
 - [x] Create the GitHub repo with `backend/`, `frontend/`, `infra/`, `docs/`
 - [ ] Write `CLAUDE.md`, `README.md` and `docs/plan.md` (this plan)
-- [ ] Docker Compose: FastAPI, Postgres, Redis, Caddy, MinIO, LiveKit server
+- [x] Docker Compose: FastAPI, Postgres, Redis, Caddy, RustFS (S3 stand-in, replacing MinIO), LiveKit server
 - [ ] GitHub Actions: lint, type check, test, build, accessibility checks; Dependabot, pip-audit, npm audit, secret scanning
 - [ ] Terraform for one small EC2 instance in eu-west-2, S3, CloudFront, SES, and an AWS budget alert at £12 and £15
 - [ ] Run the ICO fee self-assessment; deploy an empty "hello" app behind Cloudflare

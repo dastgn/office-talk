@@ -1,0 +1,25 @@
+# Local front door (docker-compose.yml publishes it on 127.0.0.1:8080).
+# HTTP only: http://localhost is a secure context, so camera and mic still work.
+# Production keeps the same /api handling but serves the built frontend with
+# file_server instead of proxying the Vite dev server, and uses real HTTPS.
+# LiveKit (:7880) and the S3 API (:9000) are not proxied: in production the browser
+# talks to LiveKit Cloud and CloudFront directly, so it does locally too.
+{
+	auto_https off
+}
+
+:80 {
+	handle /healthz {
+		respond "ok" 200
+	}
+
+	# Strip /api, like the Vite dev proxy. FastAPI runs with --root-path /api.
+	handle_path /api/* {
+		reverse_proxy backend:8000
+	}
+
+	# Everything else, including the Vite HMR websocket upgrade.
+	handle {
+		reverse_proxy frontend:5173
+	}
+}
