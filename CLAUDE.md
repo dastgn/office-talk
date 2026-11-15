@@ -15,7 +15,9 @@ The repo is at **phase 0**. It holds:
 - `infra/`: a placeholder. Terraform comes later.
 - `docker-compose.yml`: db (Postgres 16), redis, backend (:8000) and frontend (:5173). Every port is bound to `127.0.0.1`; keep it that way for any new service.
 
-CI, Caddy, MinIO and LiveKit don't exist yet. Don't invent commands for them.
+- `.github/workflows/ci.yml`: GitHub Actions CI on every PR and push to `main`. The `backend` job runs ruff check, ruff format --check and pytest. The `frontend` job runs typecheck and build. These job names are the required checks in the `main` ruleset, so don't rename them. `.github/dependabot.yml` sends weekly pip, npm and Actions updates.
+
+Caddy, MinIO and LiveKit don't exist yet. Don't invent commands for them.
 
 ## Commands
 
